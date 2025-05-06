@@ -1,0 +1,18 @@
+[
+  {
+    "id": "9cee3d6c-bc41-4b9f-aba6-03e33c73b4dd",
+    "name": "Jesus Sebastian ",
+    "email": "xd12df@gmail.com",
+    "password": "$2b$10$UzDctp.1zujGkH9.oN3S0u7suwpON.sUbLIL6HLX/dhHwsC617sEG",
+    "emailValidated": false,
+    "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
+  },
+  {
+    "id": "b57d206a-33e6-47b7-86dc-f91cb15b1a72",
+    "name": "123",
+    "email": "sebas12@gmail.com",
+    "password": "$2b$10$/HR0aLydzAevIU3sl9tEWODSQ0Le5PLLi.T.u/iwAUzIXt7up4vlC",
+    "emailValidated": false,
+    "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
+  }
+]
