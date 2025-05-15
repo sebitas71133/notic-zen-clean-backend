@@ -1,33 +1,37 @@
-import { UserDataSource } from "../../domain/datasources/user.datasource";
+import { CategoryDataSource } from "../../domain/datasources/category.datasource";
+import { NoteDataSource } from "../../domain/datasources/note.datasource";
+
+import { CategoryEntity } from "../../domain/entities/categories.entitie";
+import { NoteEntity } from "../../domain/entities/note.entitie";
 import { UserEntity } from "../../domain/entities/user.entitie";
-import { UserRepository } from "../../domain/repository/user.repository";
 
-export class NoteRepositoryImpl implements UserRepository {
-  constructor(private readonly userDataSource: UserDataSource) {}
-  findUserById(id: string): Promise<UserEntity | null> {
-    return this.userDataSource.findUserById(id);
+import { CategoryRepository } from "../../domain/repository/category.repository";
+import { NoteRepository } from "../../domain/repository/note.repository";
+
+export class NoteRepositoryImpl implements NoteRepository {
+  constructor(private readonly noteDataSource: NoteDataSource) {}
+  createNote(note: NoteEntity): Promise<NoteEntity> {
+    return this.noteDataSource.createNote(note);
   }
-  findUserByEmail(email: string): Promise<UserEntity | null> {
-    return this.userDataSource.findUserByEmail(email);
-  }
-  updateUser(
-    id: string,
-    updates: Partial<UserEntity>
-  ): Promise<UserEntity | null> {
-    return this.userDataSource.updateUser(id, updates);
-  }
-  deleteUser(id: string): Promise<void> {
-    return this.userDataSource.deleteUser(id);
-  }
-  getUsers(page: number, limit: number): Promise<UserEntity[]> {
-    return this.userDataSource.getUsers(page, limit);
+  getNotesByUserId(
+    page: number,
+    limit: number,
+    userId: string
+  ): Promise<NoteEntity[]> {
+    return this.noteDataSource.getNotesByUserId(page, limit, userId);
   }
 
-  countUsers(): Promise<number> {
-    return this.userDataSource.countUsers();
+  getNoteById(noteId: string, userId: string): Promise<NoteEntity | null> {
+    return this.noteDataSource.getNoteById(noteId, userId);
   }
-
-  saveUser(user: UserEntity): Promise<UserEntity> {
-    return this.userDataSource.saveUser(user);
+  saveNoteById(
+    noteId: string,
+    userId: string,
+    updates: Partial<NoteEntity>
+  ): Promise<NoteEntity> {
+    return this.noteDataSource.saveNoteById(noteId, userId, updates);
+  }
+  deleteNoteById(id: string): Promise<void> {
+    return this.noteDataSource.deleteNoteById(id);
   }
 }

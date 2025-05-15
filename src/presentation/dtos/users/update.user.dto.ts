@@ -19,7 +19,7 @@ export class UpdateUserDTO {
   private constructor(
     public name?: string,
     public email?: string,
-    public password?: string,
+    public password_hash?: string,
     public image?: string
   ) {}
 
@@ -31,7 +31,6 @@ export class UpdateUserDTO {
       throw CustomError.badRequest(message);
     }
 
-    console.log(result.data);
     const { name, email, password, image } = result.data;
 
     return new UpdateUserDTO(name, email, password, image);

@@ -82,8 +82,10 @@ export class AuthController {
     try {
       const dto = PaginationUserDTO.createDTO(req.query);
 
-      const users = await this.authService.getUsers(dto.page, dto.limit);
-      const count = await this.authService.countUsers();
+      const [users, count] = await Promise.all([
+        this.authService.getUsers(dto.page, dto.limit),
+        this.authService.countUsers(),
+      ]);
 
       return res.status(200).json({
         success: true,
@@ -117,10 +119,13 @@ export class AuthController {
       const email = req.query.email as string;
 
       const user = await this.authService.getUserByEmail(email);
+
+      const { password_hash, ...data } = user;
+
       return res.status(200).json({
         success: true,
         message: "Usuario encontrado",
-        data: user, //Por si acaso xd
+        data: data, //Por si acaso xd
       });
     } catch (error) {
       this.handleError(error, res);
@@ -156,6 +161,10 @@ export class AuthController {
 
       if (!Uuid.isUUID(id) || !id) {
         throw CustomError.badRequest("Invalid or missing user ID");
+      }
+
+      if (req.body.user.id !== id) {
+        throw CustomError.forbidden("No puedes eliminar este usuario");
       }
 
       await this.authService.deleteUserById(id);

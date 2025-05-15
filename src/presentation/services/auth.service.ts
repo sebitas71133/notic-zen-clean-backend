@@ -9,22 +9,29 @@ import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
 import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { envs } from "../../config/envs";
 import { EmailService } from "./email.service";
+import { RoleName } from "../../domain/enums/role.enum";
+
+import { RoleRepository } from "../../domain/repository/role.repository";
 
 export class AuthService {
   constructor(
     private readonly userRepository: UserRepository,
-    private readonly emailService: EmailService
+    private readonly emailService: EmailService,
+    private readonly roleRepository: RoleRepository
   ) {}
 
   saveUser = async (userDTO: AuthRegisterRequestDTO) => {
     try {
       //2. Crear Entidad
 
+      const roleName = await this.roleRepository.getRoleByName(RoleName.USER);
+
       const userEntity = UserEntity.create({
         name: userDTO.name,
         email: userDTO.email,
-        password: userDTO.password,
-        img: userDTO.image,
+        password_hash: userDTO.password_hash,
+        role: roleName,
+        image: userDTO.image,
       });
 
       const user = await this.userRepository.saveUser(userEntity);
@@ -41,8 +48,7 @@ export class AuthService {
 
       if (!token) throw CustomError.internalServer("Error while creating JWT");
 
-      const { password, ...userEntityWithoundPassword } =
-        UserEntity.create(user);
+      const { password_hash, ...userEntityWithoundPassword } = user;
 
       return {
         user: userEntityWithoundPassword,
@@ -89,7 +95,7 @@ export class AuthService {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) throw CustomError.internalServer("Email not exists");
 
-    user.emailValidated = true;
+    user.emailvalidated = true;
 
     await this.userRepository.updateUser(user.id, user);
 
@@ -103,14 +109,17 @@ export class AuthService {
       if (!user)
         throw CustomError.notFound(`User not found by email: ${dto.email}`);
 
-      const isMatch = BycripAdapter.compare(dto.password, user.password);
+      const isMatch = BycripAdapter.compare(
+        dto.password_hash,
+        user.password_hash
+      );
 
       if (!isMatch) throw CustomError.badRequest("Incorrect Password");
 
       const token = await JwtAdapter.generateToken({ id: user.id });
       if (!token) throw CustomError.internalServer("Error while creating JWT");
 
-      const { password, ...userEntity } = UserEntity.create(user);
+      const { password_hash, ...userEntity } = user;
 
       return {
         userEntity,
@@ -125,9 +134,11 @@ export class AuthService {
   getUsers = async (page: number, limit: number): Promise<UserEntity[]> => {
     try {
       const users = await this.userRepository.getUsers(page, limit);
+
       return users ?? [];
     } catch (error) {
       if (error instanceof CustomError) throw error;
+
       throw CustomError.internalServer("Error fetching users");
     }
   };
@@ -142,27 +153,31 @@ export class AuthService {
     }
   };
 
-  getUserById = async (id: string): Promise<UserEntity> => {
+  getUserById = async (id: string): Promise<Partial<UserEntity>> => {
     try {
       const user = await this.userRepository.findUserById(id);
 
       if (!user) throw CustomError.notFound(`User not found by id: ${id}`);
 
-      return user ?? null;
+      const { password_hash, ...userEntity } = user;
+
+      return userEntity ?? null;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching user");
     }
   };
 
-  getUserByEmail = async (email: string): Promise<UserEntity> => {
+  getUserByEmail = async (email: string): Promise<Partial<UserEntity>> => {
     try {
       const user = await this.userRepository.findUserByEmail(email);
 
       if (!user)
         throw CustomError.notFound(`User not found by email: ${email}`);
 
-      return user ?? null;
+      const { password_hash, ...userEntity } = user;
+
+      return userEntity ?? null;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching user");
@@ -183,13 +198,14 @@ export class AuthService {
         throw CustomError.badRequest("Only Gmail addresses are allowed.");
       }
 
-      if (dto.password && dto.password.length <= 3) {
+      if (dto.password_hash && dto.password_hash.length <= 3) {
         throw CustomError.badRequest(
           "The password must be more than 3 characteres"
         );
       }
 
-      dto.password = dto.password && BycripAdapter.hash(dto.password);
+      dto.password_hash =
+        dto.password_hash && BycripAdapter.hash(dto.password_hash);
 
       const updatedUser = await this.userRepository.updateUser(id, dto);
 

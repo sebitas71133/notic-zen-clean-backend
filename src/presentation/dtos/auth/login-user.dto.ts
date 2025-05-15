@@ -7,7 +7,7 @@ const LoginUserSchema = z.object({
 });
 
 export class LoginUserDto {
-  private constructor(public email: string, public password: string) {}
+  private constructor(public email: string, public password_hash: string) {}
 
   static create(object: { [key: string]: any }): LoginUserDto {
     const result = LoginUserSchema.safeParse(object);

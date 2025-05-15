@@ -24,23 +24,11 @@ export class AuthMiddleware {
 
       if (!payload) return res.status(401).json({ error: "Invalid token" });
 
-      // let users: UserEntity[] = [];
-
-      // if (!fs.existsSync("fileUsers/users.json")) {
-      //   throw CustomError.notFound(`No users file found.`);
-      // }
-
-      // const fileData = fs.readFileSync("fileUsers/users.json", "utf-8");
-      // users = JSON.parse(fileData);
-
-      // //Buscar usuario
-      // const user = users.find((e) => e.id === payload.id);
-
       const user = await this.userRepository.findUserById(payload.id);
 
       if (!user) return res.status(401).json({ error: "Invalid token - user" });
 
-      req.body.user = UserEntity.create(user);
+      req.body.user = UserEntity.fromObject(user);
 
       next();
     } catch (error) {

@@ -19,7 +19,7 @@ export class AuthRegisterRequestDTO {
   private constructor(
     public name: string,
     public email: string,
-    public password: string,
+    public password_hash: string,
     public image?: string
   ) {}
 

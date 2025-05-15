@@ -11,4 +11,10 @@ export const envs = {
   MAILER_EMAIL: get("MAILER_EMAIL").required().asString(),
   MAILER_SECRET_KEY: get("MAILER_SECRET_KEY").required().asString(),
   SEND_EMAIL: get("SEND_EMAIL").default("false").asBool(),
+
+  PG_HOST: get("PG_HOST").required().asString(),
+  PG_PORT: get("PG_PORT").required().asPortNumber(),
+  PG_USER: get("PG_USER").required().asString(),
+  PG_PASSWORD: get("PG_PASSWORD").required().asString(),
+  PG_DATABASE: get("PG_DATABASE").required().asString(),
 };

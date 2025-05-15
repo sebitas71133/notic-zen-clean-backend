@@ -3,7 +3,7 @@ import { UserDataSource } from "../../domain/datasources/user.datasource";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
-export class FileNoteDataSource implements UserDataSource {
+export class FileNoteDataSourceImpl implements UserDataSource {
   private readonly filePath = "fileUsers/";
   private readonly usersPath = "fileUsers/users.json";
 

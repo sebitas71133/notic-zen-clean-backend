@@ -14,5 +14,44 @@
     "password": "$2b$10$/HR0aLydzAevIU3sl9tEWODSQ0Le5PLLi.T.u/iwAUzIXt7up4vlC",
     "emailValidated": false,
     "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
+  },
+  {
+    "id": "4eff3d4f-f0dc-4fd2-b33f-334c39123cdf",
+    "name": "zen",
+    "email": "umamed33@gmail.com",
+    "password": "$2b$10$H0bF3DsD1BcYZ1ldekBi4ecC51l9y13nw9lSPPQgGKkSQEKYYQOaO",
+    "emailValidated": false,
+    "role": {
+      "id": 2,
+      "name": "USER",
+      "description": "Usuario registrado con permisos básicos"
+    },
+    "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
+  },
+  {
+    "id": "a27371bc-5739-49c8-8534-ee006a4459c8",
+    "name": "zen",
+    "email": "umamed34@gmail.com",
+    "password": "$2b$10$7N6lFtcX8Mzne30pxVf93udQ9ptL0C8auaY5tKobxCopsdZihkS0G",
+    "emailValidated": false,
+    "role": {
+      "id": 2,
+      "name": "USER",
+      "description": "Usuario registrado con permisos básicos"
+    },
+    "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
+  },
+  {
+    "id": "ddf48fde-553f-4436-9e3d-f7de46c547b0",
+    "name": "zen",
+    "email": "umamed35@gmail.com",
+    "password": "$2b$10$m38XYKzj65qatHIlW/8tGef7kfgFfJKAWB.h3xguTZYjIY0EdL/pG",
+    "emailValidated": false,
+    "role": {
+      "id": 2,
+      "name": "USER",
+      "description": "Usuario registrado con permisos básicos"
+    },
+    "img": "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
   }
 ]
