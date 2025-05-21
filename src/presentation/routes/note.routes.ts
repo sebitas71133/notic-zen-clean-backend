@@ -21,11 +21,7 @@ export class NoteRoutes {
       noteController.getNotesById
     );
 
-    router.get(
-      "/notes/:id",
-      [authMiddleware.validateJWT],
-      noteController.getNoteById
-    );
+    router.get("/notes/:id", noteController.getNoteById);
 
     router.put(
       "/notes/:id",

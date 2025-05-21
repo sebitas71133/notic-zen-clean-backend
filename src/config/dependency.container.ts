@@ -41,7 +41,7 @@ export const tagService = new TagService(tagRepository);
 
 export const noteDatasource = new PostgresNoteDataSourceImpl();
 export const noteRepository = new NoteRepositoryImpl(noteDatasource);
-export const noteSerice = new NoteService(noteRepository);
+export const noteSerice = new NoteService(tagService, noteRepository);
 
 export const categoryService = new CategoryService(categoryRepository);
 export const categoryController = new CategoryController(categoryService);

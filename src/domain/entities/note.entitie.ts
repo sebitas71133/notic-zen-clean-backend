@@ -66,7 +66,7 @@ export class NoteEntity {
     title: string;
     content: string;
     userId: string;
-    categoryId: string;
+    categoryId: string | null;
     isArchived: boolean;
     isPinned: boolean;
     createdAt: Date;

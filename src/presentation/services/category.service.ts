@@ -65,7 +65,7 @@ export class CategoryService {
       if (!category)
         throw CustomError.notFound(`Category not found by id: ${id}`);
 
-      if (category.user.id !== user.id) {
+      if (category.user && category.user.id !== user.id) {
         throw CustomError.forbidden(
           "No tienes permiso para ver esta categoría"
         );
@@ -89,6 +89,9 @@ export class CategoryService {
       if (!category) {
         throw CustomError.badRequest("Categoría no encontrada");
       }
+
+      if (!category.user)
+        throw CustomError.notFound(`User not found in category: ${category}`);
 
       if (category.user.id !== user.id) {
         throw CustomError.forbidden(
@@ -123,6 +126,9 @@ export class CategoryService {
       if (!category) {
         throw CustomError.badRequest("Categoría no encontrada");
       }
+
+      if (!category.user)
+        throw CustomError.notFound(`User not found in category: ${category}`);
 
       if (category.user.id !== user.id) {
         throw CustomError.forbidden(

@@ -9,9 +9,15 @@ import { NoteRepository } from "../../domain/repository/note.repository";
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
 import { TagEntity } from "../../domain/entities/tagEntity";
+import { TagService } from "./tags.service";
+import { CreateTagDto } from "../dtos/tags/create-tag.dto";
+import { CreateImageDto } from "../dtos/image/create-image.dto";
 
 export class NoteService {
-  constructor(private readonly noteRepository: NoteRepository) {}
+  constructor(
+    private readonly tagService: TagService,
+    private readonly noteRepository: NoteRepository
+  ) {}
 
   createNote = async (userId: string) => {
     try {
@@ -70,65 +76,43 @@ export class NoteService {
     noteId: string,
     dto: Partial<SaveNoteDTO>,
     userId: string
-  ): Promise<NoteEntity> => {
+  ): Promise<NoteEntity | null> => {
     try {
-      const images = dto.images?.map((img) =>
-        NoteImageEntity.create({
-          url: img.url,
-          altText: img.altText ?? "", // asegúrate de que altText no sea undefined si es requerido
-          noteId: noteId, // asegúrate de pasar el noteId
-        })
-      );
+      const note = await this.noteRepository.getNoteById(noteId, userId);
+      if (!note) throw CustomError.forbidden("No tienes permiso sobre la nota");
 
-      const tags = dto.tags?.map((tag) =>
-        TagEntity.create({
-          name: tag.name,
-          userId: userId, // asegúrate de pasar el userId
-        })
-      );
+      // 1. Actualizar nota principal
+      const noteEntity = NoteEntity.updated(dto);
+      await this.noteRepository.saveNoteById(noteId, userId, noteEntity);
 
-      const validEntity = NoteEntity.updated({
-        ...dto,
-        images,
-        tags,
-      });
-      console.log(validEntity);
-      // await this.categoryRepository.updateCategoryById(id, validEntity);
+      // 2. Normalizar colecciones
+      const tagIds = dto.tagIds ?? [];
+      const imagesD = dto.images as CreateImageDto[];
 
-      const updatedCategory = await this.noteRepository.saveNoteById(
-        noteId,
-        userId,
-        validEntity
-      );
+      // 3. Tags
+      await this.noteRepository.clearTags(noteId);
+      if (tagIds.length) {
+        await this.noteRepository.addTagsToNote(noteId, tagIds);
+      }
 
-      if (!updatedCategory)
-        throw CustomError.notFound(`Category not found by id: ${noteId}`);
+      // 4. Imágenes
+      await this.noteRepository.clearImages(noteId);
+      if (imagesD.length) {
+        const imagesEntity = imagesD.map((img) =>
+          NoteImageEntity.create({
+            url: img.url,
+            altText: img.altText,
+            noteId,
+          })
+        );
+        await this.noteRepository.addImagesToNote(noteId, imagesEntity);
+      }
 
-      return updatedCategory ?? null;
+      // 5. Nota actualizada
+      return await this.noteRepository.getNoteById(noteId, userId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error fetching notes");
+      throw CustomError.internalServer("Error saving note");
     }
   };
-
-  // deleteCategoryById = async (id: string, user: UserEntity): Promise<void> => {
-  //   try {
-  //     const category = await this.categoryRepository.getCategoryById(id);
-
-  //     if (!category) {
-  //       throw CustomError.badRequest("Categoría no encontrada");
-  //     }
-
-  //     if (category.user.id !== user.id) {
-  //       throw CustomError.forbidden(
-  //         "No tienes permiso para modificar esta categoría"
-  //       );
-  //     }
-
-  //     await this.categoryRepository.deleteCategoryById(id);
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     throw CustomError.internalServer("Error deleting categorie");
-  //   }
-  // };
 }

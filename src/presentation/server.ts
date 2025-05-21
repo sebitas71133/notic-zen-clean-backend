@@ -6,6 +6,8 @@ import express, {
   NextFunction,
   ErrorRequestHandler,
 } from "express";
+import cors from "cors";
+
 import path from "path";
 
 interface serverOptions {
@@ -29,6 +31,14 @@ export class Server {
   }
 
   public async start() {
+    this.app.use(
+      cors({
+        origin: ["http://localhost:5173", "http://localhost:3000"], // front‑ends permitidos
+        credentials: true, // si necesitas cookies / headers auth
+        methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+        allowedHeaders: ["Content-Type", "Authorization"],
+      })
+    );
     //* middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));

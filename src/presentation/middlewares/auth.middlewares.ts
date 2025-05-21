@@ -7,6 +7,14 @@ import { UserRepository } from "../../domain/repository/user.repository";
 
 export class AuthMiddleware {
   constructor(private readonly userRepository: UserRepository) {}
+  private handleError = (error: any, res: Response) => {
+    if (error instanceof CustomError) {
+      return res.status(error.statusCode).json({ error: error.message });
+    }
+
+    console.log(`${error}`);
+    return res.status(500).json({ error: "Internal server error" });
+  };
 
   validateJWT = async (req: Request, res: Response, next: NextFunction) => {
     const authorization = req.header("Authorization");
@@ -22,6 +30,8 @@ export class AuthMiddleware {
     try {
       const payload = await JwtAdapter.validateToken<{ id: string }>(token);
 
+      console.log({ Payload: payload });
+
       if (!payload) return res.status(401).json({ error: "Invalid token" });
 
       const user = await this.userRepository.findUserById(payload.id);
@@ -29,11 +39,10 @@ export class AuthMiddleware {
       if (!user) return res.status(401).json({ error: "Invalid token - user" });
 
       req.body.user = UserEntity.fromObject(user);
-
+      req.body.uid = payload.id;
       next();
     } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: "Internal sever error" });
+      this.handleError(error, res);
     }
   };
 }

@@ -16,7 +16,7 @@ export class CategoryEntity {
     public id: string,
     public name: string,
     public color: string,
-    public readonly user: UserEntity
+    public readonly user: UserEntity | null
   ) {}
 
   // params : Cuando estás creando una nueva instancia, aplicando reglas de negocio
@@ -66,13 +66,13 @@ export class CategoryEntity {
   static fromObject(props: {
     id: string;
     name: string;
-    user: UserEntity;
-    color: string;
+    user: UserEntity | null;
+    color: string | null;
   }): CategoryEntity {
     const category = new CategoryEntity(
       props.id,
       props.name,
-      props.color,
+      props.color ?? "SIN COLOR",
       props.user
     );
 

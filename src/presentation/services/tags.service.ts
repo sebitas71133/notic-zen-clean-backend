@@ -9,11 +9,12 @@ import { CategoryRepository } from "../../domain/repository/category.repository"
 import { CreateCategoryDto } from "../dtos/category/create-category.dto";
 import { TagRepository } from "../../domain/repository/tag.repository";
 import { TagEntity } from "../../domain/entities/tagEntity";
+import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 
 export class TagService {
   constructor(private readonly tagRepository: TagRepository) {}
 
-  createTag = async (dto: CreateCategoryDto, userId: string) => {
+  createTag = async (dto: CreateTagDto, userId: string) => {
     try {
       //2. Crear Entidad
 

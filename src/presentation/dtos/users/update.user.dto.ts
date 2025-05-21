@@ -3,14 +3,14 @@ import { CustomError } from "../../../domain/errors/custom.error";
 
 interface objectDTO {
   name: string;
-  email: string;
+  //email: string;
   password: string;
   image?: string;
 }
 
 const updateUserSchema = z.object({
   name: z.string().optional(),
-  email: z.string().email("Invalid Email").optional(),
+  //email: z.string().email("Invalid Email").optional(),
   password: z.string().optional(),
   image: z.string().optional(),
 });
@@ -18,7 +18,7 @@ const updateUserSchema = z.object({
 export class UpdateUserDTO {
   private constructor(
     public name?: string,
-    public email?: string,
+    // public email?: string,
     public password_hash?: string,
     public image?: string
   ) {}
@@ -31,8 +31,8 @@ export class UpdateUserDTO {
       throw CustomError.badRequest(message);
     }
 
-    const { name, email, password, image } = result.data;
+    const { name, password, image } = result.data;
 
-    return new UpdateUserDTO(name, email, password, image);
+    return new UpdateUserDTO(name, password, image);
   }
 }

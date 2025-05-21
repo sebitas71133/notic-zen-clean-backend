@@ -17,4 +17,6 @@ export abstract class UserDataSource {
   ): Promise<UserEntity | null>;
 
   abstract deleteUser(id: string): Promise<void>;
+
+  abstract existUserByEmail(email: string): Promise<boolean>;
 }

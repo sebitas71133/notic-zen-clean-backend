@@ -30,4 +30,8 @@ export class UserRepositoryImpl implements UserRepository {
   saveUser(user: UserEntity): Promise<UserEntity> {
     return this.userDataSource.saveUser(user);
   }
+
+  existUserByEmail(email: string): Promise<boolean> {
+    return this.userDataSource.existUserByEmail(email);
+  }
 }

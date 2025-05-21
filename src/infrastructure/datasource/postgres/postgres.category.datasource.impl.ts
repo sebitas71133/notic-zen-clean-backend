@@ -5,7 +5,8 @@ import { CategoryDataSource } from "../../../domain/datasources/category.datasou
 import { CategoryEntity } from "../../../domain/entities/categories.entitie";
 import { UserRepository } from "../../../domain/repository/user.repository";
 import { UserEntity } from "../../../domain/entities/user.entitie";
-
+import { prismaClient } from "../../../data/prisma/init";
+//prismaClient
 export class PostgresCategoryDataSourceImpl implements CategoryDataSource {
   constructor(private readonly userRepository: UserRepository) {}
 
@@ -13,14 +14,25 @@ export class PostgresCategoryDataSourceImpl implements CategoryDataSource {
     try {
       const { id, name, color, user } = category;
 
-      await pgPool.query(
-        `INSERT INTO categories (id,name,color,user_id) VALUES($1,$2,$3,$4) `,
-        [id, name, color, user.id]
-      );
+      await prismaClient.category.create({
+        data: {
+          id,
+          name,
+          color,
+          ...(user && {
+            user: {
+              connect: { id: user.id },
+            },
+          }),
+        },
+      });
 
       return CategoryEntity.fromObject({ ...category });
     } catch (error: any) {
-      throw CustomError.badRequest(error.detail);
+      if (error.code === "P2002") {
+        throw CustomError.notFound("Categoria ya existe");
+      }
+      throw CustomError.badRequest(error || "Error al crear la categoria");
     }
   }
   async getCategoriesById(
@@ -29,39 +41,52 @@ export class PostgresCategoryDataSourceImpl implements CategoryDataSource {
     user: UserEntity
   ): Promise<CategoryEntity[]> {
     try {
-      console.log(user);
+      const skip = (page - 1) * limit;
 
-      const offset = (page - 1) * limit;
-      console.log(offset);
-      const result = await pgPool.query(
-        "SELECT * FROM get_categories_paginated($1, $2, $3)",
-        [limit, offset, user.id]
+      const categories = await prismaClient.category.findMany({
+        where: {
+          OR: [
+            { user_id: user.id }, // tags personalizados
+            { user_id: null }, // tags globales
+          ],
+        },
+        skip,
+        take: limit,
+        orderBy: {
+          name: "asc",
+        },
+      });
+
+      return categories.map((cat) =>
+        CategoryEntity.fromObject({ ...cat, user })
       );
-
-      const categories = result.rows;
-
-      return categories;
     } catch (error: any) {
       console.log(error);
       throw CustomError.badRequest(error.detail);
     }
   }
-  async getCategoryById(id: string): Promise<CategoryEntity | null> {
+  async getCategoryById(catId: string): Promise<CategoryEntity | null> {
     try {
-      const result = await pgPool.query(
-        "SELECT * FROM categories WHERE id = $1",
-        [id]
-      );
+      const category = await prismaClient.category.findUnique({
+        where: { id: catId },
+        include: {
+          user: true,
+        },
+      });
 
-      const row = result.rows[0];
-      if (!row)
-        throw CustomError.notFound(`No category file found with id : ${id}`);
+      if (!category)
+        throw CustomError.notFound(`Categoría con id ${catId} no encontrada`);
 
-      const user = await this.userRepository.findUserById(row.user_id);
+      if (!category.user_id)
+        throw CustomError.notFound(
+          `Categoría con user Id : ${catId} no encontrada`
+        );
+
+      const user = await this.userRepository.findUserById(category.user_id);
       if (!user) throw CustomError.notFound("User not found");
 
       return CategoryEntity.fromObject({
-        ...row,
+        ...category,
         user,
       });
     } catch (error: any) {
@@ -69,41 +94,38 @@ export class PostgresCategoryDataSourceImpl implements CategoryDataSource {
     }
   }
   async updateCategoryById(
-    id: string,
+    catId: string,
     updates: Partial<CategoryEntity>
   ): Promise<void> {
     try {
-      const fields: string[] = [];
-      const values: any[] = [];
-      let i = 1;
-
-      for (const [key, value] of Object.entries(updates)) {
-        if (value !== undefined) {
-          fields.push(`${key} = $${i}`);
-          values.push(value);
-          i++;
-        }
-      }
-
-      if (fields.length === 0)
-        throw CustomError.notFound("No hay campos a actualizar"); // No hay campos a actualizar
-
-      values.push(id);
-      const query = `UPDATE categories SET ${fields.join(
-        ", "
-      )} WHERE id = $${i} `;
-      await pgPool.query(query, values);
+      await prismaClient.category.update({
+        where: { id: catId },
+        data: {
+          name: updates.name,
+          color: updates.color,
+        },
+      });
     } catch (error: any) {
-      throw error;
-      //  throw CustomError.badRequest(error.detail);
+      if (error.code === "P2025") {
+        throw CustomError.notFound("Categoría no encontrada para actualizar");
+      }
+      throw CustomError.badRequest(
+        error.message || "Error al actualizar categoría"
+      );
     }
   }
-  async deleteCategoryById(id: string): Promise<void> {
+  async deleteCategoryById(catId: string): Promise<void> {
     try {
-      const query = `DELETE FROM categories  WHERE id = $1 `;
-      await pgPool.query(query, [id]);
+      await prismaClient.category.delete({
+        where: { id: catId },
+      });
     } catch (error: any) {
-      throw CustomError.badRequest(error.detail);
+      if (error.code === "P2025") {
+        throw CustomError.notFound("Categoría no encontrada para eliminar");
+      }
+      throw CustomError.badRequest(
+        error.message || "Error al eliminar categoría"
+      );
     }
   }
 }

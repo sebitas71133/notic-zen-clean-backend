@@ -35,10 +35,10 @@ export class JwtAdapter {
 
         (err, decoded) => {
           if (err) {
-            //console.log(err);
+            console.error("JWT error:", err.message);
             return resolve(null);
           }
-
+          console.log(decoded);
           resolve(decoded as T);
         }
       );

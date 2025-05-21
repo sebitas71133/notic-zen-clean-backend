@@ -11,7 +11,7 @@ export class TagEntity {
   constructor(
     public readonly id: string,
     public name: string,
-    public userId: string
+    public userId: string | null
   ) {}
 
   static create(props: TagProps): TagEntity {
@@ -30,7 +30,7 @@ export class TagEntity {
   static fromObject(props: {
     id: string;
     name: string;
-    userId: string;
+    userId: string | null;
   }): TagEntity {
     const tag = new TagEntity(props.id, props.name, props.userId);
 

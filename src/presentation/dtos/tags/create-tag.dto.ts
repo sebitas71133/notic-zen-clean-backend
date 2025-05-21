@@ -6,7 +6,9 @@ interface objectDTO {
 }
 
 const CreateTagSchema = z.object({
-  name: z.string({ required_error: "Missing name tag" }),
+  name: z
+    .string({ required_error: "Missing name tag" })
+    .min(2, "Tag name must be at least 2 characters"),
 });
 
 export class CreateTagDto {

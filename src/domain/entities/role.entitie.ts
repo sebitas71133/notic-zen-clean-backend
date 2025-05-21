@@ -8,23 +8,28 @@ interface params {
 
 export class RoleEntity {
   private constructor(
-    public readonly id: string,
+    public readonly id: number,
     public readonly name: RoleName,
     public readonly description?: string
   ) {}
 
   static create(params: params) {
-    const id = Uuid.v4();
+    //const id = Uuid.v4();
+    const id = generateSecureUniqueNumber();
 
     return new RoleEntity(id, params.name, params.description);
   }
 
   static fromObject(props: {
-    id: string;
+    id: number;
     name: string;
-    description?: string;
+    description?: string | null;
   }): RoleEntity {
-    return new RoleEntity(props.id, props.name as RoleName, props.description);
+    return new RoleEntity(
+      props.id,
+      props.name as RoleName,
+      props.description ?? undefined
+    );
   }
 
   isAdmin(): boolean {
@@ -41,3 +46,9 @@ export class RoleEntity {
 // const user = RoleEntity.create(1, RoleName.ADMIN,"test");
 
 // user.isAdmin
+
+function generateSecureUniqueNumber(): number {
+  const timestamp = Date.now(); // tiempo en milisegundos
+  const random = Math.floor(Math.random() * 100000); // 5 dígitos aleatorios
+  return parseInt(`${timestamp}${random}`);
+}

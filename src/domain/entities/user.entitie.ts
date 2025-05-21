@@ -8,7 +8,7 @@ interface params {
   name: string;
   email: string;
   password_hash: string;
-  emailvalidated?: boolean;
+  emailValidated?: boolean;
   role?: RoleEntity;
   image?: string;
 }
@@ -19,7 +19,7 @@ export class UserEntity {
     public name: string,
     public email: string,
     public password_hash: string,
-    public emailvalidated: boolean,
+    public emailValidated: boolean,
     public readonly role: RoleEntity,
     public image: string
   ) {}
@@ -34,10 +34,10 @@ export class UserEntity {
       // return [new Error("Only Gmail addresses are allowed."), null];
       throw CustomError.badRequest("Only Gmail addresses are allowed.");
     }
-
-    if (params.password_hash.length <= 3) {
+    console.log(params.password_hash.length);
+    if (params.password_hash.length <= 5) {
       throw CustomError.badRequest(
-        "The password_hash must be more than 3 characteres"
+        "The password must be more than 5 characteres"
       );
     }
 
@@ -48,7 +48,7 @@ export class UserEntity {
       params.name,
       params.email,
       password_hash,
-      params.emailvalidated ?? false,
+      params.emailValidated ?? false,
       params.role!,
       params.image ??
         "https://play-lh.googleusercontent.com/ZYKTGrS5CresqrZJb-ewGyIHY2bA6dOKrTJqMAb6n4HXVQY4S9tOfhg0aiY8JH5zxg"
@@ -64,16 +64,16 @@ export class UserEntity {
     name: string;
     email: string;
     password_hash: string;
-    emailvalidated: boolean;
-    role: RoleEntity;
-    image?: string;
+    emailValidated: boolean;
+    role?: RoleEntity;
+    image?: string | null;
   }): UserEntity {
     const user = new UserEntity(
       props.id,
       props.name,
       props.email,
       props.password_hash,
-      props.emailvalidated,
+      props.emailValidated,
       props.role!,
       props.image!
     );

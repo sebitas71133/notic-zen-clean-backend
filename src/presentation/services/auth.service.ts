@@ -22,6 +22,12 @@ export class AuthService {
 
   saveUser = async (userDTO: AuthRegisterRequestDTO) => {
     try {
+      const existUser = await this.userRepository.existUserByEmail(
+        userDTO.email
+      );
+
+      if (existUser)
+        throw CustomError.notFound(`That email is already registered `);
       //2. Crear Entidad
 
       const roleName = await this.roleRepository.getRoleByName(RoleName.USER);
@@ -95,7 +101,7 @@ export class AuthService {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) throw CustomError.internalServer("Email not exists");
 
-    user.emailvalidated = true;
+    user.emailValidated = true;
 
     await this.userRepository.updateUser(user.id, user);
 
@@ -225,6 +231,22 @@ export class AuthService {
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching users");
+    }
+  };
+
+  generateTokenService = async (userId: string) => {
+    try {
+      const token = await JwtAdapter.generateToken({
+        id: userId,
+      });
+
+      if (!token) throw CustomError.internalServer("Error while creating JWT");
+
+      console.log("GENERANDO TOKEN");
+      return token;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error generating token");
     }
   };
 }

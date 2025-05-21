@@ -1,3 +1,4 @@
+import { NoteImageEntity } from "../entities/image.entitie";
 import { NoteEntity } from "../entities/note.entitie";
 import { UserEntity } from "../entities/user.entitie";
 
@@ -19,4 +20,15 @@ export abstract class NoteDataSource {
   ): Promise<NoteEntity>;
 
   abstract deleteNoteById(id: string): Promise<void>;
+
+  abstract clearTags(noteId: string): Promise<void>;
+
+  abstract addTagsToNote(noteId: string, tagIds: string[]): Promise<void>;
+
+  abstract clearImages(noteId: string): Promise<void>;
+
+  abstract addImagesToNote(
+    noteId: string,
+    images: NoteImageEntity[]
+  ): Promise<void>;
 }

@@ -32,17 +32,11 @@ const schema = z.object({
         altText: z.string().optional(),
       })
     )
-    .max(10, "You can upload up to 10 images")
+    .max(3, "You can upload up to 3 images")
     .optional(),
   tags: z
-    .array(
-      z.object({
-        name: z
-          .string({ required_error: "tag name is required" })
-          .min(2, "Tag name must be at least 2 characters"),
-      })
-    )
-    .max(5, "You can only add up to 5 tags")
+    .array(z.string().uuid("Invalid tag ID format"))
+    .max(3, "You can only add up to 3 tags")
     .optional(),
 });
 
@@ -52,15 +46,14 @@ export class SaveNoteDTO {
     public categoryId: string,
     public content?: string,
     public isPinned?: boolean,
-    public images?: CreateImageDto[],
-    public tags?: CreateTagDto[]
+    public images?: Partial<CreateImageDto[]>,
+    public tagIds?: string[]
   ) {}
 
   static createDTO(object: objectDTO): SaveNoteDTO {
     const result = schema.safeParse(object);
     if (!result.success) {
       const message = result.error.errors[0].message;
-      console.log(message);
       throw CustomError.badRequest(message);
     }
 
@@ -70,7 +63,7 @@ export class SaveNoteDTO {
       categoryId,
       isPinned,
       images = [],
-      tags = [],
+      tags = [], // ahora son los IDs
     } = result.data;
 
     const imageDTOs = images.map((img) =>
@@ -80,19 +73,13 @@ export class SaveNoteDTO {
       })
     );
 
-    const tagDTOs = tags.map(
-      (tag) => CreateTagDto.create({ name: tag.name }) // rellena lo necesario
-    );
-
-    const noteDTO = new SaveNoteDTO(
+    return new SaveNoteDTO(
       title,
       categoryId,
       content,
       isPinned,
       imageDTOs,
-      tagDTOs
+      tags // ahora son solo strings (tagIds)
     );
-
-    return noteDTO;
   }
 }
