@@ -40,29 +40,6 @@ export class NoteController {
     }
   };
 
-  public getNotesById = async (req: Request, res: Response) => {
-    try {
-      const dto = PaginationTagDTO.createDTO(req.query);
-
-      const user = req.body.user;
-
-      const notes = await this.noteService.getNotesById(
-        dto.page,
-        dto.limit,
-        user.id
-      );
-
-      return res.status(200).json({
-        success: true,
-        message: `notes registradas del usuario ${user.email}`,
-        ...dto,
-        data: notes ?? [], //Por si acaso xd
-      });
-    } catch (error) {
-      this.handleError(error, res);
-    }
-  };
-
   public saveNoteById = async (req: Request, res: Response) => {
     try {
       const data = req.body;
@@ -86,6 +63,29 @@ export class NoteController {
         success: true,
         message: "Note actualizada",
         data: newNote, //Por si acaso xd
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public getNotesById = async (req: Request, res: Response) => {
+    try {
+      const dto = PaginationTagDTO.createDTO(req.query);
+
+      const user = req.body.user;
+
+      const notes = await this.noteService.getNotesById(
+        dto.page,
+        dto.limit,
+        user.id
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: `notes registradas del usuario ${user.email}`,
+        ...dto,
+        data: notes ?? [], //Por si acaso xd
       });
     } catch (error) {
       this.handleError(error, res);
