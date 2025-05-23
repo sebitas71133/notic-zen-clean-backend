@@ -28,7 +28,11 @@ export class NoteController {
     try {
       const user = req.body.user;
 
-      const newNote = await this.noteService.createNote(user.id);
+      const data = req.body;
+
+      const newNotedDTO = CreateNoteDTO.createDTO(data);
+
+      const newNote = await this.noteService.createNote(user.id, newNotedDTO);
 
       return res.status(201).json({
         success: true,
@@ -49,8 +53,6 @@ export class NoteController {
       const userId = req.body.user.id;
 
       const newNotedDTO = SaveNoteDTO.createDTO(data);
-
-      console.log({ newNotedDTO });
 
       // throw new Error();
       const newNote = await this.noteService.saveNote(
@@ -114,7 +116,7 @@ export class NoteController {
   public getNoteById = async (req: Request, res: Response) => {
     try {
       const id = req.params["id"];
-      console.log({ id });
+
       // if (!Uuid.isUUID(id) || !id) {
       //   throw CustomError.badRequest("Invalid or missing note ID");
       // }

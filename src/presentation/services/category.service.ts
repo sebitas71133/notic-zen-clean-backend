@@ -46,7 +46,7 @@ export class CategoryService {
         limit,
         user
       );
-      console.log(categories);
+
       return categories ?? [];
     } catch (error) {
       if (error instanceof CustomError) throw error;
@@ -61,7 +61,7 @@ export class CategoryService {
   ): Promise<Partial<CategoryEntity>> => {
     try {
       const category = await this.categoryRepository.getCategoryById(id);
-      console.log(category);
+
       if (!category)
         throw CustomError.notFound(`Category not found by id: ${id}`);
 

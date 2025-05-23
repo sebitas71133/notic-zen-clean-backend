@@ -17,4 +17,8 @@ export const envs = {
   PG_USER: get("PG_USER").required().asString(),
   PG_PASSWORD: get("PG_PASSWORD").required().asString(),
   PG_DATABASE: get("PG_DATABASE").required().asString(),
+
+  CLOUDINARY_NAME: get("CLOUDINARY_NAME").required().asString(),
+  CLOUDINARY_API_KEY: get("CLOUDINARY_API_KEY").required().asString(),
+  CLOUDINARY_API_SECRET: get("CLOUDINARY_API_SECRET").required().asString(),
 };

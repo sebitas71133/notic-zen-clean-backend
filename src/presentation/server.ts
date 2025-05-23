@@ -40,8 +40,8 @@ export class Server {
       })
     );
     //* middlewares
-    this.app.use(express.json());
-    this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(express.json({ limit: "10mb" }));
+    this.app.use(express.urlencoded({ extended: true, limit: "10mb" }));
 
     //* Routes
     this.app.use(this.routes);

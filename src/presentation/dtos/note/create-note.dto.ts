@@ -9,6 +9,7 @@ interface objectDTO {
   title: string;
   content?: string;
   categoryId: string;
+  isArchived?: boolean;
   isPinned?: boolean;
   images?: CreateImageDto[];
   tags?: CreateTagDto[];
@@ -21,6 +22,7 @@ const schema = z.object({
   content: z.string().optional(),
   categoryId: z.string().uuid("Invalid categoryId format (must be UUID)"),
   isPinned: z.boolean().optional(),
+  isArchived: z.boolean().optional(),
   images: z
     .array(
       z.object({
@@ -31,12 +33,8 @@ const schema = z.object({
     .max(10, "You can upload up to 10 images")
     .optional(),
   tags: z
-    .array(
-      z.object({
-        name: z.string().min(2, "Tag name must be at least 2 characters"),
-      })
-    )
-    .max(5, "You can only add up to 5 tags")
+    .array(z.string().uuid("Invalid tag ID format"))
+    .max(3, "You can only add up to 3 tags")
     .optional(),
 });
 
@@ -46,15 +44,16 @@ export class CreateNoteDTO {
     public categoryId: string,
     public content?: string,
     public isPinned?: boolean,
-    public images?: CreateImageDto[],
-    public tags?: CreateTagDto[]
+    public isArchived?: boolean,
+    public images?: object[],
+    public tags?: string[]
   ) {}
 
   static createDTO(object: objectDTO): CreateNoteDTO {
     const result = schema.safeParse(object);
     if (!result.success) {
       const message = result.error.errors[0].message;
-      console.log(message);
+
       throw CustomError.badRequest(message);
     }
 
@@ -63,28 +62,30 @@ export class CreateNoteDTO {
       content,
       categoryId,
       isPinned,
+      isArchived,
       images = [],
       tags = [],
     } = result.data;
 
-    const imageDTOs = images.map((img) =>
-      CreateImageDto.create({
-        url: img.url,
-        altText: img.altText,
-      })
-    );
+    // const imageDTOs = images.map((img) =>
+    //   CreateImageDto.create({
+    //     url: img.url,
+    //     altText: img.altText,
+    //   })
+    // );
 
-    const tagDTOs = tags.map(
-      (tag) => CreateTagDto.create({ name: tag.name }) // rellena lo necesario
-    );
+    // const tagDTOs = tags.map(
+    //   (tag) => CreateTagDto.create({ name: tag.name }) // rellena lo necesario
+    // );
 
     const noteDTO = new CreateNoteDTO(
       title,
       categoryId,
       content,
       isPinned,
-      imageDTOs,
-      tagDTOs
+      isArchived,
+      images,
+      tags
     );
 
     return noteDTO;

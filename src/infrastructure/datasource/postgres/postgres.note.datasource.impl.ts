@@ -11,7 +11,7 @@ import { Uuid } from "../../../config/uuid";
 import { NoteImageEntity } from "../../../domain/entities/image.entitie";
 import { TagEntity } from "../../../domain/entities/tagEntity";
 
-import { PrismaClient } from "../../../generated/prisma";
+import { Prisma, PrismaClient } from "../../../generated/prisma";
 const prismaClient = new PrismaClient();
 
 export class PostgresNoteDataSourceImpl implements NoteDataSource {
@@ -19,25 +19,68 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
 
   async createNote(note: NoteEntity): Promise<NoteEntity> {
     try {
-      const { id, userId } = note;
-
       await prismaClient.note.create({
         data: {
-          id,
+          id: note.id, // Puedes dejar que Prisma genere UUID si es undefined
+          title: note.title,
+          content: note.content,
+          is_pinned: note.isPinned,
+          is_archived: note.isArchived,
 
+          created_at: note.createdAt,
+          updated_at: note.updatedAt,
           user: {
-            connect: { id: userId },
+            connect: { id: note.userId },
           },
+          category: {
+            connect: { id: note.categoryId },
+          },
+        } as Prisma.NoteCreateInput,
+      });
+
+      return NoteEntity.fromObject({ ...note });
+    } catch (error: any) {
+      console.log(error);
+      throw CustomError.badRequest(error.detail);
+    }
+  }
+
+  //throw new Error("xd");
+
+  async saveNoteById(
+    noteId: string,
+    userId: string,
+    updates: Partial<NoteEntity>
+  ): Promise<NoteEntity> {
+    try {
+      const updatedNote = await prismaClient.note.update({
+        where: { id: noteId, user_id: userId },
+        data: {
+          title: updates.title,
+          content: updates.content,
+          is_pinned: updates.isPinned,
+          category_id: updates.categoryId,
+          updated_at: updates.updatedAt ?? new Date(),
         },
       });
 
-      // const newNote: { [key: string]: any } = result.rows[0];
-
-      return NoteEntity.fromObject({
-        ...note,
+      const noteEntity = NoteEntity.fromObject({
+        userId: updatedNote.user_id,
+        categoryId: updatedNote.category_id,
+        isArchived: updatedNote.is_archived,
+        isPinned: updatedNote.is_pinned,
+        createdAt: updatedNote.created_at,
+        updatedAt: updatedNote.updated_at ?? undefined,
+        images: [],
+        tags: [],
+        id: updatedNote.id,
+        title: updatedNote.title!,
+        content: updatedNote.content!,
       });
+
+      return noteEntity;
     } catch (error: any) {
-      throw CustomError.badRequest(error.detail);
+      throw CustomError.badRequest(error.message || "Error al guardar la nota");
     }
   }
 
@@ -170,45 +213,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       images: note.images,
       userId: note.user.id,
     };
-  }
-
-  async saveNoteById(
-    noteId: string,
-    userId: string,
-    updates: Partial<NoteEntity>
-  ): Promise<NoteEntity> {
-    try {
-      const updatedNote = await prismaClient.note.update({
-        where: { id: noteId, user_id: userId },
-        data: {
-          title: updates.title,
-          content: updates.content,
-          is_pinned: updates.isPinned,
-          category_id: updates.categoryId,
-          updated_at: updates.updatedAt ?? new Date(),
-        },
-      });
-
-      console.log({ updatedNote });
-
-      const noteEntity = NoteEntity.fromObject({
-        userId: updatedNote.user_id,
-        categoryId: updatedNote.category_id,
-        isArchived: updatedNote.is_archived,
-        isPinned: updatedNote.is_pinned,
-        createdAt: updatedNote.created_at,
-        updatedAt: updatedNote.updated_at ?? undefined,
-        images: [],
-        tags: [],
-        id: updatedNote.id,
-        title: updatedNote.title!,
-        content: updatedNote.content!,
-      });
-
-      return noteEntity;
-    } catch (error: any) {
-      throw CustomError.badRequest(error.message || "Error al guardar la nota");
-    }
   }
 
   deleteNoteById(id: string): Promise<void> {

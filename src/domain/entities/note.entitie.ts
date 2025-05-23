@@ -3,19 +3,6 @@ import { CustomError } from "../errors/custom.error";
 import { NoteImageEntity } from "./image.entitie";
 import { TagEntity } from "./tagEntity";
 
-interface NoteProps {
-  // title: string;
-  // content: string;
-  userId: string;
-  // categoryId: string;
-  // isArchived?: boolean;
-  // isPinned?: boolean;
-  // createdAt?: Date;
-  // updatedAt?: Date;
-  // images?: NoteImageEntity[];
-  // tags?: TagEntity[];
-}
-
 export class NoteEntity {
   private constructor(
     public readonly id: string,
@@ -25,29 +12,36 @@ export class NoteEntity {
     public categoryId: string | null,
     public isArchived: boolean,
     public isPinned: boolean,
-    public images: NoteImageEntity[],
-    public tags: TagEntity[],
+    public images: NoteImageEntity[] = [],
+    public tags: TagEntity[] = [],
     public readonly createdAt: Date,
     public updatedAt: Date
   ) {}
 
-  static create(props: NoteProps): NoteEntity {
+  static create(dto: { [key: string]: any }): NoteEntity {
     const id = Uuid.v4();
+    if (dto.title && dto.title.length <= 2) {
+      throw CustomError.badRequest("The title must be more than 2 characters");
+    }
 
-    // if (props.title && props.title.length <= 2) {
-    //   throw CustomError.badRequest("The title must be more than 2 characters");
-    // }
+    // const tagEntities = dto.tagsIds.map((tagId: any) =>
+    //   TagEntity.fromObject({ id: tagId, name: "", userId: null })
+    // );
+
+    // const imagesEntities = dto.images.map((img: any) =>
+    //   NoteImageEntity.create()
+    // );
 
     return new NoteEntity(
       id,
-      "",
-      "",
-      props.userId,
-      null,
-      false,
-      false,
-      [],
-      [],
+      dto.title,
+      dto.content,
+      dto.userId,
+      dto.categoryId,
+      dto.isArchived,
+      dto.isPinned,
+      undefined,
+      undefined,
       new Date(),
       new Date()
     );

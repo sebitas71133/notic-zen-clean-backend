@@ -12,27 +12,105 @@ import { TagEntity } from "../../domain/entities/tagEntity";
 import { TagService } from "./tags.service";
 import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 import { CreateImageDto } from "../dtos/image/create-image.dto";
+import { CreateNoteDTO } from "../dtos/note/create-note.dto";
+import { ImageService } from "./Image.service";
 
 export class NoteService {
   constructor(
     private readonly tagService: TagService,
-    private readonly noteRepository: NoteRepository
+    private readonly noteRepository: NoteRepository,
+    private readonly imageService: ImageService
   ) {}
 
-  createNote = async (userId: string) => {
+  createNote = async (userId: string, dto: CreateNoteDTO) => {
     try {
       //2. Crear Entidad
 
       const noteEntity = NoteEntity.create({
         userId: userId,
+        ...dto,
       });
+
+      const tagIds = dto.tags ?? [];
+      const imagesD = (dto.images as CreateImageDto[]) ?? [];
 
       const newNote = await this.noteRepository.createNote(noteEntity);
 
-      return newNote;
+      const noteId = newNote.id;
+
+      // 3. Tags
+      await this.noteRepository.clearTags(noteId);
+      if (tagIds.length) {
+        await this.noteRepository.addTagsToNote(noteId, tagIds);
+      }
+
+      const processedImages = await this.imageService.processImages(imagesD);
+
+      // 4. Imágenes
+      await this.noteRepository.clearImages(noteId);
+      if (imagesD.length) {
+        const imagesEntity = processedImages.map((img) =>
+          NoteImageEntity.create({
+            url: img.url,
+            altText: img.altText,
+            noteId,
+          })
+        );
+        await this.noteRepository.addImagesToNote(noteId, imagesEntity);
+      }
+
+      // 5. Nota actualizada
+      return await this.noteRepository.getNoteById(noteId, userId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error saving category");
+    }
+  };
+
+  saveNote = async (
+    noteId: string,
+    dto: Partial<SaveNoteDTO>,
+    userId: string
+  ): Promise<NoteEntity | null> => {
+    try {
+      const note = await this.noteRepository.getNoteById(noteId, userId);
+      if (!note) throw CustomError.forbidden("No tienes permiso sobre la nota");
+
+      // 1. Actualizar nota principal
+      const noteEntity = NoteEntity.updated(dto);
+
+      await this.noteRepository.saveNoteById(noteId, userId, noteEntity);
+
+      // 2. Normalizar colecciones
+      const tagIds = dto.tagIds ?? [];
+      const imagesD = dto.images as CreateImageDto[];
+
+      // 3. Tags
+      await this.noteRepository.clearTags(noteId);
+      if (tagIds.length) {
+        await this.noteRepository.addTagsToNote(noteId, tagIds);
+      }
+
+      const processedImages = await this.imageService.processImages(imagesD);
+
+      // 4. Imágenes
+      await this.noteRepository.clearImages(noteId);
+      if (imagesD.length) {
+        const imagesEntity = processedImages.map((img) =>
+          NoteImageEntity.create({
+            url: img.url,
+            altText: img.altText,
+            noteId,
+          })
+        );
+        await this.noteRepository.addImagesToNote(noteId, imagesEntity);
+      }
+
+      // 5. Nota actualizada
+      return await this.noteRepository.getNoteById(noteId, userId);
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error saving note");
     }
   };
 
@@ -47,7 +125,7 @@ export class NoteService {
         limit,
         userId
       );
-      console.log(notes);
+
       return notes ?? [];
     } catch (error) {
       if (error instanceof CustomError) throw error;
@@ -69,50 +147,6 @@ export class NoteService {
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching note");
-    }
-  };
-
-  saveNote = async (
-    noteId: string,
-    dto: Partial<SaveNoteDTO>,
-    userId: string
-  ): Promise<NoteEntity | null> => {
-    try {
-      const note = await this.noteRepository.getNoteById(noteId, userId);
-      if (!note) throw CustomError.forbidden("No tienes permiso sobre la nota");
-
-      // 1. Actualizar nota principal
-      const noteEntity = NoteEntity.updated(dto);
-      await this.noteRepository.saveNoteById(noteId, userId, noteEntity);
-
-      // 2. Normalizar colecciones
-      const tagIds = dto.tagIds ?? [];
-      const imagesD = dto.images as CreateImageDto[];
-
-      // 3. Tags
-      await this.noteRepository.clearTags(noteId);
-      if (tagIds.length) {
-        await this.noteRepository.addTagsToNote(noteId, tagIds);
-      }
-
-      // 4. Imágenes
-      await this.noteRepository.clearImages(noteId);
-      if (imagesD.length) {
-        const imagesEntity = imagesD.map((img) =>
-          NoteImageEntity.create({
-            url: img.url,
-            altText: img.altText,
-            noteId,
-          })
-        );
-        await this.noteRepository.addImagesToNote(noteId, imagesEntity);
-      }
-
-      // 5. Nota actualizada
-      return await this.noteRepository.getNoteById(noteId, userId);
-    } catch (error) {
-      if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error saving note");
     }
   };
 }

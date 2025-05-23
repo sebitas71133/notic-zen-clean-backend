@@ -14,6 +14,7 @@ import { NoteController } from "../presentation/controllers/note.controller";
 import { TagController } from "../presentation/controllers/tag.controller";
 import { AuthMiddleware } from "../presentation/middlewares/auth.middlewares";
 import { CategoryService } from "../presentation/services/category.service";
+import { ImageService } from "../presentation/services/Image.service";
 import { NoteService } from "../presentation/services/note.service";
 import { TagService } from "../presentation/services/tags.service";
 
@@ -36,12 +37,17 @@ export const categoryRepository = new CategoryRepositoryImpl(
 export const tagDataSource = new PostgresTagDataSourceImpl(userRepository);
 export const tagRepository = new TagRepositoryImpl(tagDataSource);
 export const tagService = new TagService(tagRepository);
+export const imageService = new ImageService();
 
 //NOTE
 
 export const noteDatasource = new PostgresNoteDataSourceImpl();
 export const noteRepository = new NoteRepositoryImpl(noteDatasource);
-export const noteSerice = new NoteService(tagService, noteRepository);
+export const noteSerice = new NoteService(
+  tagService,
+  noteRepository,
+  imageService
+);
 
 export const categoryService = new CategoryService(categoryRepository);
 export const categoryController = new CategoryController(categoryService);

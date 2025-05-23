@@ -32,8 +32,6 @@ export class AuthController {
 
       //3. Usar servicio
 
-      console.log(userDTO);
-
       const { user, token } = await this.authService.saveUser(userDTO);
 
       return res.status(201).json({

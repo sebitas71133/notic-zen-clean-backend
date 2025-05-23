@@ -46,7 +46,7 @@ export class SaveNoteDTO {
     public categoryId: string,
     public content?: string,
     public isPinned?: boolean,
-    public images?: Partial<CreateImageDto[]>,
+    public images?: object[],
     public tagIds?: string[]
   ) {}
 
@@ -66,19 +66,19 @@ export class SaveNoteDTO {
       tags = [], // ahora son los IDs
     } = result.data;
 
-    const imageDTOs = images.map((img) =>
-      CreateImageDto.create({
-        url: img.url,
-        altText: img.altText,
-      })
-    );
+    // const imageDTOs = images.map((img) =>
+    //   CreateImageDto.create({
+    //     url: img.url,
+    //     altText: img.altText,
+    //   })
+    // );
 
     return new SaveNoteDTO(
       title,
       categoryId,
       content,
       isPinned,
-      imageDTOs,
+      images,
       tags // ahora son solo strings (tagIds)
     );
   }
