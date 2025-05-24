@@ -54,6 +54,7 @@ export class NoteService {
             url: img.url,
             altText: img.altText,
             noteId,
+            publicId: img.publicId,
           })
         );
         await this.noteRepository.addImagesToNote(noteId, imagesEntity);
@@ -101,6 +102,7 @@ export class NoteService {
             url: img.url,
             altText: img.altText,
             noteId,
+            publicId: img.publicId,
           })
         );
         await this.noteRepository.addImagesToNote(noteId, imagesEntity);
@@ -125,6 +127,8 @@ export class NoteService {
         limit,
         userId
       );
+
+      // const i = notes.images;
 
       return notes ?? [];
     } catch (error) {

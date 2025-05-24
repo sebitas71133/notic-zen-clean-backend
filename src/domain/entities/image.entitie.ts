@@ -4,6 +4,7 @@ export interface NoteImageProps {
   noteId: string;
   url: string;
   altText?: string;
+  publicId?: string;
 }
 
 export class NoteImageEntity {
@@ -12,7 +13,8 @@ export class NoteImageEntity {
     public readonly noteId: string,
     public url: string,
     public readonly createdAt: Date,
-    public altText: string
+    public altText: string,
+    public publicId?: string
   ) {}
 
   static create(props: NoteImageProps): NoteImageEntity {
@@ -22,7 +24,8 @@ export class NoteImageEntity {
       props.noteId,
       props.url,
       new Date(),
-      props.altText ?? "Una descripcion..."
+      props.altText ?? "Una descripcion...",
+      props.publicId
     );
   }
 
@@ -32,13 +35,15 @@ export class NoteImageEntity {
     url: string;
     createdAt: Date;
     altText?: string;
+    publicId?: string;
   }): NoteImageEntity {
     const category = new NoteImageEntity(
       props.id,
       props.noteId,
       props.url,
       props.createdAt,
-      props.altText ?? "image..."
+      props.altText ?? "image...",
+      props.publicId
     );
 
     return category;

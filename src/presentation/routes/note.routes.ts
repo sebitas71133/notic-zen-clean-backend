@@ -29,11 +29,11 @@ export class NoteRoutes {
       noteController.saveNoteById
     );
 
-    // router.delete(
-    //   "/categories/:id",
-    //   [authMiddleware.validateJWT],
-    //   categoryController.deleteUserById
-    // );
+    router.post(
+      "/admin/images/cleanup",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      noteController.cleanOrphanImages
+    );
 
     return router;
   }

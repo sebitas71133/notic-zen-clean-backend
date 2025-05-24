@@ -109,7 +109,13 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
             },
           },
           images: {
-            select: { id: true, url: true, alt_text: true, created_at: true },
+            select: {
+              id: true,
+              url: true,
+              alt_text: true,
+              created_at: true,
+              public_id: true,
+            },
           },
           category: { select: { id: true, name: true, color: true } },
         },
@@ -140,6 +146,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
                 url: img.url,
                 altText: img.alt_text ?? undefined,
                 createdAt: img.created_at,
+                publicId: img.public_id,
               } as NoteImageEntity)
           ),
         })
@@ -188,6 +195,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
             url: true,
             alt_text: true,
             created_at: true,
+            public_id: true,
           },
         },
       },
@@ -252,6 +260,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       url: img.url,
       alt_text: img.altText ?? "",
       note_id: noteId,
+      public_id: img.publicId,
     }));
     await prismaClient.noteImage.createMany({
       data,

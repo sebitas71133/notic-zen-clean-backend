@@ -1,4 +1,3 @@
-import fs from "fs";
 import { NextFunction, Request, Response } from "express";
 import { JwtAdapter } from "../../config/jwt.adapter";
 import { UserEntity } from "../../domain/entities/user.entitie";
@@ -42,5 +41,14 @@ export class AuthMiddleware {
     } catch (error) {
       this.handleError(error, res);
     }
+  };
+
+  isAdmin = (req: Request, res: Response, next: NextFunction) => {
+    const user = req.body.user;
+
+    if (!user || user.role.name !== "admin") {
+      return res.status(403).json({ error: "Access denied" });
+    }
+    next();
   };
 }

@@ -4,15 +4,21 @@ import { CustomError } from "../../../domain/errors/custom.error";
 interface objectDTO {
   url: string;
   altText?: string;
+  publicId?: string;
 }
 
 const CreateImagechema = z.object({
   url: z.string().url("Invalid image URL"),
   altText: z.string().optional(),
+  publicId: z.string().optional(),
 });
 
 export class CreateImageDto {
-  private constructor(public url: string, public altText?: string) {}
+  private constructor(
+    public url: string,
+    public altText?: string,
+    public publicId?: string
+  ) {}
 
   static create(object: objectDTO): CreateImageDto {
     const result = CreateImagechema.safeParse(object);
@@ -22,7 +28,7 @@ export class CreateImageDto {
       throw CustomError.badRequest(message);
     }
 
-    const { url, altText } = result.data;
-    return new CreateImageDto(url, altText);
+    const { url, altText, publicId } = result.data;
+    return new CreateImageDto(url, altText, publicId);
   }
 }

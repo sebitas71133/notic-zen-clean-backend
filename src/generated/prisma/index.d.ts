@@ -8333,6 +8333,7 @@ export namespace Prisma {
   export type NoteImageMinAggregateOutputType = {
     id: string | null
     url: string | null
+    public_id: string | null
     alt_text: string | null
     created_at: Date | null
     note_id: string | null
@@ -8341,6 +8342,7 @@ export namespace Prisma {
   export type NoteImageMaxAggregateOutputType = {
     id: string | null
     url: string | null
+    public_id: string | null
     alt_text: string | null
     created_at: Date | null
     note_id: string | null
@@ -8349,6 +8351,7 @@ export namespace Prisma {
   export type NoteImageCountAggregateOutputType = {
     id: number
     url: number
+    public_id: number
     alt_text: number
     created_at: number
     note_id: number
@@ -8359,6 +8362,7 @@ export namespace Prisma {
   export type NoteImageMinAggregateInputType = {
     id?: true
     url?: true
+    public_id?: true
     alt_text?: true
     created_at?: true
     note_id?: true
@@ -8367,6 +8371,7 @@ export namespace Prisma {
   export type NoteImageMaxAggregateInputType = {
     id?: true
     url?: true
+    public_id?: true
     alt_text?: true
     created_at?: true
     note_id?: true
@@ -8375,6 +8380,7 @@ export namespace Prisma {
   export type NoteImageCountAggregateInputType = {
     id?: true
     url?: true
+    public_id?: true
     alt_text?: true
     created_at?: true
     note_id?: true
@@ -8456,6 +8462,7 @@ export namespace Prisma {
   export type NoteImageGroupByOutputType = {
     id: string
     url: string
+    public_id: string | null
     alt_text: string | null
     created_at: Date
     note_id: string
@@ -8481,6 +8488,7 @@ export namespace Prisma {
   export type NoteImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    public_id?: boolean
     alt_text?: boolean
     created_at?: boolean
     note_id?: boolean
@@ -8490,6 +8498,7 @@ export namespace Prisma {
   export type NoteImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    public_id?: boolean
     alt_text?: boolean
     created_at?: boolean
     note_id?: boolean
@@ -8499,6 +8508,7 @@ export namespace Prisma {
   export type NoteImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     url?: boolean
+    public_id?: boolean
     alt_text?: boolean
     created_at?: boolean
     note_id?: boolean
@@ -8508,12 +8518,13 @@ export namespace Prisma {
   export type NoteImageSelectScalar = {
     id?: boolean
     url?: boolean
+    public_id?: boolean
     alt_text?: boolean
     created_at?: boolean
     note_id?: boolean
   }
 
-  export type NoteImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "alt_text" | "created_at" | "note_id", ExtArgs["result"]["noteImage"]>
+  export type NoteImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "public_id" | "alt_text" | "created_at" | "note_id", ExtArgs["result"]["noteImage"]>
   export type NoteImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     note?: boolean | NoteDefaultArgs<ExtArgs>
   }
@@ -8532,6 +8543,7 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       url: string
+      public_id: string | null
       alt_text: string | null
       created_at: Date
       note_id: string
@@ -8961,6 +8973,7 @@ export namespace Prisma {
   interface NoteImageFieldRefs {
     readonly id: FieldRef<"NoteImage", 'String'>
     readonly url: FieldRef<"NoteImage", 'String'>
+    readonly public_id: FieldRef<"NoteImage", 'String'>
     readonly alt_text: FieldRef<"NoteImage", 'String'>
     readonly created_at: FieldRef<"NoteImage", 'DateTime'>
     readonly note_id: FieldRef<"NoteImage", 'String'>
@@ -9461,6 +9474,7 @@ export namespace Prisma {
   export const NoteImageScalarFieldEnum: {
     id: 'id',
     url: 'url',
+    public_id: 'public_id',
     alt_text: 'alt_text',
     created_at: 'created_at',
     note_id: 'note_id'
@@ -9934,6 +9948,7 @@ export namespace Prisma {
     NOT?: NoteImageWhereInput | NoteImageWhereInput[]
     id?: StringFilter<"NoteImage"> | string
     url?: StringFilter<"NoteImage"> | string
+    public_id?: StringNullableFilter<"NoteImage"> | string | null
     alt_text?: StringNullableFilter<"NoteImage"> | string | null
     created_at?: DateTimeFilter<"NoteImage"> | Date | string
     note_id?: StringFilter<"NoteImage"> | string
@@ -9943,6 +9958,7 @@ export namespace Prisma {
   export type NoteImageOrderByWithRelationInput = {
     id?: SortOrder
     url?: SortOrder
+    public_id?: SortOrderInput | SortOrder
     alt_text?: SortOrderInput | SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
@@ -9955,6 +9971,7 @@ export namespace Prisma {
     OR?: NoteImageWhereInput[]
     NOT?: NoteImageWhereInput | NoteImageWhereInput[]
     url?: StringFilter<"NoteImage"> | string
+    public_id?: StringNullableFilter<"NoteImage"> | string | null
     alt_text?: StringNullableFilter<"NoteImage"> | string | null
     created_at?: DateTimeFilter<"NoteImage"> | Date | string
     note_id?: StringFilter<"NoteImage"> | string
@@ -9964,6 +9981,7 @@ export namespace Prisma {
   export type NoteImageOrderByWithAggregationInput = {
     id?: SortOrder
     url?: SortOrder
+    public_id?: SortOrderInput | SortOrder
     alt_text?: SortOrderInput | SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
@@ -9978,6 +9996,7 @@ export namespace Prisma {
     NOT?: NoteImageScalarWhereWithAggregatesInput | NoteImageScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"NoteImage"> | string
     url?: StringWithAggregatesFilter<"NoteImage"> | string
+    public_id?: StringNullableWithAggregatesFilter<"NoteImage"> | string | null
     alt_text?: StringNullableWithAggregatesFilter<"NoteImage"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"NoteImage"> | Date | string
     note_id?: StringWithAggregatesFilter<"NoteImage"> | string
@@ -10345,6 +10364,7 @@ export namespace Prisma {
   export type NoteImageCreateInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
     note: NoteCreateNestedOneWithoutImagesInput
@@ -10353,6 +10373,7 @@ export namespace Prisma {
   export type NoteImageUncheckedCreateInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
     note_id: string
@@ -10361,6 +10382,7 @@ export namespace Prisma {
   export type NoteImageUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     note?: NoteUpdateOneRequiredWithoutImagesNestedInput
@@ -10369,6 +10391,7 @@ export namespace Prisma {
   export type NoteImageUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     note_id?: StringFieldUpdateOperationsInput | string
@@ -10377,6 +10400,7 @@ export namespace Prisma {
   export type NoteImageCreateManyInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
     note_id: string
@@ -10385,6 +10409,7 @@ export namespace Prisma {
   export type NoteImageUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -10392,6 +10417,7 @@ export namespace Prisma {
   export type NoteImageUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     note_id?: StringFieldUpdateOperationsInput | string
@@ -10828,6 +10854,7 @@ export namespace Prisma {
   export type NoteImageCountOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    public_id?: SortOrder
     alt_text?: SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
@@ -10836,6 +10863,7 @@ export namespace Prisma {
   export type NoteImageMaxOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    public_id?: SortOrder
     alt_text?: SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
@@ -10844,6 +10872,7 @@ export namespace Prisma {
   export type NoteImageMinOrderByAggregateInput = {
     id?: SortOrder
     url?: SortOrder
+    public_id?: SortOrder
     alt_text?: SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
@@ -11981,6 +12010,7 @@ export namespace Prisma {
   export type NoteImageCreateWithoutNoteInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
   }
@@ -11988,6 +12018,7 @@ export namespace Prisma {
   export type NoteImageUncheckedCreateWithoutNoteInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
   }
@@ -12112,6 +12143,7 @@ export namespace Prisma {
     NOT?: NoteImageScalarWhereInput | NoteImageScalarWhereInput[]
     id?: StringFilter<"NoteImage"> | string
     url?: StringFilter<"NoteImage"> | string
+    public_id?: StringNullableFilter<"NoteImage"> | string | null
     alt_text?: StringNullableFilter<"NoteImage"> | string | null
     created_at?: DateTimeFilter<"NoteImage"> | Date | string
     note_id?: StringFilter<"NoteImage"> | string
@@ -12600,6 +12632,7 @@ export namespace Prisma {
   export type NoteImageCreateManyNoteInput = {
     id?: string
     url: string
+    public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
   }
@@ -12619,6 +12652,7 @@ export namespace Prisma {
   export type NoteImageUpdateWithoutNoteInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12626,6 +12660,7 @@ export namespace Prisma {
   export type NoteImageUncheckedUpdateWithoutNoteInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -12633,6 +12668,7 @@ export namespace Prisma {
   export type NoteImageUncheckedUpdateManyWithoutNoteInput = {
     id?: StringFieldUpdateOperationsInput | string
     url?: StringFieldUpdateOperationsInput | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

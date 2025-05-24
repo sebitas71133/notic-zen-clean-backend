@@ -52,6 +52,6 @@ export const noteSerice = new NoteService(
 export const categoryService = new CategoryService(categoryRepository);
 export const categoryController = new CategoryController(categoryService);
 export const tagController = new TagController(tagService);
-export const noteController = new NoteController(noteSerice);
+export const noteController = new NoteController(noteSerice, imageService);
 
 export const authMiddleware = new AuthMiddleware(userRepository);

@@ -192,7 +192,7 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
   ): Promise<UserEntity | null> {
     try {
       const { role, ...rest } = updates;
-      console.log({ role, ...rest });
+
       const updatedUser = await prismaClient.user.update({
         where: { id },
         data: {

@@ -28,13 +28,14 @@ const schema = z.object({
       z.object({
         url: z.string().url("Invalid image URL"),
         altText: z.string().optional(),
+        publicId: z.string().optional().nullable(),
       })
     )
     .max(10, "You can upload up to 10 images")
     .optional(),
   tags: z
     .array(z.string().uuid("Invalid tag ID format"))
-    .max(3, "You can only add up to 3 tags")
+    .max(5, "You can only add up to 5 tags")
     .optional(),
 });
 

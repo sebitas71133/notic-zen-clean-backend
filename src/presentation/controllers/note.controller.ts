@@ -11,9 +11,14 @@ import { NoteService } from "../services/note.service";
 import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
+import { ImageService } from "../services/Image.service";
+
 export class NoteController {
   //DI ?
-  constructor(private readonly noteService: NoteService) {}
+  constructor(
+    private readonly noteService: NoteService,
+    private readonly imageService: ImageService
+  ) {}
 
   private handleError = (error: any, res: Response) => {
     if (error instanceof CustomError) {
@@ -128,6 +133,24 @@ export class NoteController {
         success: true,
         message: "Note encontrada",
         data: note, //Por si acaso xd
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public cleanOrphanImages = async (req: Request, res: Response) => {
+    try {
+      // const user = req.body.user;
+
+      // if (!user || user.role !== "admin") {
+      //   throw CustomError.unauthorized("No tienes permiso para esto");
+      // }
+
+      await this.imageService.cleanOrphanImages();
+      return res.status(200).json({
+        success: true,
+        message: "Imágenes huérfanas eliminadas de Cloudinary.",
       });
     } catch (error) {
       this.handleError(error, res);

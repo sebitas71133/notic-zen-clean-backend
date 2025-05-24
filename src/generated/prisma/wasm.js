@@ -171,6 +171,7 @@ exports.Prisma.NoteTagScalarFieldEnum = {
 exports.Prisma.NoteImageScalarFieldEnum = {
   id: 'id',
   url: 'url',
+  public_id: 'public_id',
   alt_text: 'alt_text',
   created_at: 'created_at',
   note_id: 'note_id'
