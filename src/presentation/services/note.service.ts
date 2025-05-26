@@ -119,13 +119,17 @@ export class NoteService {
   getNotesById = async (
     page: number,
     limit: number,
-    userId: string
+    userId: string,
+    categoryId?: string,
+    tagId?: string
   ): Promise<NoteEntity[]> => {
     try {
       const notes = await this.noteRepository.getNotesByUserId(
         page,
         limit,
-        userId
+        userId,
+        categoryId,
+        tagId
       );
 
       // const i = notes.images;

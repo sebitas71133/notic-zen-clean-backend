@@ -12,6 +12,7 @@ import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
 import { ImageService } from "../services/Image.service";
+import { PaginationNoteDTO } from "../dtos/note/pagination-note";
 
 export class NoteController {
   //DI ?
@@ -78,15 +79,21 @@ export class NoteController {
 
   public getNotesById = async (req: Request, res: Response) => {
     try {
-      const dto = PaginationTagDTO.createDTO(req.query);
+      const dto = PaginationNoteDTO.createDTO(req.query);
+
+      console.log({ dto });
 
       const user = req.body.user;
 
       const notes = await this.noteService.getNotesById(
         dto.page,
         dto.limit,
-        user.id
+        user.id,
+        dto.categoryId,
+        dto.tagId
       );
+
+      console.log("REGRESANDO NOTA ");
 
       return res.status(200).json({
         success: true,

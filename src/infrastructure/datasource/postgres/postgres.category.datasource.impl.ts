@@ -57,6 +57,8 @@ export class PostgresCategoryDataSourceImpl implements CategoryDataSource {
         },
       });
 
+      console.log(categories);
+
       return categories.map((cat) =>
         CategoryEntity.fromObject({ ...cat, user })
       );

@@ -25,9 +25,9 @@ export class CategoryEntity {
     const id = Uuid.v4();
 
     //Regla de negocio en la entidad
-    if (params.color && !colors.includes(params.color)) {
-      throw CustomError.badRequest(`Colores permitidos : ${colors}`);
-    }
+    // if (params.color && !colors.includes(params.color)) {
+    //   throw CustomError.badRequest(`Colores permitidos : ${colors}`);
+    // }
 
     if (params.name.length < 2) {
       throw CustomError.badRequest(
@@ -54,9 +54,9 @@ export class CategoryEntity {
       );
     }
 
-    if (dto.color && !colors.includes(dto.color)) {
-      throw CustomError.badRequest(`Colores permitidos: ${colors}`);
-    }
+    // if (dto.color && !colors.includes(dto.color)) {
+    //   throw CustomError.badRequest(`Colores permitidos: ${colors}`);
+    // }
 
     return dto;
   }
@@ -68,14 +68,23 @@ export class CategoryEntity {
     name: string;
     user: UserEntity | null;
     color: string | null;
+    user_id?: null | string;
   }): CategoryEntity {
-    const category = new CategoryEntity(
-      props.id,
-      props.name,
-      props.color ?? "SIN COLOR",
-      props.user
-    );
+    // const category = new CategoryEntity(
+    //   props.id,
+    //   props.name,
+    //   props.color ?? "SIN COLOR",
+    //   props.user
+    // );
 
-    return category;
+    const reCat = {
+      id: props.id,
+      name: props.name,
+      color: props.color,
+      user: props.user,
+      user_id: props.user_id,
+    };
+
+    return reCat as CategoryEntity;
   }
 }

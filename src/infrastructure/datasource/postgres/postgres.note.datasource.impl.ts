@@ -87,13 +87,25 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
   async getNotesByUserId(
     page: number,
     limit: number,
-    userId: string
+    userId: string,
+    categoryId?: string,
+    tagId?: string
   ): Promise<NoteEntity[]> {
     try {
       const skip = (page - 1) * limit;
-
+      console.log({ tagId });
       const prismaNotes = await prismaClient.note.findMany({
-        where: { user_id: userId },
+        where: {
+          user_id: userId,
+          ...(categoryId && { category_id: categoryId }),
+          ...(tagId && {
+            tags: {
+              some: {
+                tag_id: tagId,
+              },
+            },
+          }),
+        },
         skip,
         take: limit,
         orderBy: { created_at: "desc" },
@@ -120,6 +132,8 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
           category: { select: { id: true, name: true, color: true } },
         },
       });
+
+      console.log({ prismaNotes });
 
       /*  Mapea a tu NoteEntity de dominio  */
       return prismaNotes.map((n) =>

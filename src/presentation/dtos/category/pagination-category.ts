@@ -4,6 +4,8 @@ import { CustomError } from "../../../domain/errors/custom.error";
 interface objectDTO {
   page?: number;
   limit?: number;
+
+  categoryId?: string;
 }
 
 const schema = z.object({
@@ -17,12 +19,15 @@ const schema = z.object({
     .min(1, "Limit must be at least 1")
     .optional()
     .default(10),
+  categoryId: z.string().uuid("Invalid category ID").optional(),
 });
 
 export class PaginationCategoryDTO {
   private constructor(
     public readonly page: number,
-    public readonly limit: number
+    public readonly limit: number,
+
+    public readonly categoryId?: string
   ) {}
 
   static createDTO(object: objectDTO): PaginationCategoryDTO {
@@ -33,10 +38,10 @@ export class PaginationCategoryDTO {
       throw CustomError.badRequest(message);
     }
 
-    const { page, limit } = result.data;
+    const { page, limit, categoryId } = result.data;
 
-    const tagDTO = new PaginationCategoryDTO(page, limit);
+    const categoryDTO = new PaginationCategoryDTO(page, limit, categoryId);
 
-    return tagDTO;
+    return categoryDTO;
   }
 }

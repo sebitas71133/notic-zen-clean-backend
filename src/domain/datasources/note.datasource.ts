@@ -8,7 +8,9 @@ export abstract class NoteDataSource {
   abstract getNotesByUserId(
     page: number,
     limit: number,
-    userId: string
+    userId: string,
+    categoryId?: string,
+    tagId?: string
   ): Promise<NoteEntity[]>;
 
   abstract getNoteById(id: string, userId: string): Promise<NoteEntity | null>;

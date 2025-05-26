@@ -74,6 +74,8 @@ export class CategoryController {
 
       const updateCategoryDTO = UpdateCategoryDTO.createDTO(data);
 
+      console.log({ updateCategoryDTO });
+
       const category = await this.categoryService.updateCategoryById(
         id,
         updateCategoryDTO,
@@ -89,7 +91,7 @@ export class CategoryController {
     }
   };
 
-  public deleteUserById = async (req: Request, res: Response) => {
+  public deleteCategoryrById = async (req: Request, res: Response) => {
     try {
       const id = req.params["id"];
       const user = req.body.user;

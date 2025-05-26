@@ -24,6 +24,6 @@ export class UpdateCategoryDTO {
 
     const { name, color } = result.data;
 
-    return new UpdateCategoryDTO(name, color);
+    return new UpdateCategoryDTO(name?.toLowerCase(), color);
   }
 }

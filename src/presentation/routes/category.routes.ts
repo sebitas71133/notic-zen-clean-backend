@@ -35,7 +35,7 @@ export class CategoryRoutes {
     router.delete(
       "/categories/:id",
       [authMiddleware.validateJWT],
-      categoryController.deleteUserById
+      categoryController.deleteCategoryrById
     );
 
     return router;

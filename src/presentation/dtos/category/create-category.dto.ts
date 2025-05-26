@@ -24,6 +24,6 @@ export class CreateCategoryDto {
     }
 
     const { name, color } = result.data;
-    return new CreateCategoryDto(name, color);
+    return new CreateCategoryDto(name, color?.toLowerCase());
   }
 }
