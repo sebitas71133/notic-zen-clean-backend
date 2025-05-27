@@ -106,24 +106,26 @@ export class NoteController {
     }
   };
 
-  // public deleteUserById = async (req: Request, res: Response) => {
-  //   try {
-  //     const id = req.params["id"];
-  //     const user = req.body.user;
+  public deleteNoteById = async (req: Request, res: Response) => {
+    try {
+      const id = req.params["id"];
+      const user = req.body.user;
 
-  //     if (!Uuid.isUUID(id) || !id) {
-  //       throw CustomError.badRequest("Invalid or missing category ID");
-  //     }
+      console.log({ id });
 
-  //     await this.categoryService.deleteCategoryById(id, user);
-  //     return res.status(200).json({
-  //       success: true,
-  //       message: "Categoria eliminada",
-  //     });
-  //   } catch (error) {
-  //     this.handleError(error, res);
-  //   }
-  // };
+      if (!Uuid.isUUID(id) || !id) {
+        throw CustomError.badRequest("Invalid or missing category ID");
+      }
+
+      await this.noteService.deleteNoteById(id, user);
+      return res.status(200).json({
+        success: true,
+        message: "Categoria eliminada",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
 
   public getNoteById = async (req: Request, res: Response) => {
     try {

@@ -31,9 +31,17 @@ export class Server {
   }
 
   public async start() {
+    this.app.use((req, res, next) => {
+      console.log("Request from origin:", req.headers.origin);
+      next();
+    });
     this.app.use(
       cors({
-        origin: ["http://localhost:5173", "http://localhost:3000"], // front‑ends permitidos
+        origin: [
+          "http://localhost:5173",
+          "http://localhost:3000",
+          "http://192.168.0.8:5173",
+        ],
         credentials: true, // si necesitas cookies / headers auth
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         allowedHeaders: ["Content-Type", "Authorization"],

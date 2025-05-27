@@ -16,7 +16,7 @@ const schema = z.object({
     .number({ required_error: "Limit must be a number" })
     .min(1, "Limit must be at least 1")
     .optional()
-    .default(10),
+    .default(100),
 });
 
 export class PaginationTagDTO {
@@ -34,7 +34,7 @@ export class PaginationTagDTO {
     }
 
     const { page, limit } = result.data;
-
+    console.log({ page, limit });
     const tagDTO = new PaginationTagDTO(page, limit);
 
     return tagDTO;

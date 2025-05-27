@@ -43,16 +43,25 @@ export class TagController {
   public getTags = async (req: Request, res: Response) => {
     try {
       const dto = PaginationTagDTO.createDTO(req.query);
-
+      console.log({ dto });
       const user = req.body.user;
 
       const tags = await this.tagService.getTags(dto.page, dto.limit, user);
+
+      console.log({ TotalTags: tags.length });
+
+      const totalItems = tags.length ?? 0;
+      const totalPages = Math.ceil(totalItems / dto.limit + 1) ?? 0;
+
+      console.log({ totalItems, totalPages });
 
       return res.status(200).json({
         success: true,
         message: `categorias registradas del usuario ${user.email}`,
         ...dto,
         data: tags ?? [], //Por si acaso xd
+        totalItems,
+        totalPages,
       });
     } catch (error) {
       this.handleError(error, res);

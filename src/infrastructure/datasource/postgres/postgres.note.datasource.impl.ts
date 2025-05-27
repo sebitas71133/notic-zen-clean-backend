@@ -1,13 +1,8 @@
 import { CustomError } from "../../../domain/errors/custom.error";
 
-import { pgPool } from "../../../data/postgresql/init";
-import { CategoryDataSource } from "../../../domain/datasources/category.datasource";
-import { CategoryEntity } from "../../../domain/entities/categories.entitie";
-import { UserRepository } from "../../../domain/repository/user.repository";
-import { UserEntity } from "../../../domain/entities/user.entitie";
 import { NoteEntity } from "../../../domain/entities/note.entitie";
 import { NoteDataSource } from "../../../domain/datasources/note.datasource";
-import { Uuid } from "../../../config/uuid";
+
 import { NoteImageEntity } from "../../../domain/entities/image.entitie";
 import { TagEntity } from "../../../domain/entities/tagEntity";
 
@@ -237,8 +232,17 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     };
   }
 
-  deleteNoteById(id: string): Promise<void> {
-    throw new Error("Method not implemented.");
+  async deleteNoteById(noteId: string): Promise<void> {
+    try {
+      await prismaClient.note.delete({
+        where: { id: noteId },
+      });
+    } catch (error: any) {
+      if (error.code === "P2025") {
+        throw CustomError.notFound("Nota no encontrada para eliminar");
+      }
+      throw CustomError.badRequest(error.message || "Error al eliminar Nota");
+    }
   }
 
   async clearTags(noteId: string): Promise<void> {

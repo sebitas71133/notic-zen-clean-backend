@@ -29,6 +29,12 @@ export class NoteRoutes {
       noteController.saveNoteById
     );
 
+    router.delete(
+      "/notes/:id",
+      [authMiddleware.validateJWT],
+      noteController.deleteNoteById
+    );
+
     router.post(
       "/admin/images/cleanup",
       [authMiddleware.validateJWT, authMiddleware.isAdmin],

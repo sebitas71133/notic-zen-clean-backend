@@ -157,4 +157,25 @@ export class NoteService {
       throw CustomError.internalServer("Error fetching note");
     }
   };
+
+  deleteNoteById = async (id: string, user: UserEntity): Promise<void> => {
+    try {
+      const tag = await this.noteRepository.getNoteById(id, user.id);
+
+      if (!tag) {
+        throw CustomError.badRequest("Note no encontrada o no tienes permisos");
+      }
+
+      // if (tag.userId !== user.id) {
+      //   throw CustomError.forbidden(
+      //     "No tienes permiso para modificar esta tag"
+      //   );
+      // }
+
+      await this.noteRepository.deleteNoteById(id);
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error deleting note");
+    }
+  };
 }
