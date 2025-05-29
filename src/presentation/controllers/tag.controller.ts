@@ -43,7 +43,7 @@ export class TagController {
   public getTags = async (req: Request, res: Response) => {
     try {
       const dto = PaginationTagDTO.createDTO(req.query);
-      console.log({ dto });
+
       const user = req.body.user;
 
       const tags = await this.tagService.getTags(dto.page, dto.limit, user);

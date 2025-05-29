@@ -5,6 +5,9 @@ interface objectDTO {
   page?: number;
   limit?: number;
   categoryId?: string;
+  tagId?: string;
+  isPinned?: string;
+  isArchived?: string;
 }
 
 const schema = z.object({
@@ -20,6 +23,8 @@ const schema = z.object({
     .default(10),
   categoryId: z.string().uuid("Invalid category ID").optional(),
   tagId: z.string().uuid("Invalid category ID").optional(),
+  isPinned: z.enum(["true", "false"]).optional(),
+  isArchived: z.enum(["true", "false"]).optional(),
 });
 
 export class PaginationNoteDTO {
@@ -27,7 +32,9 @@ export class PaginationNoteDTO {
     public readonly page: number,
     public readonly limit: number,
     public readonly categoryId?: string,
-    public readonly tagId?: string
+    public readonly tagId?: string,
+    public readonly isPinned?: string,
+    public readonly isArchived?: string
   ) {}
 
   static createDTO(object: objectDTO): PaginationNoteDTO {
@@ -38,9 +45,17 @@ export class PaginationNoteDTO {
       throw CustomError.badRequest(message);
     }
 
-    const { page, limit, categoryId, tagId } = result.data;
+    const { page, limit, categoryId, tagId, isPinned, isArchived } =
+      result.data;
 
-    const tagDTO = new PaginationNoteDTO(page, limit, categoryId, tagId);
+    const tagDTO = new PaginationNoteDTO(
+      page,
+      limit,
+      categoryId,
+      tagId,
+      isPinned,
+      isArchived
+    );
 
     return tagDTO;
   }

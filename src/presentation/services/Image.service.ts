@@ -40,7 +40,6 @@ export class ImageService {
   public async processImages(images: ImageInput[]): Promise<ImageOutput[]> {
     const processedImages: ImageOutput[] = [];
 
-    console.log({ images });
     for (const image of images) {
       if (this.isBase64Image(image.url)) {
         const uploadResult = await this.uploadToCloudinary(image.url);

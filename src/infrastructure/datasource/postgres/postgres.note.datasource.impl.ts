@@ -7,6 +7,7 @@ import { NoteImageEntity } from "../../../domain/entities/image.entitie";
 import { TagEntity } from "../../../domain/entities/tagEntity";
 
 import { Prisma, PrismaClient } from "../../../generated/prisma";
+import { CategoryEntity } from "../../../domain/entities/categories.entitie";
 const prismaClient = new PrismaClient();
 
 export class PostgresNoteDataSourceImpl implements NoteDataSource {
@@ -47,13 +48,15 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     userId: string,
     updates: Partial<NoteEntity>
   ): Promise<NoteEntity> {
+    console.log({ updates });
     try {
       const updatedNote = await prismaClient.note.update({
         where: { id: noteId, user_id: userId },
         data: {
           title: updates.title,
           content: updates.content,
-          is_pinned: updates.isPinned,
+          is_pinned: this.toBoolean(updates.isPinned),
+          is_archived: this.toBoolean(updates.isArchived),
           category_id: updates.categoryId,
           updated_at: updates.updatedAt ?? new Date(),
         },
@@ -84,11 +87,17 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     limit: number,
     userId: string,
     categoryId?: string,
-    tagId?: string
+    tagId?: string,
+    isArchived?: string,
+    isPinned?: string
   ): Promise<NoteEntity[]> {
     try {
       const skip = (page - 1) * limit;
-      console.log({ tagId });
+      const archivedBool = this.toBoolean(isArchived);
+      const pinnedBool = this.toBoolean(isPinned);
+
+      console.log({ isPinned, isArchived });
+
       const prismaNotes = await prismaClient.note.findMany({
         where: {
           user_id: userId,
@@ -100,6 +109,8 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
               },
             },
           }),
+          ...(isArchived && { is_archived: archivedBool }),
+          ...(isPinned && { is_pinned: pinnedBool }),
         },
         skip,
         take: limit,
@@ -127,8 +138,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
           category: { select: { id: true, name: true, color: true } },
         },
       });
-
-      console.log({ prismaNotes });
 
       /*  Mapea a tu NoteEntity de dominio  */
       return prismaNotes.map((n) =>
@@ -158,6 +167,11 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
                 publicId: img.public_id,
               } as NoteImageEntity)
           ),
+          category: {
+            id: n.category?.id,
+            name: n.category?.name,
+            color: n.category?.color,
+          } as CategoryEntity,
         })
       );
     } catch (error: any) {
@@ -283,5 +297,12 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     await prismaClient.noteImage.createMany({
       data,
     });
+  }
+
+  toBoolean(value?: string | boolean): boolean | undefined {
+    if (value === "true") return true;
+    if (value === "false") return false;
+
+    return undefined;
   }
 }

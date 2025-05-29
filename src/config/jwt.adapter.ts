@@ -38,7 +38,7 @@ export class JwtAdapter {
             console.error("JWT error:", err.message);
             return resolve(null);
           }
-          console.log(decoded);
+
           resolve(decoded as T);
         }
       );

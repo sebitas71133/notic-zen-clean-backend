@@ -1,5 +1,6 @@
 import { Uuid } from "../../config/uuid";
 import { CustomError } from "../errors/custom.error";
+import { CategoryEntity } from "./categories.entitie";
 import { NoteImageEntity } from "./image.entitie";
 import { TagEntity } from "./tagEntity";
 
@@ -15,7 +16,8 @@ export class NoteEntity {
     public images: NoteImageEntity[] = [],
     public tags: TagEntity[] = [],
     public readonly createdAt: Date,
-    public updatedAt: Date
+    public updatedAt: Date,
+    public category?: CategoryEntity
   ) {}
 
   static create(dto: { [key: string]: any }): NoteEntity {
@@ -67,6 +69,7 @@ export class NoteEntity {
     updatedAt: Date;
     images: NoteImageEntity[];
     tags: TagEntity[];
+    category?: CategoryEntity;
   }): NoteEntity {
     const category = new NoteEntity(
       props.id,
@@ -79,7 +82,8 @@ export class NoteEntity {
       props.images ?? [],
       props.tags ?? [],
       props.createdAt,
-      props.updatedAt
+      props.updatedAt,
+      props.category
     );
 
     return category;

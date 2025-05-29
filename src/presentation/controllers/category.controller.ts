@@ -74,8 +74,6 @@ export class CategoryController {
 
       const updateCategoryDTO = UpdateCategoryDTO.createDTO(data);
 
-      console.log({ updateCategoryDTO });
-
       const category = await this.categoryService.updateCategoryById(
         id,
         updateCategoryDTO,

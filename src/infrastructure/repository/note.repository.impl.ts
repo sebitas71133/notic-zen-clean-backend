@@ -19,14 +19,18 @@ export class NoteRepositoryImpl implements NoteRepository {
     limit: number,
     userId: string,
     categoryId?: string,
-    tagId?: string
+    tagId?: string,
+    isArchived?: string,
+    isPinned?: string
   ): Promise<NoteEntity[]> {
     return this.noteDataSource.getNotesByUserId(
       page,
       limit,
       userId,
       categoryId,
-      tagId
+      tagId,
+      isArchived,
+      isPinned
     );
   }
 

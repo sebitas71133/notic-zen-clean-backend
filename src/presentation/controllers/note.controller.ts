@@ -60,6 +60,8 @@ export class NoteController {
 
       const newNotedDTO = SaveNoteDTO.createDTO(data);
 
+      console.log({ newNotedDTO });
+
       // throw new Error();
       const newNote = await this.noteService.saveNote(
         noteId,
@@ -81,19 +83,19 @@ export class NoteController {
     try {
       const dto = PaginationNoteDTO.createDTO(req.query);
 
-      console.log({ dto });
-
       const user = req.body.user;
+
+      // console.log({ dto });
 
       const notes = await this.noteService.getNotesById(
         dto.page,
         dto.limit,
         user.id,
         dto.categoryId,
-        dto.tagId
+        dto.tagId,
+        dto.isArchived,
+        dto.isPinned
       );
-
-      console.log("REGRESANDO NOTA ");
 
       return res.status(200).json({
         success: true,

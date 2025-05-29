@@ -9,8 +9,7 @@ interface objectDTO {
   title: string;
   content?: string;
   categoryId: string;
-  isArchived?: boolean;
-  isPinned?: boolean;
+
   images?: CreateImageDto[];
   tags?: CreateTagDto[];
 }
@@ -18,11 +17,11 @@ interface objectDTO {
 const schema = z.object({
   title: z
     .string({ required_error: "Missing Title" })
-    .min(3, "The title must be at least 3 characters long"),
-  content: z.string().optional(),
+    .min(3, "The title must be at least 3 characters long")
+    .max(100),
+  content: z.string().max(500).optional(),
   categoryId: z.string().uuid("Invalid categoryId format (must be UUID)"),
-  isPinned: z.boolean().optional(),
-  isArchived: z.boolean().optional(),
+
   images: z
     .array(
       z.object({
@@ -44,8 +43,7 @@ export class CreateNoteDTO {
     public title: string,
     public categoryId: string,
     public content?: string,
-    public isPinned?: boolean,
-    public isArchived?: boolean,
+
     public images?: object[],
     public tags?: string[]
   ) {}
@@ -62,8 +60,7 @@ export class CreateNoteDTO {
       title,
       content,
       categoryId,
-      isPinned,
-      isArchived,
+
       images = [],
       tags = [],
     } = result.data;
@@ -83,8 +80,7 @@ export class CreateNoteDTO {
       title,
       categoryId,
       content,
-      isPinned,
-      isArchived,
+
       images,
       tags
     );

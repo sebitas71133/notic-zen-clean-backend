@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { CustomError } from "../../../domain/errors/custom.error";
-import { NoteImageEntity } from "../../../domain/entities/image.entitie";
-import { TagEntity } from "../../../domain/entities/tagEntity";
+
 import { CreateTagDto } from "../tags/create-tag.dto";
 import { CreateImageDto } from "../image/create-image.dto";
 
@@ -9,7 +8,8 @@ interface objectDTO {
   title: string;
   content?: string;
   categoryId: string;
-  isPinned?: boolean;
+  isPinned?: string;
+  isArchived?: string;
   images?: CreateImageDto[];
   tags?: CreateTagDto[];
 }
@@ -17,12 +17,14 @@ interface objectDTO {
 const schema = z.object({
   title: z
     .string({ required_error: "Missing Title" })
-    .min(3, "The title must be at least 3 characters long"),
-  content: z.string().optional(),
+    .min(3, "The title must be at least 3 characters long")
+    .max(100),
+  content: z.string().max(500).optional(),
   categoryId: z
     .string({ required_error: "Category id required" })
     .uuid("Invalid categoryId format (must be UUID)"),
-  isPinned: z.boolean().optional(),
+  isPinned: z.enum(["true", "false"]).optional(),
+  isArchived: z.enum(["true", "false"]).optional(),
   images: z
     .array(
       z.object({
@@ -44,7 +46,8 @@ export class SaveNoteDTO {
     public title: string,
     public categoryId: string,
     public content?: string,
-    public isPinned?: boolean,
+    public isPinned?: string,
+    public isArchived?: string,
     public images?: object[],
     public tagIds?: string[]
   ) {}
@@ -61,24 +64,26 @@ export class SaveNoteDTO {
       content,
       categoryId,
       isPinned,
+      isArchived,
       images = [],
       tags = [], // ahora son los IDs
     } = result.data;
-
-    // const imageDTOs = images.map((img) =>
-    //   CreateImageDto.create({
-    //     url: img.url,
-    //     altText: img.altText,
-    //   })
-    // );
 
     return new SaveNoteDTO(
       title,
       categoryId,
       content,
       isPinned,
+      isArchived,
       images,
       tags // ahora son solo strings (tagIds)
     );
   }
+}
+
+function toBoolean(value?: string | boolean): boolean | undefined {
+  if (value === "true") return true;
+  if (value === "false") return false;
+  if (typeof value === "boolean") return value;
+  return undefined;
 }

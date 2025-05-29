@@ -121,7 +121,9 @@ export class NoteService {
     limit: number,
     userId: string,
     categoryId?: string,
-    tagId?: string
+    tagId?: string,
+    isArchived?: string,
+    isPinned?: string
   ): Promise<NoteEntity[]> => {
     try {
       const notes = await this.noteRepository.getNotesByUserId(
@@ -129,7 +131,9 @@ export class NoteService {
         limit,
         userId,
         categoryId,
-        tagId
+        tagId,
+        isArchived,
+        isPinned
       );
 
       // const i = notes.images;
