@@ -10,6 +10,7 @@ import { Uuid } from "../../config/uuid";
 import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { PaginationUserDTO } from "../dtos/auth/pagination-user.dto";
 import { JwtAdapter } from "../../config/jwt.adapter";
+import { envs } from "../../config/envs";
 
 export class AuthController {
   //DI ?
@@ -65,19 +66,104 @@ export class AuthController {
     }
   };
 
-  public ValidateEmail = async (req: Request, res: Response) => {
+  public validateEmailtoLogin = async (req: Request, res: Response) => {
     const { token } = req.params;
 
     try {
-      const isValidated = await this.authService.validateEmail(token);
+      const isValidated = await this.authService.validateEmailtoLogin(token);
+
       if (isValidated) {
-        res.json("The email was successfully validated.");
+        return res.send(`
+        <html>
+          <head>
+            <title>Email validated</title>
+            <meta http-equiv="refresh" content="5;url=${envs.CLIENT_URL}/auth" />
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f4f8;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+              }
+              .card {
+                background: white;
+                padding: 2rem;
+                border-radius: 1rem;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+                text-align: center;
+              }
+              h1 {
+                color: #2e7d32;
+              }
+              p {
+                color: #555;
+              }
+            </style>
+          </head>
+          <body>
+            <div class="card">
+              <h1>✅ Email successfully validated</h1>
+              <p>You will be redirected to the login page shortly...</p>
+              <p>If not, <a href="${envs.CLIENT_URL}/auth">click here</a>.</p>
+            </div>
+          </body>
+        </html>
+      `);
       }
+    } catch (error) {
+      if (error instanceof CustomError && error.message.includes("expirado")) {
+        return res.send(`
+  <div style="font-family: Arial, sans-serif; max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #fff9f9; color: #b00020; text-align: center;">
+    <h2 style="margin-bottom: 10px;">Oops... el enlace expiró 😥</h2>
+    <p style="margin-bottom: 20px;">Tu enlace de validación ha caducado.</p>
+    <form method="GET" action="/api/auth/resend-validation-link" style="display: flex; flex-direction: column; gap: 10px;">
+      <input type="email" name="email" placeholder="Ingresa tu correo" required
+        style="padding: 10px; font-size: 1em; border: 1px solid #ccc; border-radius: 4px;" />
+      <button type="submit" style="padding: 10px; background-color: #b00020; color: white; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+        Reenviar enlace
+      </button>
+    </form>
+  </div>
+`);
+      }
+      return this.handleError(error, res);
+    }
+  };
+
+  public resendEmailValidationLink = async (req: Request, res: Response) => {
+    const email = req.query.email as string;
+
+    try {
+      if (!email) throw CustomError.badRequest("No email provided");
+
+      const isValidated = await this.authService.resendEmailValidationLink(
+        email
+      );
+
+      if (isValidated) {
+        return res.status(200).send(`
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background: #f9f9f9; color: #333;">
+    <h2 style="color: #4CAF50;">¡Perfecto!</h2>
+    <p>Hemos enviado un nuevo enlace de validación a tu correo electrónico.</p>
+    <hr style="border:none; border-top:1px solid #ccc; margin: 20px 0;">
+    <p style="font-size: 0.9em; color: #666;">
+      <strong>Nota:</strong> Si no recibes el correo en los próximos minutos, revisa la carpeta de spam o promociones.<br/>
+      Si aún así no lo ves, intenta solicitar el enlace nuevamente o contáctanos para soporte.
+    </p>
+  </div>
+`);
+      }
+
+      // En caso de que isValidated sea false, aunque no esté previsto:
+      res.status(500).json({
+        message:
+          "No se pudo enviar el enlace de validación. Intenta nuevamente más tarde.",
+      });
     } catch (error) {
       this.handleError(error, res);
     }
-
-    this.authService;
   };
 
   public getUsers = async (req: Request, res: Response) => {

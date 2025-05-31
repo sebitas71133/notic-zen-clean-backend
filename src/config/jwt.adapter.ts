@@ -1,5 +1,6 @@
 import jwt, { SignOptions } from "jsonwebtoken";
 import { envs } from "./envs";
+import { CustomError } from "../domain/errors/custom.error";
 
 const JWT_SEED = envs.JWT_SEED;
 
@@ -27,21 +28,20 @@ export class JwtAdapter {
     });
   }
 
-  public static validateToken<T>(token: string): Promise<T | null> {
+  public static validateToken<T>(token: string): Promise<T> {
     return new Promise((resolve, reject) => {
-      jwt.verify(
-        token,
-        JWT_SEED,
-
-        (err, decoded) => {
-          if (err) {
-            console.error("JWT error:", err.message);
-            return resolve(null);
+      jwt.verify(token, JWT_SEED, (err, decoded) => {
+        if (err) {
+          // Detectar token expirado específicamente
+          if (err.name === "TokenExpiredError") {
+            return reject(CustomError.unauthorized("El token ha expirado"));
           }
 
-          resolve(decoded as T);
+          return reject(CustomError.unauthorized("Token inválido"));
         }
-      );
+
+        resolve(decoded as T);
+      });
     });
   }
 }

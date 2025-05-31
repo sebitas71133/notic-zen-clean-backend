@@ -66,18 +66,44 @@ export class AuthService {
     }
   };
 
+  resendEmailValidationLink = async (email: string) => {
+    const user = await this.userRepository.findUserByEmail(email);
+    if (!user) throw CustomError.notFound("Usuario no encontrado");
+    if (user.emailValidated)
+      throw CustomError.badRequest("El correo ya está validado");
+
+    return await this.sendEmailValidationLink(email);
+  };
+
   sendEmailValidationLink = async (email: string): Promise<boolean> => {
-    const token = await JwtAdapter.generateToken({ email });
+    const token = await JwtAdapter.generateToken({ email }, "10s");
     if (!token) throw CustomError.internalServer("Error getting token");
 
     const link = `${envs.WEBSERVICE_URL}/api/auth/validate-email/${token}`;
 
     const html = `
-      <h1>Validate your email</h1>
-      <p>Click on the following link to validate your email</p>
-      <a href="${link}">Validate your email : ${email}</a>
-    `;
-
+  <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px;">
+    <h2 style="color: #333;">👋 ¡Bienvenido(a)!</h2>
+    <p style="font-size: 16px; color: #555;">
+      Gracias por registrarte en NOTIC-ZEN. Antes de comenzar, por favor verifica tu correo electrónico haciendo clic en el siguiente botón:
+    </p>
+    <div style="text-align: center; margin: 30px 0;">
+      <a href="${link}" style="background-color: #1976d2; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">
+        Validar correo
+      </a>
+    </div>
+    <p style="font-size: 14px; color: #888;">
+      Si no puedes hacer clic en el botón, copia y pega el siguiente enlace en tu navegador:
+    </p>
+    <p style="font-size: 14px; color: #1976d2; word-break: break-all;">
+      ${link}
+    </p>
+    <hr style="margin-top: 30px; border: none; border-top: 1px solid #eee;" />
+    <p style="font-size: 12px; color: #aaa; text-align: center;">
+      Este correo fue enviado automáticamente, por favor no respondas a este mensaje.
+    </p>
+  </div>
+`;
     const options = {
       to: email,
       subject: "Validate your email :)",
@@ -90,22 +116,29 @@ export class AuthService {
     return true;
   };
 
-  validateEmail = async (token: string) => {
-    const payload = await JwtAdapter.validateToken(token);
-    if (!payload) throw CustomError.unauthorized("Invalid token");
+  //LO QUE ENVIA EL USUARIO DESDE SU CORREO
+  validateEmailtoLogin = async (token: string) => {
+    try {
+      const payload = await JwtAdapter.validateToken<{ email: string }>(token);
+      console.log({ payload });
+      if (!payload) throw CustomError.unauthorized("Invalid token");
 
-    const { email } = payload as { email: string };
+      const { email } = payload as { email: string };
 
-    if (!email) throw CustomError.internalServer("Email not in token");
+      if (!email) throw CustomError.internalServer("Email not in token");
 
-    const user = await this.userRepository.findUserByEmail(email);
-    if (!user) throw CustomError.internalServer("Email not exists");
+      const user = await this.userRepository.findUserByEmail(email);
+      if (!user) throw CustomError.internalServer("Email not exists");
 
-    user.emailValidated = true;
+      user.emailValidated = true;
 
-    await this.userRepository.updateUser(user.id, user);
+      await this.userRepository.updateUser(user.id, user);
 
-    return true;
+      return true;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error validating");
+    }
   };
 
   loginUser = async (dto: LoginUserDto) => {
@@ -121,6 +154,12 @@ export class AuthService {
       );
 
       if (!isMatch) throw CustomError.badRequest("Incorrect Password");
+
+      if (!user.emailValidated) {
+        throw CustomError.unauthorized(
+          "Debes verificar tu correo electrónico antes de iniciar sesión."
+        );
+      }
 
       const token = await JwtAdapter.generateToken({ id: user.id });
       if (!token) throw CustomError.internalServer("Error while creating JWT");
