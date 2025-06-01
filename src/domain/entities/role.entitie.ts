@@ -32,13 +32,13 @@ export class RoleEntity {
     );
   }
 
-  isAdmin(): boolean {
-    return this.name.toLowerCase() === "admin";
-  }
+  // isAdmin(): boolean {
+  //   return this.name.toLowerCase() === "admin";
+  // }
 
-  isEditor(): boolean {
-    return this.name.toLowerCase() === "editor";
-  }
+  // isEditor(): boolean {
+  //   return this.name.toLowerCase() === "editor";
+  // }
 
   // Puedes seguir agregando reglas aquí
 }

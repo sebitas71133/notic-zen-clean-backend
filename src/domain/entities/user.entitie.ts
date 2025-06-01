@@ -20,8 +20,8 @@ export class UserEntity {
     public email: string,
     public password_hash: string,
     public emailValidated: boolean,
-    public readonly role: RoleEntity,
-    public image: string
+    public readonly role?: RoleEntity,
+    public image?: string
   ) {}
 
   // params : Cuando estás creando una nueva instancia, aplicando reglas de negocio
@@ -65,7 +65,7 @@ export class UserEntity {
     email: string;
     password_hash: string;
     emailValidated: boolean;
-    role?: RoleEntity;
+    role?: RoleEntity | null;
     image?: string | null;
   }): UserEntity {
     const user = new UserEntity(
@@ -74,7 +74,7 @@ export class UserEntity {
       props.email,
       props.password_hash,
       props.emailValidated,
-      props.role!,
+      props.role ??undefined,
       props.image!
     );
 

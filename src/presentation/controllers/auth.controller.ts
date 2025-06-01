@@ -265,6 +265,30 @@ export class AuthController {
     }
   };
 
+  public updateRoleByUserId = async (req: Request, res: Response) => {
+    try {
+      const id = req.body["userId"];
+
+      const newRoleId = +req.body["roleId"];
+
+      if (!Uuid.isUUID(id) || !id) {
+        throw CustomError.badRequest("Invalid or missing user ID");
+      }
+
+      // if (req.body.user.id !== id) {
+      //   throw CustomError.forbidden("No puedes eliminar este usuario");
+      // }
+
+      await this.authService.updateRoleByUserId(id, newRoleId);
+      return res.status(200).json({
+        success: true,
+        message: "Rol actualizado",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
   public validateToken = async (req: Request, res: Response) => {
     try {
       const authorization = req.header("Authorization");

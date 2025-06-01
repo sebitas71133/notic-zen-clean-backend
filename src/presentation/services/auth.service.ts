@@ -3,7 +3,7 @@ import { JwtAdapter } from "../../config/jwt.adapter";
 import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
-import { UserRepository } from "../../domain/repository/user.repository";
+
 import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
 
 import { LoginUserDto } from "../dtos/auth/login-user.dto";
@@ -12,6 +12,7 @@ import { EmailService } from "./email.service";
 import { RoleName } from "../../domain/enums/role.enum";
 
 import { RoleRepository } from "../../domain/repository/role.repository";
+import { UserRepository } from "../../domain/repository/user.repository";
 
 export class AuthService {
   constructor(
@@ -76,7 +77,7 @@ export class AuthService {
   };
 
   sendEmailValidationLink = async (email: string): Promise<boolean> => {
-    const token = await JwtAdapter.generateToken({ email }, "10s");
+    const token = await JwtAdapter.generateToken({ email }, "1m");
     if (!token) throw CustomError.internalServer("Error getting token");
 
     const link = `${envs.WEBSERVICE_URL}/api/auth/validate-email/${token}`;
@@ -267,6 +268,15 @@ export class AuthService {
   deleteUserById = async (id: string): Promise<void> => {
     try {
       await this.userRepository.deleteUser(id);
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error fetching users");
+    }
+  };
+
+  updateRoleByUserId = async (id: string, newRoleId: number): Promise<void> => {
+    try {
+      await this.userRepository.updateRoleByUserId(id, newRoleId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching users");

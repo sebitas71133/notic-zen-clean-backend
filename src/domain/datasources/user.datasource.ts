@@ -19,4 +19,6 @@ export abstract class UserDataSource {
   abstract deleteUser(id: string): Promise<void>;
 
   abstract existUserByEmail(email: string): Promise<boolean>;
+
+  abstract updateRoleByUserId(id: string,newRoleId: number): Promise<void>;
 }

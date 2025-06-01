@@ -34,4 +34,8 @@ export class UserRepositoryImpl implements UserRepository {
   existUserByEmail(email: string): Promise<boolean> {
     return this.userDataSource.existUserByEmail(email);
   }
+
+  updateRoleByUserId(userId: string, newRoleId: number): Promise<void> {
+    return this.userDataSource.updateRoleByUserId(userId, newRoleId);
+  }
 }

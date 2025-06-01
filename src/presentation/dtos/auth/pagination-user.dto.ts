@@ -16,7 +16,7 @@ const schema = z.object({
     .number({ required_error: "Limit must be a number" })
     .min(1, "Limit must be at least 1")
     .optional()
-    .default(10),
+    .default(50),
 });
 
 export class PaginationUserDTO {

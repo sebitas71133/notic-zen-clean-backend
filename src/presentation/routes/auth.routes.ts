@@ -48,14 +48,36 @@ export class AuthRoutes {
     router.get("/validate-email/:token", controller.validateEmailtoLogin);
     router.get("/resend-validation-link", controller.resendEmailValidationLink);
 
-    router.get("/users", controller.getUsers);
-    router.get("/users/email/", controller.getUserByEmail);
-    router.get("/users/:id", controller.getUserById);
-    router.put("/users/:id", controller.updateUserById);
+    router.get(
+      "/users",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.getUsers
+    );
+    router.get(
+      "/users/email/",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.getUserByEmail
+    );
+    router.get(
+      "/users/:id",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.getUserById
+    );
+    router.put(
+      "/users/:id",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.updateUserById
+    );
     router.delete(
       "/users/:id",
       [authMiddleware.validateJWT],
       controller.deleteUserById
+    );
+
+    router.post(
+      "/users/update-role",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.updateRoleByUserId
     );
 
     // router.post("/login",controller.loginUser)

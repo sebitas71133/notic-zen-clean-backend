@@ -2,6 +2,7 @@ import { pgPool } from "../../../data/postgresql/init";
 import { UserDataSource } from "../../../domain/datasources/user.datasource";
 import { RoleEntity } from "../../../domain/entities/role.entitie";
 import { UserEntity } from "../../../domain/entities/user.entitie";
+import { RoleName } from "../../../domain/enums/role.enum";
 import { CustomError } from "../../../domain/errors/custom.error";
 import { PrismaClient } from "../../../generated/prisma";
 import { RoleRepositoryImpl } from "../../repository/role.repository.impl";
@@ -62,9 +63,28 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
         orderBy: {
           name: "asc",
         },
+        include: {
+          role: true,
+        },
       });
 
-      const data = users.map((user) => UserEntity.fromObject({ ...user }));
+      const data = users.map((user) =>
+        UserEntity.fromObject({
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          password_hash: user.password_hash,
+          emailValidated: user.emailValidated,
+          role: user.role
+            ? RoleEntity.fromObject({
+                id: user.role.id,
+                name: user.role.name as RoleName, // 👈 convierte string a enum
+                description: user.role.description,
+              })
+            : undefined,
+          image: user.image,
+        })
+      );
 
       return data;
     } catch (error: any) {
@@ -237,6 +257,28 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
       }
       throw CustomError.badRequest(
         error.message || "Error al eliminar usuario"
+      );
+    }
+  }
+
+  public async updateRoleByUserId(
+    userId: string,
+    newRoleId: number
+  ): Promise<void> {
+    try {
+      await prismaClient.user.update({
+        where: { id: userId },
+        data: {
+          role_id: newRoleId,
+        },
+      });
+    } catch (error: any) {
+      if (error.code === "P2025") {
+        // Prisma lanza este código si no encuentra el registro
+        throw CustomError.notFound(`Usuario con id ${userId} no encontrado`);
+      }
+      throw CustomError.badRequest(
+        error.message || "Error al actualizar el rol del usuario"
       );
     }
   }
