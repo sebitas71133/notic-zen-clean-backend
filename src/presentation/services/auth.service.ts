@@ -298,4 +298,15 @@ export class AuthService {
       throw CustomError.internalServer("Error generating token");
     }
   };
+
+  getTotals = async () => {
+    try {
+      const documents = await this.userRepository.getTotals();
+
+      return documents;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error generating token");
+    }
+  };
 }

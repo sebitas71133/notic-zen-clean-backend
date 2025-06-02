@@ -21,4 +21,6 @@ export abstract class UserRepository {
   abstract existUserByEmail(email: string): Promise<boolean>;
 
   abstract updateRoleByUserId(id: string, newRoleId: number): Promise<void>;
+
+  abstract getTotals(): Promise<any>;
 }

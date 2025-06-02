@@ -58,11 +58,19 @@ export class AuthRoutes {
       [authMiddleware.validateJWT, authMiddleware.isAdmin],
       controller.getUserByEmail
     );
+
+    router.get(
+      "/users/documents",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      controller.getTotals
+    );
+
     router.get(
       "/users/:id",
       [authMiddleware.validateJWT, authMiddleware.isAdmin],
       controller.getUserById
     );
+
     router.put(
       "/users/:id",
       [authMiddleware.validateJWT, authMiddleware.isAdmin],

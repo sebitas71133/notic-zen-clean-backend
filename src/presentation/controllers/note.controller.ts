@@ -97,6 +97,8 @@ export class NoteController {
         dto.isPinned
       );
 
+      console.log({ notes });
+
       return res.status(200).json({
         success: true,
         message: `notes registradas del usuario ${user.email}`,
@@ -160,6 +162,19 @@ export class NoteController {
 
       await this.imageService.cleanOrphanImages();
       return res.status(200).json({
+        success: true,
+        message: "Imágenes huérfanas eliminadas de Cloudinary.",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public getAllImages = async (req: Request, res: Response) => {
+    try {
+      const result = await this.imageService.getAllImages();
+      return res.status(200).json({
+        data: result,
         success: true,
         message: "Imágenes huérfanas eliminadas de Cloudinary.",
       });

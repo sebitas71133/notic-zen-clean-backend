@@ -41,6 +41,12 @@ export class NoteRoutes {
       noteController.cleanOrphanImages
     );
 
+    router.get(
+      "/admin/images/all",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      noteController.getAllImages
+    );
+
     return router;
   }
 }

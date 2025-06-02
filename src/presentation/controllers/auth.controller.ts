@@ -265,6 +265,20 @@ export class AuthController {
     }
   };
 
+  public getTotals = async (req: Request, res: Response) => {
+    try {
+      const documents = await this.authService.getTotals();
+
+      return res.status(200).json({
+        success: true,
+        message: "Documentos totales",
+        data: documents,
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
   public updateRoleByUserId = async (req: Request, res: Response) => {
     try {
       const id = req.body["userId"];

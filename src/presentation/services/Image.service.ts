@@ -103,4 +103,52 @@ export class ImageService {
       `✅ Limpieza completada. Total eliminadas: ${orphanPublicIds.length}`
     );
   }
+
+  public async getAllImages(): Promise<{
+    cloudinaryImagesBD: string[];
+    externalImagesBD: string[];
+    cloudinaryImages: string[];
+  }> {
+    const allImages = await prismaClient.noteImage.findMany({
+      select: {
+        id: true,
+        url: true,
+        public_id: true,
+        alt_text: true,
+        note_id: true,
+        created_at: true,
+      },
+    });
+
+    // const dbImages = dbImagesResult.map((img) => img.public_id!);
+
+    const cloudinaryImagesBD = allImages
+      .filter((img) => img.public_id !== null)
+      .map((img) => img.url) as string[];
+
+    const externalImagesBD = allImages
+      .filter((img) => img.public_id === null)
+      .map((img) => img.url);
+
+    const cloudinaryImages: string[] = [];
+    let nextCursor: string | undefined = undefined;
+
+    do {
+      const result = await cloudinary.api.resources({
+        type: "upload",
+        prefix: "notes/", // Ajusta según tu carpeta en Cloudinary
+        max_results: 100,
+        next_cursor: nextCursor,
+      });
+
+      cloudinaryImages.push(...result.resources.map((r: any) => r.secure_url));
+      nextCursor = result.next_cursor;
+    } while (nextCursor);
+
+    return {
+      cloudinaryImagesBD,
+      externalImagesBD,
+      cloudinaryImages,
+    };
+  }
 }

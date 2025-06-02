@@ -282,4 +282,29 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
       );
     }
   }
+
+  public async getTotals(): Promise<any> {
+    try {
+      const [totalUser, totalNote, totalTag, totalCategory, totalImages] =
+        await Promise.all([
+          prismaClient.user.count(),
+          prismaClient.note.count(),
+          prismaClient.tag.count(),
+          prismaClient.category.count(),
+          prismaClient.noteImage.count(),
+        ]);
+
+      return {
+        totalUser,
+        totalNote,
+        totalTag,
+        totalCategory,
+        totalImages,
+      };
+    } catch (error: any) {
+      throw CustomError.badRequest(
+        error.message || "Error obtener total de datos"
+      );
+    }
+  }
 }

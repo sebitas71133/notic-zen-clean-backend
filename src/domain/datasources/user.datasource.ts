@@ -20,5 +20,7 @@ export abstract class UserDataSource {
 
   abstract existUserByEmail(email: string): Promise<boolean>;
 
-  abstract updateRoleByUserId(id: string,newRoleId: number): Promise<void>;
+  abstract updateRoleByUserId(id: string, newRoleId: number): Promise<void>;
+
+  abstract getTotals(): Promise<any>;
 }

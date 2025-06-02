@@ -38,4 +38,8 @@ export class UserRepositoryImpl implements UserRepository {
   updateRoleByUserId(userId: string, newRoleId: number): Promise<void> {
     return this.userDataSource.updateRoleByUserId(userId, newRoleId);
   }
+
+  getTotals(): Promise<any> {
+    return this.userDataSource.getTotals();
+  }
 }
