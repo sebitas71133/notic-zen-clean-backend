@@ -24,11 +24,6 @@ export class CategoryEntity {
   static create(params: params): CategoryEntity {
     const id = Uuid.v4();
 
-    //Regla de negocio en la entidad
-    // if (params.color && !colors.includes(params.color)) {
-    //   throw CustomError.badRequest(`Colores permitidos : ${colors}`);
-    // }
-
     if (params.name.length < 2) {
       throw CustomError.badRequest(
         "El nombre debe tener al menos 2caracteres."
@@ -37,7 +32,7 @@ export class CategoryEntity {
 
     const category = new CategoryEntity(
       id,
-      params.name,
+      capitalizeFirstLetter(params.name),
       params.color ?? "BLUE",
       params.user
     );
@@ -57,6 +52,8 @@ export class CategoryEntity {
     // if (dto.color && !colors.includes(dto.color)) {
     //   throw CustomError.badRequest(`Colores permitidos: ${colors}`);
     // }
+
+    dto.name = capitalizeFirstLetter(dto.name ?? "");
 
     return dto;
   }
@@ -87,4 +84,9 @@ export class CategoryEntity {
 
     return reCat as CategoryEntity;
   }
+}
+
+function capitalizeFirstLetter(text: string): string {
+  if (!text) return "";
+  return text.charAt(0).toUpperCase() + text.slice(1);
 }
