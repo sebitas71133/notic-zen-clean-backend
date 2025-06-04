@@ -88,7 +88,9 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     categoryId?: string,
     tagId?: string,
     isArchived?: string,
-    isPinned?: string
+    isPinned?: string,
+    sortDate?: string,
+    sortTitle?: string
   ): Promise<NoteEntity[]> {
     try {
       const skip = (page - 1) * limit;
@@ -96,6 +98,16 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       const pinnedBool = this.toBoolean(isPinned);
 
       console.log({ isPinned, isArchived });
+
+      const orderBy: any[] = [];
+
+      if (sortDate) {
+        orderBy.push({ created_at: sortDate }); // asc o desc
+      }
+
+      if (sortTitle) {
+        orderBy.push({ title: sortTitle }); // asc o desc
+      }
 
       const prismaNotes = await prismaClient.note.findMany({
         where: {
@@ -113,7 +125,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
         },
         skip,
         take: limit,
-        orderBy: { created_at: "desc" },
+        orderBy: orderBy.length > 0 ? orderBy : [{ created_at: "asc" }],
 
         /*  recupera relaciones  */
         include: {

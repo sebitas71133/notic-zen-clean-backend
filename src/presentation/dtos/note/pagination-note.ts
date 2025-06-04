@@ -25,6 +25,8 @@ const schema = z.object({
   tagId: z.string().uuid("Invalid category ID").optional(),
   isPinned: z.enum(["true", "false"]).optional(),
   isArchived: z.enum(["true", "false"]).optional(),
+  sortDate: z.enum(["asc", "desc"]).optional(),
+  sortTitle: z.enum(["asc", "desc"]).optional(),
 });
 
 export class PaginationNoteDTO {
@@ -34,7 +36,9 @@ export class PaginationNoteDTO {
     public readonly categoryId?: string,
     public readonly tagId?: string,
     public readonly isPinned?: string,
-    public readonly isArchived?: string
+    public readonly isArchived?: string,
+    public readonly sortDate?: string,
+    public readonly sortTitle?: string
   ) {}
 
   static createDTO(object: objectDTO): PaginationNoteDTO {
@@ -45,8 +49,16 @@ export class PaginationNoteDTO {
       throw CustomError.badRequest(message);
     }
 
-    const { page, limit, categoryId, tagId, isPinned, isArchived } =
-      result.data;
+    const {
+      page,
+      limit,
+      categoryId,
+      tagId,
+      isPinned,
+      isArchived,
+      sortDate,
+      sortTitle,
+    } = result.data;
 
     const tagDTO = new PaginationNoteDTO(
       page,
@@ -54,7 +66,9 @@ export class PaginationNoteDTO {
       categoryId,
       tagId,
       isPinned,
-      isArchived
+      isArchived,
+      sortDate,
+      sortTitle
     );
 
     return tagDTO;

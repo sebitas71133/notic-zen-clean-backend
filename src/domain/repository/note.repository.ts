@@ -12,7 +12,9 @@ export abstract class NoteRepository {
     categoryId?: string,
     tagId?: string,
     isArchived?: string,
-    isPinned?: string
+    isPinned?: string,
+    sortDate?: string,
+    sortTitle?: string
   ): Promise<NoteEntity[]>;
 
   abstract getNoteById(id: string, userId: string): Promise<NoteEntity | null>;

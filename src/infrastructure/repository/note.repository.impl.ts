@@ -21,7 +21,9 @@ export class NoteRepositoryImpl implements NoteRepository {
     categoryId?: string,
     tagId?: string,
     isArchived?: string,
-    isPinned?: string
+    isPinned?: string,
+    sortDate?: string,
+    sortTitle?: string
   ): Promise<NoteEntity[]> {
     return this.noteDataSource.getNotesByUserId(
       page,
@@ -30,7 +32,9 @@ export class NoteRepositoryImpl implements NoteRepository {
       categoryId,
       tagId,
       isArchived,
-      isPinned
+      isPinned,
+      sortDate,
+      sortTitle
     );
   }
 

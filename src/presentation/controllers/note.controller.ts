@@ -83,7 +83,7 @@ export class NoteController {
 
       const user = req.body.user;
 
-      // console.log({ dto });
+      console.log({ dto });
 
       const notes = await this.noteService.getNotesById(
         dto.page,
@@ -92,10 +92,10 @@ export class NoteController {
         dto.categoryId,
         dto.tagId,
         dto.isArchived,
-        dto.isPinned
+        dto.isPinned,
+        dto.sortDate,
+        dto.sortTitle
       );
-
-      console.log({ notes });
 
       return res.status(200).json({
         success: true,
