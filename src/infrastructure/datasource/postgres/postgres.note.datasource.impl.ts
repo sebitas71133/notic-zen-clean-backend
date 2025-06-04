@@ -48,7 +48,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     userId: string,
     updates: Partial<NoteEntity>
   ): Promise<NoteEntity> {
-    console.log({ updates });
     try {
       const updatedNote = await prismaClient.note.update({
         where: { id: noteId, user_id: userId },

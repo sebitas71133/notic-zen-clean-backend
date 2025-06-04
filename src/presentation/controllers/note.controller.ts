@@ -60,8 +60,6 @@ export class NoteController {
 
       const newNotedDTO = SaveNoteDTO.createDTO(data);
 
-      console.log({ newNotedDTO });
-
       // throw new Error();
       const newNote = await this.noteService.saveNote(
         noteId,

@@ -48,12 +48,8 @@ export class TagController {
 
       const tags = await this.tagService.getTags(dto.page, dto.limit, user);
 
-      console.log({ TotalTags: tags.length });
-
       const totalItems = tags.length ?? 0;
       const totalPages = Math.ceil(totalItems / dto.limit + 1) ?? 0;
-
-      console.log({ totalItems, totalPages });
 
       return res.status(200).json({
         success: true,

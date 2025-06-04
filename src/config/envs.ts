@@ -22,4 +22,9 @@ export const envs = {
   CLOUDINARY_NAME: get("CLOUDINARY_NAME").required().asString(),
   CLOUDINARY_API_KEY: get("CLOUDINARY_API_KEY").required().asString(),
   CLOUDINARY_API_SECRET: get("CLOUDINARY_API_SECRET").required().asString(),
+
+  SIGHTENGINE_USER: get("SIGHTENGINE_USER").required().asString(),
+  SIGHTENGINE_SECRET: get("SIGHTENGINE_SECRET").required().asString(),
+  SIGHTENGINE_API_URL: get("SIGHTENGINE_API_URL").required().asString(),
+  MODERATE_IMAGE: get("MODERATE_IMAGE").default("false").asBool(),
 };

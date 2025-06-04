@@ -1,6 +1,8 @@
 import { v2 as cloudinary } from "cloudinary";
 import { envs } from "../../config/envs";
 import { prismaClient } from "../../data/prisma/init";
+import axios from "axios";
+import { CustomError } from "../../domain/errors/custom.error";
 
 cloudinary.config({
   cloud_name: envs.CLOUDINARY_NAME,
@@ -43,6 +45,22 @@ export class ImageService {
     for (const image of images) {
       if (this.isBase64Image(image.url)) {
         const uploadResult = await this.uploadToCloudinary(image.url);
+
+        //  MODERAR ANTES DE GUARDAR
+
+        if (envs.MODERATE_IMAGE) {
+          const { isSafe, details } = await this.moderateImage(
+            uploadResult.secure_url
+          );
+
+          if (!isSafe) {
+            await this.deleteFromCloudinary(uploadResult.public_id); //Borrar de cloudi
+            throw CustomError.badRequest(
+              "Una de las imágenes contiene contenido inapropiado. Por favor, intenta con otra."
+            );
+          }
+        }
+
         processedImages.push({
           url: uploadResult.secure_url,
           altText: image.altText,
@@ -150,5 +168,34 @@ export class ImageService {
       externalImagesBD,
       cloudinaryImages,
     };
+  }
+
+  public async moderateImage(imageUrl: string): Promise<any> {
+    try {
+      const { data } = await axios.get(envs.SIGHTENGINE_API_URL, {
+        params: {
+          url: imageUrl,
+          models: "nudity-2.1,gore-2.0",
+          api_user: envs.SIGHTENGINE_USER,
+          api_secret: envs.SIGHTENGINE_SECRET,
+        },
+      });
+
+      const isUnsafe = data.nudity?.raw > 0.6 || data.gore?.prob > 0.6; // ajusta el umbral según tus necesidades
+
+      return {
+        safe: !isUnsafe,
+        details: data,
+      };
+    } catch (error) {
+      console.error("Error moderating image:", error);
+      return false;
+    }
+  }
+
+  private async deleteFromCloudinary(publicId: string): Promise<void> {
+    await cloudinary.uploader.destroy(publicId, {
+      resource_type: "image",
+    });
   }
 }

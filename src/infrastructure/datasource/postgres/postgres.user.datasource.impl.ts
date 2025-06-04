@@ -29,7 +29,7 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
     try {
       const { id, email, emailValidated, image, name, password_hash, role } =
         user;
-      console.log(user);
+
       await prismaClient.user.create({
         data: {
           id,
