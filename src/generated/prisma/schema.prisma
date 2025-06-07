@@ -91,6 +91,7 @@ model NoteTag {
 model NoteImage {
   id         String   @id @default(uuid())
   url        String
+  public_id  String?
   alt_text   String?
   created_at DateTime @default(now())
   note       Note     @relation(fields: [note_id], references: [id], onDelete: Cascade)
