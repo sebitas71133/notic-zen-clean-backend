@@ -226,10 +226,6 @@ export class AuthController {
 
       const id = req.params["id"];
 
-      // if (!Uuid.isUUID(id) || !id) {
-      //   throw CustomError.badRequest("Invalid or missing user ID");
-      // }
-
       const updateUserDTO = UpdateUserDTO.createDTO(data);
 
       const user = await this.authService.updateUserById(id, updateUserDTO);

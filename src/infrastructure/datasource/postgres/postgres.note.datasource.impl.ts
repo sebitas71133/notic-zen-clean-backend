@@ -41,8 +41,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     }
   }
 
-  //throw new Error("xd");
-
   async saveNoteById(
     noteId: string,
     userId: string,
