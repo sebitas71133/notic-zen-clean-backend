@@ -66,6 +66,8 @@ model Note {
 
   tags   NoteTag[]
   images NoteImage[]
+
+  SubNote SubNote[]
 }
 
 model Tag {
@@ -74,7 +76,8 @@ model Tag {
   user    User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String?
 
-  notes NoteTag[]
+  notes      NoteTag[]
+  SubNoteTag SubNoteTag[]
 
   @@unique([name, user_id]) // cada usuario no puede repetir un tag con el mismo nombre
 }
@@ -96,4 +99,32 @@ model NoteImage {
   created_at DateTime @default(now())
   note       Note     @relation(fields: [note_id], references: [id], onDelete: Cascade)
   note_id    String
+}
+
+model SubNote {
+  id          String         @id @default(uuid())
+  title       String
+  description String?
+  note        Note           @relation(fields: [note_id], references: [id], onDelete: Cascade)
+  note_id     String
+  tags        SubNoteTag[]
+  images      SubNoteImage[]
+  created_at  DateTime       @default(now())
+  updated_at  DateTime       @updatedAt
+}
+
+model SubNoteTag {
+  subNote     SubNote @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
+  sub_note_id String
+  tag         Tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade)
+  tag_id      String
+
+  @@id([sub_note_id, tag_id])
+}
+
+model SubNoteImage {
+  id          String  @id @default(uuid())
+  url         String
+  subNote     SubNote @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
+  sub_note_id String
 }
