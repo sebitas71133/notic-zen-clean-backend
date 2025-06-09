@@ -101,27 +101,7 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
       throw CustomError.badRequest(error.detail ?? "Error al contar usuarios");
     }
   }
-  // public async findUserById(id: string): Promise<UserEntity | null> {
-  //   try {
-  //     const result = await pgPool.query("SELECT * FROM users WHERE id = $1", [
-  //       id,
-  //     ]);
 
-  //     const row = result.rows[0];
-  //     if (!row)
-  //       throw CustomError.notFound(`No user file found with id : ${id}`);
-
-  //     const role = await this.roleRepository.getRoleById(row.role_id);
-  //     if (!role) throw CustomError.notFound("Role not found");
-
-  //     return UserEntity.fromObject({
-  //       ...row,
-  //       role,
-  //     });
-  //   } catch (error: any) {
-  //     throw error;
-  //   }
-  // }
   public async findUserById(id: string): Promise<UserEntity | null> {
     try {
       const user = await prismaClient.user.findUnique({
@@ -148,29 +128,6 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
       throw error;
     }
   }
-
-  // public async findUserByEmail(email: string): Promise<UserEntity | null> {
-  //   try {
-  //     const result = await pgPool.query(
-  //       "SELECT * FROM users WHERE email = $1",
-  //       [email]
-  //     );
-
-  //     const row = result.rows[0];
-  //     if (!row)
-  //       throw CustomError.notFound(`No user file found with email : ${email}`);
-
-  //     const role = await this.roleRepository.getRoleById(row.role_id);
-  //     if (!role) throw CustomError.notFound("Role not found");
-
-  //     return UserEntity.fromObject({
-  //       ...row,
-  //       role,
-  //     });
-  //   } catch (error: any) {
-  //     throw error;
-  //   }
-  // }
 
   public async findUserByEmail(email: string): Promise<UserEntity | null> {
     try {

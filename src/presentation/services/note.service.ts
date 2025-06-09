@@ -157,9 +157,12 @@ export class NoteService {
     try {
       const note = await this.noteRepository.getNoteById(noteId, userId);
 
-      if (!note) throw CustomError.notFound(`Note not found by id: ${noteId}`);
+      if (!note)
+        throw CustomError.unauthorized(
+          `No tienes permisos para acceder a estas notas`
+        );
 
-      return note ?? null;
+      return note;
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error fetching note");

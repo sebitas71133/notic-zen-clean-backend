@@ -3,6 +3,7 @@ import { Router } from "express";
 import {
   authMiddleware,
   noteController,
+  subNoteController,
 } from "../../config/dependency.container";
 
 export class NoteRoutes {
@@ -46,6 +47,38 @@ export class NoteRoutes {
       [authMiddleware.validateJWT, authMiddleware.isAdmin],
       noteController.getAllImages
     );
+
+    // SUBNOTES
+
+    router.get(
+      "/:noteId/subnotes",
+      [authMiddleware.validateJWT],
+      subNoteController.getSubNotesByNoteId
+    );
+
+    router.post(
+      "/:noteId/subnotes",
+      [authMiddleware.validateJWT],
+      subNoteController.createSubNote
+    );
+
+    router.get(
+      "/:noteId/subnotes/:subNoteId",
+      [authMiddleware.validateJWT],
+      subNoteController.getSubNoteById
+    );
+
+    router.put(
+      "/:noteId/subnotes/:subNoteId",
+      [authMiddleware.validateJWT],
+      subNoteController.saveSubNoteById
+    );
+
+    // router.delete(
+    //   "/:noteId/subnotes/:subNoteId",
+    //   [authMiddleware.validateJWT],
+    //   subNoteController.deleteSubNote
+    // );
 
     return router;
   }

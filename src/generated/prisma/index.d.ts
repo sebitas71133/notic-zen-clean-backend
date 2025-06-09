@@ -48,6 +48,21 @@ export type NoteTag = $Result.DefaultSelection<Prisma.$NoteTagPayload>
  * 
  */
 export type NoteImage = $Result.DefaultSelection<Prisma.$NoteImagePayload>
+/**
+ * Model SubNote
+ * 
+ */
+export type SubNote = $Result.DefaultSelection<Prisma.$SubNotePayload>
+/**
+ * Model SubNoteTag
+ * 
+ */
+export type SubNoteTag = $Result.DefaultSelection<Prisma.$SubNoteTagPayload>
+/**
+ * Model SubNoteImage
+ * 
+ */
+export type SubNoteImage = $Result.DefaultSelection<Prisma.$SubNoteImagePayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -243,6 +258,36 @@ export class PrismaClient<
     * ```
     */
   get noteImage(): Prisma.NoteImageDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subNote`: Exposes CRUD operations for the **SubNote** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SubNotes
+    * const subNotes = await prisma.subNote.findMany()
+    * ```
+    */
+  get subNote(): Prisma.SubNoteDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subNoteTag`: Exposes CRUD operations for the **SubNoteTag** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SubNoteTags
+    * const subNoteTags = await prisma.subNoteTag.findMany()
+    * ```
+    */
+  get subNoteTag(): Prisma.SubNoteTagDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.subNoteImage`: Exposes CRUD operations for the **SubNoteImage** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more SubNoteImages
+    * const subNoteImages = await prisma.subNoteImage.findMany()
+    * ```
+    */
+  get subNoteImage(): Prisma.SubNoteImageDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -689,7 +734,10 @@ export namespace Prisma {
     Note: 'Note',
     Tag: 'Tag',
     NoteTag: 'NoteTag',
-    NoteImage: 'NoteImage'
+    NoteImage: 'NoteImage',
+    SubNote: 'SubNote',
+    SubNoteTag: 'SubNoteTag',
+    SubNoteImage: 'SubNoteImage'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -708,7 +756,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "role" | "user" | "category" | "note" | "tag" | "noteTag" | "noteImage"
+      modelProps: "role" | "user" | "category" | "note" | "tag" | "noteTag" | "noteImage" | "subNote" | "subNoteTag" | "subNoteImage"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1230,6 +1278,228 @@ export namespace Prisma {
           }
         }
       }
+      SubNote: {
+        payload: Prisma.$SubNotePayload<ExtArgs>
+        fields: Prisma.SubNoteFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubNoteFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubNoteFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          findFirst: {
+            args: Prisma.SubNoteFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubNoteFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          findMany: {
+            args: Prisma.SubNoteFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>[]
+          }
+          create: {
+            args: Prisma.SubNoteCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          createMany: {
+            args: Prisma.SubNoteCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubNoteCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>[]
+          }
+          delete: {
+            args: Prisma.SubNoteDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          update: {
+            args: Prisma.SubNoteUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          deleteMany: {
+            args: Prisma.SubNoteDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubNoteUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubNoteUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>[]
+          }
+          upsert: {
+            args: Prisma.SubNoteUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNotePayload>
+          }
+          aggregate: {
+            args: Prisma.SubNoteAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubNote>
+          }
+          groupBy: {
+            args: Prisma.SubNoteGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubNoteCountArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteCountAggregateOutputType> | number
+          }
+        }
+      }
+      SubNoteTag: {
+        payload: Prisma.$SubNoteTagPayload<ExtArgs>
+        fields: Prisma.SubNoteTagFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubNoteTagFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubNoteTagFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          findFirst: {
+            args: Prisma.SubNoteTagFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubNoteTagFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          findMany: {
+            args: Prisma.SubNoteTagFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>[]
+          }
+          create: {
+            args: Prisma.SubNoteTagCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          createMany: {
+            args: Prisma.SubNoteTagCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubNoteTagCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>[]
+          }
+          delete: {
+            args: Prisma.SubNoteTagDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          update: {
+            args: Prisma.SubNoteTagUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          deleteMany: {
+            args: Prisma.SubNoteTagDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubNoteTagUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubNoteTagUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>[]
+          }
+          upsert: {
+            args: Prisma.SubNoteTagUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteTagPayload>
+          }
+          aggregate: {
+            args: Prisma.SubNoteTagAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubNoteTag>
+          }
+          groupBy: {
+            args: Prisma.SubNoteTagGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteTagGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubNoteTagCountArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteTagCountAggregateOutputType> | number
+          }
+        }
+      }
+      SubNoteImage: {
+        payload: Prisma.$SubNoteImagePayload<ExtArgs>
+        fields: Prisma.SubNoteImageFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.SubNoteImageFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.SubNoteImageFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          findFirst: {
+            args: Prisma.SubNoteImageFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.SubNoteImageFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          findMany: {
+            args: Prisma.SubNoteImageFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>[]
+          }
+          create: {
+            args: Prisma.SubNoteImageCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          createMany: {
+            args: Prisma.SubNoteImageCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.SubNoteImageCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>[]
+          }
+          delete: {
+            args: Prisma.SubNoteImageDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          update: {
+            args: Prisma.SubNoteImageUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          deleteMany: {
+            args: Prisma.SubNoteImageDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.SubNoteImageUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.SubNoteImageUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>[]
+          }
+          upsert: {
+            args: Prisma.SubNoteImageUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$SubNoteImagePayload>
+          }
+          aggregate: {
+            args: Prisma.SubNoteImageAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateSubNoteImage>
+          }
+          groupBy: {
+            args: Prisma.SubNoteImageGroupByArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteImageGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.SubNoteImageCountArgs<ExtArgs>
+            result: $Utils.Optional<SubNoteImageCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1321,6 +1591,9 @@ export namespace Prisma {
     tag?: TagOmit
     noteTag?: NoteTagOmit
     noteImage?: NoteImageOmit
+    subNote?: SubNoteOmit
+    subNoteTag?: SubNoteTagOmit
+    subNoteImage?: SubNoteImageOmit
   }
 
   /* Types for Logging */
@@ -1528,11 +1801,13 @@ export namespace Prisma {
   export type NoteCountOutputType = {
     tags: number
     images: number
+    SubNote: number
   }
 
   export type NoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     tags?: boolean | NoteCountOutputTypeCountTagsArgs
     images?: boolean | NoteCountOutputTypeCountImagesArgs
+    SubNote?: boolean | NoteCountOutputTypeCountSubNoteArgs
   }
 
   // Custom InputTypes
@@ -1560,6 +1835,13 @@ export namespace Prisma {
     where?: NoteImageWhereInput
   }
 
+  /**
+   * NoteCountOutputType without action
+   */
+  export type NoteCountOutputTypeCountSubNoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteWhereInput
+  }
+
 
   /**
    * Count Type TagCountOutputType
@@ -1567,10 +1849,12 @@ export namespace Prisma {
 
   export type TagCountOutputType = {
     notes: number
+    SubNoteTag: number
   }
 
   export type TagCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notes?: boolean | TagCountOutputTypeCountNotesArgs
+    SubNoteTag?: boolean | TagCountOutputTypeCountSubNoteTagArgs
   }
 
   // Custom InputTypes
@@ -1589,6 +1873,53 @@ export namespace Prisma {
    */
   export type TagCountOutputTypeCountNotesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: NoteTagWhereInput
+  }
+
+  /**
+   * TagCountOutputType without action
+   */
+  export type TagCountOutputTypeCountSubNoteTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteTagWhereInput
+  }
+
+
+  /**
+   * Count Type SubNoteCountOutputType
+   */
+
+  export type SubNoteCountOutputType = {
+    tags: number
+    images: number
+  }
+
+  export type SubNoteCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    tags?: boolean | SubNoteCountOutputTypeCountTagsArgs
+    images?: boolean | SubNoteCountOutputTypeCountImagesArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * SubNoteCountOutputType without action
+   */
+  export type SubNoteCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteCountOutputType
+     */
+    select?: SubNoteCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * SubNoteCountOutputType without action
+   */
+  export type SubNoteCountOutputTypeCountTagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteTagWhereInput
+  }
+
+  /**
+   * SubNoteCountOutputType without action
+   */
+  export type SubNoteCountOutputTypeCountImagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteImageWhereInput
   }
 
 
@@ -5217,6 +5548,7 @@ export namespace Prisma {
     category?: boolean | Note$categoryArgs<ExtArgs>
     tags?: boolean | Note$tagsArgs<ExtArgs>
     images?: boolean | Note$imagesArgs<ExtArgs>
+    SubNote?: boolean | Note$SubNoteArgs<ExtArgs>
     _count?: boolean | NoteCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["note"]>
 
@@ -5266,6 +5598,7 @@ export namespace Prisma {
     category?: boolean | Note$categoryArgs<ExtArgs>
     tags?: boolean | Note$tagsArgs<ExtArgs>
     images?: boolean | Note$imagesArgs<ExtArgs>
+    SubNote?: boolean | Note$SubNoteArgs<ExtArgs>
     _count?: boolean | NoteCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type NoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5284,6 +5617,7 @@ export namespace Prisma {
       category: Prisma.$CategoryPayload<ExtArgs> | null
       tags: Prisma.$NoteTagPayload<ExtArgs>[]
       images: Prisma.$NoteImagePayload<ExtArgs>[]
+      SubNote: Prisma.$SubNotePayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -5693,6 +6027,7 @@ export namespace Prisma {
     category<T extends Note$categoryArgs<ExtArgs> = {}>(args?: Subset<T, Note$categoryArgs<ExtArgs>>): Prisma__CategoryClient<$Result.GetResult<Prisma.$CategoryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     tags<T extends Note$tagsArgs<ExtArgs> = {}>(args?: Subset<T, Note$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     images<T extends Note$imagesArgs<ExtArgs> = {}>(args?: Subset<T, Note$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    SubNote<T extends Note$SubNoteArgs<ExtArgs> = {}>(args?: Subset<T, Note$SubNoteArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -6194,6 +6529,30 @@ export namespace Prisma {
   }
 
   /**
+   * Note.SubNote
+   */
+  export type Note$SubNoteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    where?: SubNoteWhereInput
+    orderBy?: SubNoteOrderByWithRelationInput | SubNoteOrderByWithRelationInput[]
+    cursor?: SubNoteWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubNoteScalarFieldEnum | SubNoteScalarFieldEnum[]
+  }
+
+  /**
    * Note without action
    */
   export type NoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6362,6 +6721,7 @@ export namespace Prisma {
     user_id?: boolean
     user?: boolean | Tag$userArgs<ExtArgs>
     notes?: boolean | Tag$notesArgs<ExtArgs>
+    SubNoteTag?: boolean | Tag$SubNoteTagArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["tag"]>
 
@@ -6389,6 +6749,7 @@ export namespace Prisma {
   export type TagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Tag$userArgs<ExtArgs>
     notes?: boolean | Tag$notesArgs<ExtArgs>
+    SubNoteTag?: boolean | Tag$SubNoteTagArgs<ExtArgs>
     _count?: boolean | TagCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type TagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -6403,6 +6764,7 @@ export namespace Prisma {
     objects: {
       user: Prisma.$UserPayload<ExtArgs> | null
       notes: Prisma.$NoteTagPayload<ExtArgs>[]
+      SubNoteTag: Prisma.$SubNoteTagPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -6804,6 +7166,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     user<T extends Tag$userArgs<ExtArgs> = {}>(args?: Subset<T, Tag$userArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     notes<T extends Tag$notesArgs<ExtArgs> = {}>(args?: Subset<T, Tag$notesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$NoteTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    SubNoteTag<T extends Tag$SubNoteTagArgs<ExtArgs> = {}>(args?: Subset<T, Tag$SubNoteTagArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7272,6 +7635,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: NoteTagScalarFieldEnum | NoteTagScalarFieldEnum[]
+  }
+
+  /**
+   * Tag.SubNoteTag
+   */
+  export type Tag$SubNoteTagArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    where?: SubNoteTagWhereInput
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    cursor?: SubNoteTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubNoteTagScalarFieldEnum | SubNoteTagScalarFieldEnum[]
   }
 
   /**
@@ -9392,6 +9779,3233 @@ export namespace Prisma {
 
 
   /**
+   * Model SubNote
+   */
+
+  export type AggregateSubNote = {
+    _count: SubNoteCountAggregateOutputType | null
+    _min: SubNoteMinAggregateOutputType | null
+    _max: SubNoteMaxAggregateOutputType | null
+  }
+
+  export type SubNoteMinAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    note_id: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SubNoteMaxAggregateOutputType = {
+    id: string | null
+    title: string | null
+    description: string | null
+    note_id: string | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type SubNoteCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    note_id: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type SubNoteMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    note_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SubNoteMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    note_id?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type SubNoteCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    note_id?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type SubNoteAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNote to aggregate.
+     */
+    where?: SubNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNotes to fetch.
+     */
+    orderBy?: SubNoteOrderByWithRelationInput | SubNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SubNotes
+    **/
+    _count?: true | SubNoteCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubNoteMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubNoteMaxAggregateInputType
+  }
+
+  export type GetSubNoteAggregateType<T extends SubNoteAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubNote]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubNote[P]>
+      : GetScalarType<T[P], AggregateSubNote[P]>
+  }
+
+
+
+
+  export type SubNoteGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteWhereInput
+    orderBy?: SubNoteOrderByWithAggregationInput | SubNoteOrderByWithAggregationInput[]
+    by: SubNoteScalarFieldEnum[] | SubNoteScalarFieldEnum
+    having?: SubNoteScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubNoteCountAggregateInputType | true
+    _min?: SubNoteMinAggregateInputType
+    _max?: SubNoteMaxAggregateInputType
+  }
+
+  export type SubNoteGroupByOutputType = {
+    id: string
+    title: string
+    description: string | null
+    note_id: string
+    created_at: Date
+    updated_at: Date
+    _count: SubNoteCountAggregateOutputType | null
+    _min: SubNoteMinAggregateOutputType | null
+    _max: SubNoteMaxAggregateOutputType | null
+  }
+
+  type GetSubNoteGroupByPayload<T extends SubNoteGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubNoteGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubNoteGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubNoteGroupByOutputType[P]>
+            : GetScalarType<T[P], SubNoteGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubNoteSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    note_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+    tags?: boolean | SubNote$tagsArgs<ExtArgs>
+    images?: boolean | SubNote$imagesArgs<ExtArgs>
+    _count?: boolean | SubNoteCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNote"]>
+
+  export type SubNoteSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    note_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNote"]>
+
+  export type SubNoteSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    note_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNote"]>
+
+  export type SubNoteSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    note_id?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type SubNoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "note_id" | "created_at" | "updated_at", ExtArgs["result"]["subNote"]>
+  export type SubNoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+    tags?: boolean | SubNote$tagsArgs<ExtArgs>
+    images?: boolean | SubNote$imagesArgs<ExtArgs>
+    _count?: boolean | SubNoteCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type SubNoteIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+  }
+  export type SubNoteIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    note?: boolean | NoteDefaultArgs<ExtArgs>
+  }
+
+  export type $SubNotePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SubNote"
+    objects: {
+      note: Prisma.$NotePayload<ExtArgs>
+      tags: Prisma.$SubNoteTagPayload<ExtArgs>[]
+      images: Prisma.$SubNoteImagePayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      title: string
+      description: string | null
+      note_id: string
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["subNote"]>
+    composites: {}
+  }
+
+  type SubNoteGetPayload<S extends boolean | null | undefined | SubNoteDefaultArgs> = $Result.GetResult<Prisma.$SubNotePayload, S>
+
+  type SubNoteCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubNoteFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubNoteCountAggregateInputType | true
+    }
+
+  export interface SubNoteDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubNote'], meta: { name: 'SubNote' } }
+    /**
+     * Find zero or one SubNote that matches the filter.
+     * @param {SubNoteFindUniqueArgs} args - Arguments to find a SubNote
+     * @example
+     * // Get one SubNote
+     * const subNote = await prisma.subNote.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubNoteFindUniqueArgs>(args: SelectSubset<T, SubNoteFindUniqueArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SubNote that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubNoteFindUniqueOrThrowArgs} args - Arguments to find a SubNote
+     * @example
+     * // Get one SubNote
+     * const subNote = await prisma.subNote.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubNoteFindUniqueOrThrowArgs>(args: SelectSubset<T, SubNoteFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNote that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteFindFirstArgs} args - Arguments to find a SubNote
+     * @example
+     * // Get one SubNote
+     * const subNote = await prisma.subNote.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubNoteFindFirstArgs>(args?: SelectSubset<T, SubNoteFindFirstArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNote that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteFindFirstOrThrowArgs} args - Arguments to find a SubNote
+     * @example
+     * // Get one SubNote
+     * const subNote = await prisma.subNote.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubNoteFindFirstOrThrowArgs>(args?: SelectSubset<T, SubNoteFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SubNotes that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SubNotes
+     * const subNotes = await prisma.subNote.findMany()
+     * 
+     * // Get first 10 SubNotes
+     * const subNotes = await prisma.subNote.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subNoteWithIdOnly = await prisma.subNote.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubNoteFindManyArgs>(args?: SelectSubset<T, SubNoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SubNote.
+     * @param {SubNoteCreateArgs} args - Arguments to create a SubNote.
+     * @example
+     * // Create one SubNote
+     * const SubNote = await prisma.subNote.create({
+     *   data: {
+     *     // ... data to create a SubNote
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubNoteCreateArgs>(args: SelectSubset<T, SubNoteCreateArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SubNotes.
+     * @param {SubNoteCreateManyArgs} args - Arguments to create many SubNotes.
+     * @example
+     * // Create many SubNotes
+     * const subNote = await prisma.subNote.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubNoteCreateManyArgs>(args?: SelectSubset<T, SubNoteCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SubNotes and returns the data saved in the database.
+     * @param {SubNoteCreateManyAndReturnArgs} args - Arguments to create many SubNotes.
+     * @example
+     * // Create many SubNotes
+     * const subNote = await prisma.subNote.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SubNotes and only return the `id`
+     * const subNoteWithIdOnly = await prisma.subNote.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubNoteCreateManyAndReturnArgs>(args?: SelectSubset<T, SubNoteCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SubNote.
+     * @param {SubNoteDeleteArgs} args - Arguments to delete one SubNote.
+     * @example
+     * // Delete one SubNote
+     * const SubNote = await prisma.subNote.delete({
+     *   where: {
+     *     // ... filter to delete one SubNote
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubNoteDeleteArgs>(args: SelectSubset<T, SubNoteDeleteArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SubNote.
+     * @param {SubNoteUpdateArgs} args - Arguments to update one SubNote.
+     * @example
+     * // Update one SubNote
+     * const subNote = await prisma.subNote.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubNoteUpdateArgs>(args: SelectSubset<T, SubNoteUpdateArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SubNotes.
+     * @param {SubNoteDeleteManyArgs} args - Arguments to filter SubNotes to delete.
+     * @example
+     * // Delete a few SubNotes
+     * const { count } = await prisma.subNote.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubNoteDeleteManyArgs>(args?: SelectSubset<T, SubNoteDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SubNotes
+     * const subNote = await prisma.subNote.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubNoteUpdateManyArgs>(args: SelectSubset<T, SubNoteUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNotes and returns the data updated in the database.
+     * @param {SubNoteUpdateManyAndReturnArgs} args - Arguments to update many SubNotes.
+     * @example
+     * // Update many SubNotes
+     * const subNote = await prisma.subNote.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SubNotes and only return the `id`
+     * const subNoteWithIdOnly = await prisma.subNote.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubNoteUpdateManyAndReturnArgs>(args: SelectSubset<T, SubNoteUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SubNote.
+     * @param {SubNoteUpsertArgs} args - Arguments to update or create a SubNote.
+     * @example
+     * // Update or create a SubNote
+     * const subNote = await prisma.subNote.upsert({
+     *   create: {
+     *     // ... data to create a SubNote
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SubNote we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubNoteUpsertArgs>(args: SelectSubset<T, SubNoteUpsertArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SubNotes.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteCountArgs} args - Arguments to filter SubNotes to count.
+     * @example
+     * // Count the number of SubNotes
+     * const count = await prisma.subNote.count({
+     *   where: {
+     *     // ... the filter for the SubNotes we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubNoteCountArgs>(
+      args?: Subset<T, SubNoteCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubNoteCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SubNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubNoteAggregateArgs>(args: Subset<T, SubNoteAggregateArgs>): Prisma.PrismaPromise<GetSubNoteAggregateType<T>>
+
+    /**
+     * Group by SubNote.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubNoteGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubNoteGroupByArgs['orderBy'] }
+        : { orderBy?: SubNoteGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubNoteGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubNoteGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SubNote model
+   */
+  readonly fields: SubNoteFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SubNote.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubNoteClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    note<T extends NoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, NoteDefaultArgs<ExtArgs>>): Prisma__NoteClient<$Result.GetResult<Prisma.$NotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tags<T extends SubNote$tagsArgs<ExtArgs> = {}>(args?: Subset<T, SubNote$tagsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    images<T extends SubNote$imagesArgs<ExtArgs> = {}>(args?: Subset<T, SubNote$imagesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SubNote model
+   */
+  interface SubNoteFieldRefs {
+    readonly id: FieldRef<"SubNote", 'String'>
+    readonly title: FieldRef<"SubNote", 'String'>
+    readonly description: FieldRef<"SubNote", 'String'>
+    readonly note_id: FieldRef<"SubNote", 'String'>
+    readonly created_at: FieldRef<"SubNote", 'DateTime'>
+    readonly updated_at: FieldRef<"SubNote", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SubNote findUnique
+   */
+  export type SubNoteFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNote to fetch.
+     */
+    where: SubNoteWhereUniqueInput
+  }
+
+  /**
+   * SubNote findUniqueOrThrow
+   */
+  export type SubNoteFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNote to fetch.
+     */
+    where: SubNoteWhereUniqueInput
+  }
+
+  /**
+   * SubNote findFirst
+   */
+  export type SubNoteFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNote to fetch.
+     */
+    where?: SubNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNotes to fetch.
+     */
+    orderBy?: SubNoteOrderByWithRelationInput | SubNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNotes.
+     */
+    cursor?: SubNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNotes.
+     */
+    distinct?: SubNoteScalarFieldEnum | SubNoteScalarFieldEnum[]
+  }
+
+  /**
+   * SubNote findFirstOrThrow
+   */
+  export type SubNoteFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNote to fetch.
+     */
+    where?: SubNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNotes to fetch.
+     */
+    orderBy?: SubNoteOrderByWithRelationInput | SubNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNotes.
+     */
+    cursor?: SubNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNotes.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNotes.
+     */
+    distinct?: SubNoteScalarFieldEnum | SubNoteScalarFieldEnum[]
+  }
+
+  /**
+   * SubNote findMany
+   */
+  export type SubNoteFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNotes to fetch.
+     */
+    where?: SubNoteWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNotes to fetch.
+     */
+    orderBy?: SubNoteOrderByWithRelationInput | SubNoteOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SubNotes.
+     */
+    cursor?: SubNoteWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNotes from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNotes.
+     */
+    skip?: number
+    distinct?: SubNoteScalarFieldEnum | SubNoteScalarFieldEnum[]
+  }
+
+  /**
+   * SubNote create
+   */
+  export type SubNoteCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SubNote.
+     */
+    data: XOR<SubNoteCreateInput, SubNoteUncheckedCreateInput>
+  }
+
+  /**
+   * SubNote createMany
+   */
+  export type SubNoteCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SubNotes.
+     */
+    data: SubNoteCreateManyInput | SubNoteCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SubNote createManyAndReturn
+   */
+  export type SubNoteCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * The data used to create many SubNotes.
+     */
+    data: SubNoteCreateManyInput | SubNoteCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNote update
+   */
+  export type SubNoteUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SubNote.
+     */
+    data: XOR<SubNoteUpdateInput, SubNoteUncheckedUpdateInput>
+    /**
+     * Choose, which SubNote to update.
+     */
+    where: SubNoteWhereUniqueInput
+  }
+
+  /**
+   * SubNote updateMany
+   */
+  export type SubNoteUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SubNotes.
+     */
+    data: XOR<SubNoteUpdateManyMutationInput, SubNoteUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNotes to update
+     */
+    where?: SubNoteWhereInput
+    /**
+     * Limit how many SubNotes to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNote updateManyAndReturn
+   */
+  export type SubNoteUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * The data used to update SubNotes.
+     */
+    data: XOR<SubNoteUpdateManyMutationInput, SubNoteUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNotes to update
+     */
+    where?: SubNoteWhereInput
+    /**
+     * Limit how many SubNotes to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNote upsert
+   */
+  export type SubNoteUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SubNote to update in case it exists.
+     */
+    where: SubNoteWhereUniqueInput
+    /**
+     * In case the SubNote found by the `where` argument doesn't exist, create a new SubNote with this data.
+     */
+    create: XOR<SubNoteCreateInput, SubNoteUncheckedCreateInput>
+    /**
+     * In case the SubNote was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubNoteUpdateInput, SubNoteUncheckedUpdateInput>
+  }
+
+  /**
+   * SubNote delete
+   */
+  export type SubNoteDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+    /**
+     * Filter which SubNote to delete.
+     */
+    where: SubNoteWhereUniqueInput
+  }
+
+  /**
+   * SubNote deleteMany
+   */
+  export type SubNoteDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNotes to delete
+     */
+    where?: SubNoteWhereInput
+    /**
+     * Limit how many SubNotes to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNote.tags
+   */
+  export type SubNote$tagsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    where?: SubNoteTagWhereInput
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    cursor?: SubNoteTagWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubNoteTagScalarFieldEnum | SubNoteTagScalarFieldEnum[]
+  }
+
+  /**
+   * SubNote.images
+   */
+  export type SubNote$imagesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    where?: SubNoteImageWhereInput
+    orderBy?: SubNoteImageOrderByWithRelationInput | SubNoteImageOrderByWithRelationInput[]
+    cursor?: SubNoteImageWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: SubNoteImageScalarFieldEnum | SubNoteImageScalarFieldEnum[]
+  }
+
+  /**
+   * SubNote without action
+   */
+  export type SubNoteDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNote
+     */
+    select?: SubNoteSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNote
+     */
+    omit?: SubNoteOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SubNoteTag
+   */
+
+  export type AggregateSubNoteTag = {
+    _count: SubNoteTagCountAggregateOutputType | null
+    _min: SubNoteTagMinAggregateOutputType | null
+    _max: SubNoteTagMaxAggregateOutputType | null
+  }
+
+  export type SubNoteTagMinAggregateOutputType = {
+    sub_note_id: string | null
+    tag_id: string | null
+  }
+
+  export type SubNoteTagMaxAggregateOutputType = {
+    sub_note_id: string | null
+    tag_id: string | null
+  }
+
+  export type SubNoteTagCountAggregateOutputType = {
+    sub_note_id: number
+    tag_id: number
+    _all: number
+  }
+
+
+  export type SubNoteTagMinAggregateInputType = {
+    sub_note_id?: true
+    tag_id?: true
+  }
+
+  export type SubNoteTagMaxAggregateInputType = {
+    sub_note_id?: true
+    tag_id?: true
+  }
+
+  export type SubNoteTagCountAggregateInputType = {
+    sub_note_id?: true
+    tag_id?: true
+    _all?: true
+  }
+
+  export type SubNoteTagAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNoteTag to aggregate.
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteTags to fetch.
+     */
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubNoteTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SubNoteTags
+    **/
+    _count?: true | SubNoteTagCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubNoteTagMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubNoteTagMaxAggregateInputType
+  }
+
+  export type GetSubNoteTagAggregateType<T extends SubNoteTagAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubNoteTag]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubNoteTag[P]>
+      : GetScalarType<T[P], AggregateSubNoteTag[P]>
+  }
+
+
+
+
+  export type SubNoteTagGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteTagWhereInput
+    orderBy?: SubNoteTagOrderByWithAggregationInput | SubNoteTagOrderByWithAggregationInput[]
+    by: SubNoteTagScalarFieldEnum[] | SubNoteTagScalarFieldEnum
+    having?: SubNoteTagScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubNoteTagCountAggregateInputType | true
+    _min?: SubNoteTagMinAggregateInputType
+    _max?: SubNoteTagMaxAggregateInputType
+  }
+
+  export type SubNoteTagGroupByOutputType = {
+    sub_note_id: string
+    tag_id: string
+    _count: SubNoteTagCountAggregateOutputType | null
+    _min: SubNoteTagMinAggregateOutputType | null
+    _max: SubNoteTagMaxAggregateOutputType | null
+  }
+
+  type GetSubNoteTagGroupByPayload<T extends SubNoteTagGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubNoteTagGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubNoteTagGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubNoteTagGroupByOutputType[P]>
+            : GetScalarType<T[P], SubNoteTagGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubNoteTagSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sub_note_id?: boolean
+    tag_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteTag"]>
+
+  export type SubNoteTagSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sub_note_id?: boolean
+    tag_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteTag"]>
+
+  export type SubNoteTagSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    sub_note_id?: boolean
+    tag_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteTag"]>
+
+  export type SubNoteTagSelectScalar = {
+    sub_note_id?: boolean
+    tag_id?: boolean
+  }
+
+  export type SubNoteTagOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"sub_note_id" | "tag_id", ExtArgs["result"]["subNoteTag"]>
+  export type SubNoteTagInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type SubNoteTagIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+  export type SubNoteTagIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+    tag?: boolean | TagDefaultArgs<ExtArgs>
+  }
+
+  export type $SubNoteTagPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SubNoteTag"
+    objects: {
+      subNote: Prisma.$SubNotePayload<ExtArgs>
+      tag: Prisma.$TagPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      sub_note_id: string
+      tag_id: string
+    }, ExtArgs["result"]["subNoteTag"]>
+    composites: {}
+  }
+
+  type SubNoteTagGetPayload<S extends boolean | null | undefined | SubNoteTagDefaultArgs> = $Result.GetResult<Prisma.$SubNoteTagPayload, S>
+
+  type SubNoteTagCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubNoteTagFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubNoteTagCountAggregateInputType | true
+    }
+
+  export interface SubNoteTagDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubNoteTag'], meta: { name: 'SubNoteTag' } }
+    /**
+     * Find zero or one SubNoteTag that matches the filter.
+     * @param {SubNoteTagFindUniqueArgs} args - Arguments to find a SubNoteTag
+     * @example
+     * // Get one SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubNoteTagFindUniqueArgs>(args: SelectSubset<T, SubNoteTagFindUniqueArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SubNoteTag that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubNoteTagFindUniqueOrThrowArgs} args - Arguments to find a SubNoteTag
+     * @example
+     * // Get one SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubNoteTagFindUniqueOrThrowArgs>(args: SelectSubset<T, SubNoteTagFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNoteTag that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagFindFirstArgs} args - Arguments to find a SubNoteTag
+     * @example
+     * // Get one SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubNoteTagFindFirstArgs>(args?: SelectSubset<T, SubNoteTagFindFirstArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNoteTag that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagFindFirstOrThrowArgs} args - Arguments to find a SubNoteTag
+     * @example
+     * // Get one SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubNoteTagFindFirstOrThrowArgs>(args?: SelectSubset<T, SubNoteTagFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SubNoteTags that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SubNoteTags
+     * const subNoteTags = await prisma.subNoteTag.findMany()
+     * 
+     * // Get first 10 SubNoteTags
+     * const subNoteTags = await prisma.subNoteTag.findMany({ take: 10 })
+     * 
+     * // Only select the `sub_note_id`
+     * const subNoteTagWithSub_note_idOnly = await prisma.subNoteTag.findMany({ select: { sub_note_id: true } })
+     * 
+     */
+    findMany<T extends SubNoteTagFindManyArgs>(args?: SelectSubset<T, SubNoteTagFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SubNoteTag.
+     * @param {SubNoteTagCreateArgs} args - Arguments to create a SubNoteTag.
+     * @example
+     * // Create one SubNoteTag
+     * const SubNoteTag = await prisma.subNoteTag.create({
+     *   data: {
+     *     // ... data to create a SubNoteTag
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubNoteTagCreateArgs>(args: SelectSubset<T, SubNoteTagCreateArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SubNoteTags.
+     * @param {SubNoteTagCreateManyArgs} args - Arguments to create many SubNoteTags.
+     * @example
+     * // Create many SubNoteTags
+     * const subNoteTag = await prisma.subNoteTag.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubNoteTagCreateManyArgs>(args?: SelectSubset<T, SubNoteTagCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SubNoteTags and returns the data saved in the database.
+     * @param {SubNoteTagCreateManyAndReturnArgs} args - Arguments to create many SubNoteTags.
+     * @example
+     * // Create many SubNoteTags
+     * const subNoteTag = await prisma.subNoteTag.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SubNoteTags and only return the `sub_note_id`
+     * const subNoteTagWithSub_note_idOnly = await prisma.subNoteTag.createManyAndReturn({
+     *   select: { sub_note_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubNoteTagCreateManyAndReturnArgs>(args?: SelectSubset<T, SubNoteTagCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SubNoteTag.
+     * @param {SubNoteTagDeleteArgs} args - Arguments to delete one SubNoteTag.
+     * @example
+     * // Delete one SubNoteTag
+     * const SubNoteTag = await prisma.subNoteTag.delete({
+     *   where: {
+     *     // ... filter to delete one SubNoteTag
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubNoteTagDeleteArgs>(args: SelectSubset<T, SubNoteTagDeleteArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SubNoteTag.
+     * @param {SubNoteTagUpdateArgs} args - Arguments to update one SubNoteTag.
+     * @example
+     * // Update one SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubNoteTagUpdateArgs>(args: SelectSubset<T, SubNoteTagUpdateArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SubNoteTags.
+     * @param {SubNoteTagDeleteManyArgs} args - Arguments to filter SubNoteTags to delete.
+     * @example
+     * // Delete a few SubNoteTags
+     * const { count } = await prisma.subNoteTag.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubNoteTagDeleteManyArgs>(args?: SelectSubset<T, SubNoteTagDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNoteTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SubNoteTags
+     * const subNoteTag = await prisma.subNoteTag.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubNoteTagUpdateManyArgs>(args: SelectSubset<T, SubNoteTagUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNoteTags and returns the data updated in the database.
+     * @param {SubNoteTagUpdateManyAndReturnArgs} args - Arguments to update many SubNoteTags.
+     * @example
+     * // Update many SubNoteTags
+     * const subNoteTag = await prisma.subNoteTag.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SubNoteTags and only return the `sub_note_id`
+     * const subNoteTagWithSub_note_idOnly = await prisma.subNoteTag.updateManyAndReturn({
+     *   select: { sub_note_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubNoteTagUpdateManyAndReturnArgs>(args: SelectSubset<T, SubNoteTagUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SubNoteTag.
+     * @param {SubNoteTagUpsertArgs} args - Arguments to update or create a SubNoteTag.
+     * @example
+     * // Update or create a SubNoteTag
+     * const subNoteTag = await prisma.subNoteTag.upsert({
+     *   create: {
+     *     // ... data to create a SubNoteTag
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SubNoteTag we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubNoteTagUpsertArgs>(args: SelectSubset<T, SubNoteTagUpsertArgs<ExtArgs>>): Prisma__SubNoteTagClient<$Result.GetResult<Prisma.$SubNoteTagPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SubNoteTags.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagCountArgs} args - Arguments to filter SubNoteTags to count.
+     * @example
+     * // Count the number of SubNoteTags
+     * const count = await prisma.subNoteTag.count({
+     *   where: {
+     *     // ... the filter for the SubNoteTags we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubNoteTagCountArgs>(
+      args?: Subset<T, SubNoteTagCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubNoteTagCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SubNoteTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubNoteTagAggregateArgs>(args: Subset<T, SubNoteTagAggregateArgs>): Prisma.PrismaPromise<GetSubNoteTagAggregateType<T>>
+
+    /**
+     * Group by SubNoteTag.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteTagGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubNoteTagGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubNoteTagGroupByArgs['orderBy'] }
+        : { orderBy?: SubNoteTagGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubNoteTagGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubNoteTagGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SubNoteTag model
+   */
+  readonly fields: SubNoteTagFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SubNoteTag.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubNoteTagClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subNote<T extends SubNoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubNoteDefaultArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    tag<T extends TagDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TagDefaultArgs<ExtArgs>>): Prisma__TagClient<$Result.GetResult<Prisma.$TagPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SubNoteTag model
+   */
+  interface SubNoteTagFieldRefs {
+    readonly sub_note_id: FieldRef<"SubNoteTag", 'String'>
+    readonly tag_id: FieldRef<"SubNoteTag", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SubNoteTag findUnique
+   */
+  export type SubNoteTagFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteTag to fetch.
+     */
+    where: SubNoteTagWhereUniqueInput
+  }
+
+  /**
+   * SubNoteTag findUniqueOrThrow
+   */
+  export type SubNoteTagFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteTag to fetch.
+     */
+    where: SubNoteTagWhereUniqueInput
+  }
+
+  /**
+   * SubNoteTag findFirst
+   */
+  export type SubNoteTagFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteTag to fetch.
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteTags to fetch.
+     */
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNoteTags.
+     */
+    cursor?: SubNoteTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNoteTags.
+     */
+    distinct?: SubNoteTagScalarFieldEnum | SubNoteTagScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteTag findFirstOrThrow
+   */
+  export type SubNoteTagFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteTag to fetch.
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteTags to fetch.
+     */
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNoteTags.
+     */
+    cursor?: SubNoteTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteTags.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNoteTags.
+     */
+    distinct?: SubNoteTagScalarFieldEnum | SubNoteTagScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteTag findMany
+   */
+  export type SubNoteTagFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteTags to fetch.
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteTags to fetch.
+     */
+    orderBy?: SubNoteTagOrderByWithRelationInput | SubNoteTagOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SubNoteTags.
+     */
+    cursor?: SubNoteTagWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteTags from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteTags.
+     */
+    skip?: number
+    distinct?: SubNoteTagScalarFieldEnum | SubNoteTagScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteTag create
+   */
+  export type SubNoteTagCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SubNoteTag.
+     */
+    data: XOR<SubNoteTagCreateInput, SubNoteTagUncheckedCreateInput>
+  }
+
+  /**
+   * SubNoteTag createMany
+   */
+  export type SubNoteTagCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SubNoteTags.
+     */
+    data: SubNoteTagCreateManyInput | SubNoteTagCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SubNoteTag createManyAndReturn
+   */
+  export type SubNoteTagCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * The data used to create many SubNoteTags.
+     */
+    data: SubNoteTagCreateManyInput | SubNoteTagCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNoteTag update
+   */
+  export type SubNoteTagUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SubNoteTag.
+     */
+    data: XOR<SubNoteTagUpdateInput, SubNoteTagUncheckedUpdateInput>
+    /**
+     * Choose, which SubNoteTag to update.
+     */
+    where: SubNoteTagWhereUniqueInput
+  }
+
+  /**
+   * SubNoteTag updateMany
+   */
+  export type SubNoteTagUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SubNoteTags.
+     */
+    data: XOR<SubNoteTagUpdateManyMutationInput, SubNoteTagUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNoteTags to update
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * Limit how many SubNoteTags to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNoteTag updateManyAndReturn
+   */
+  export type SubNoteTagUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * The data used to update SubNoteTags.
+     */
+    data: XOR<SubNoteTagUpdateManyMutationInput, SubNoteTagUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNoteTags to update
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * Limit how many SubNoteTags to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNoteTag upsert
+   */
+  export type SubNoteTagUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SubNoteTag to update in case it exists.
+     */
+    where: SubNoteTagWhereUniqueInput
+    /**
+     * In case the SubNoteTag found by the `where` argument doesn't exist, create a new SubNoteTag with this data.
+     */
+    create: XOR<SubNoteTagCreateInput, SubNoteTagUncheckedCreateInput>
+    /**
+     * In case the SubNoteTag was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubNoteTagUpdateInput, SubNoteTagUncheckedUpdateInput>
+  }
+
+  /**
+   * SubNoteTag delete
+   */
+  export type SubNoteTagDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+    /**
+     * Filter which SubNoteTag to delete.
+     */
+    where: SubNoteTagWhereUniqueInput
+  }
+
+  /**
+   * SubNoteTag deleteMany
+   */
+  export type SubNoteTagDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNoteTags to delete
+     */
+    where?: SubNoteTagWhereInput
+    /**
+     * Limit how many SubNoteTags to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNoteTag without action
+   */
+  export type SubNoteTagDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteTag
+     */
+    select?: SubNoteTagSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteTag
+     */
+    omit?: SubNoteTagOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteTagInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model SubNoteImage
+   */
+
+  export type AggregateSubNoteImage = {
+    _count: SubNoteImageCountAggregateOutputType | null
+    _min: SubNoteImageMinAggregateOutputType | null
+    _max: SubNoteImageMaxAggregateOutputType | null
+  }
+
+  export type SubNoteImageMinAggregateOutputType = {
+    id: string | null
+    url: string | null
+    alt_text: string | null
+    sub_note_id: string | null
+    created_at: Date | null
+    public_id: string | null
+  }
+
+  export type SubNoteImageMaxAggregateOutputType = {
+    id: string | null
+    url: string | null
+    alt_text: string | null
+    sub_note_id: string | null
+    created_at: Date | null
+    public_id: string | null
+  }
+
+  export type SubNoteImageCountAggregateOutputType = {
+    id: number
+    url: number
+    alt_text: number
+    sub_note_id: number
+    created_at: number
+    public_id: number
+    _all: number
+  }
+
+
+  export type SubNoteImageMinAggregateInputType = {
+    id?: true
+    url?: true
+    alt_text?: true
+    sub_note_id?: true
+    created_at?: true
+    public_id?: true
+  }
+
+  export type SubNoteImageMaxAggregateInputType = {
+    id?: true
+    url?: true
+    alt_text?: true
+    sub_note_id?: true
+    created_at?: true
+    public_id?: true
+  }
+
+  export type SubNoteImageCountAggregateInputType = {
+    id?: true
+    url?: true
+    alt_text?: true
+    sub_note_id?: true
+    created_at?: true
+    public_id?: true
+    _all?: true
+  }
+
+  export type SubNoteImageAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNoteImage to aggregate.
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteImages to fetch.
+     */
+    orderBy?: SubNoteImageOrderByWithRelationInput | SubNoteImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: SubNoteImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned SubNoteImages
+    **/
+    _count?: true | SubNoteImageCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: SubNoteImageMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: SubNoteImageMaxAggregateInputType
+  }
+
+  export type GetSubNoteImageAggregateType<T extends SubNoteImageAggregateArgs> = {
+        [P in keyof T & keyof AggregateSubNoteImage]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateSubNoteImage[P]>
+      : GetScalarType<T[P], AggregateSubNoteImage[P]>
+  }
+
+
+
+
+  export type SubNoteImageGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: SubNoteImageWhereInput
+    orderBy?: SubNoteImageOrderByWithAggregationInput | SubNoteImageOrderByWithAggregationInput[]
+    by: SubNoteImageScalarFieldEnum[] | SubNoteImageScalarFieldEnum
+    having?: SubNoteImageScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: SubNoteImageCountAggregateInputType | true
+    _min?: SubNoteImageMinAggregateInputType
+    _max?: SubNoteImageMaxAggregateInputType
+  }
+
+  export type SubNoteImageGroupByOutputType = {
+    id: string
+    url: string
+    alt_text: string | null
+    sub_note_id: string
+    created_at: Date
+    public_id: string | null
+    _count: SubNoteImageCountAggregateOutputType | null
+    _min: SubNoteImageMinAggregateOutputType | null
+    _max: SubNoteImageMaxAggregateOutputType | null
+  }
+
+  type GetSubNoteImageGroupByPayload<T extends SubNoteImageGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<SubNoteImageGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof SubNoteImageGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], SubNoteImageGroupByOutputType[P]>
+            : GetScalarType<T[P], SubNoteImageGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type SubNoteImageSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    alt_text?: boolean
+    sub_note_id?: boolean
+    created_at?: boolean
+    public_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteImage"]>
+
+  export type SubNoteImageSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    alt_text?: boolean
+    sub_note_id?: boolean
+    created_at?: boolean
+    public_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteImage"]>
+
+  export type SubNoteImageSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    url?: boolean
+    alt_text?: boolean
+    sub_note_id?: boolean
+    created_at?: boolean
+    public_id?: boolean
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["subNoteImage"]>
+
+  export type SubNoteImageSelectScalar = {
+    id?: boolean
+    url?: boolean
+    alt_text?: boolean
+    sub_note_id?: boolean
+    created_at?: boolean
+    public_id?: boolean
+  }
+
+  export type SubNoteImageOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "url" | "alt_text" | "sub_note_id" | "created_at" | "public_id", ExtArgs["result"]["subNoteImage"]>
+  export type SubNoteImageInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }
+  export type SubNoteImageIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }
+  export type SubNoteImageIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    subNote?: boolean | SubNoteDefaultArgs<ExtArgs>
+  }
+
+  export type $SubNoteImagePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "SubNoteImage"
+    objects: {
+      subNote: Prisma.$SubNotePayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      url: string
+      alt_text: string | null
+      sub_note_id: string
+      created_at: Date
+      public_id: string | null
+    }, ExtArgs["result"]["subNoteImage"]>
+    composites: {}
+  }
+
+  type SubNoteImageGetPayload<S extends boolean | null | undefined | SubNoteImageDefaultArgs> = $Result.GetResult<Prisma.$SubNoteImagePayload, S>
+
+  type SubNoteImageCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<SubNoteImageFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: SubNoteImageCountAggregateInputType | true
+    }
+
+  export interface SubNoteImageDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['SubNoteImage'], meta: { name: 'SubNoteImage' } }
+    /**
+     * Find zero or one SubNoteImage that matches the filter.
+     * @param {SubNoteImageFindUniqueArgs} args - Arguments to find a SubNoteImage
+     * @example
+     * // Get one SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends SubNoteImageFindUniqueArgs>(args: SelectSubset<T, SubNoteImageFindUniqueArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one SubNoteImage that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {SubNoteImageFindUniqueOrThrowArgs} args - Arguments to find a SubNoteImage
+     * @example
+     * // Get one SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends SubNoteImageFindUniqueOrThrowArgs>(args: SelectSubset<T, SubNoteImageFindUniqueOrThrowArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNoteImage that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageFindFirstArgs} args - Arguments to find a SubNoteImage
+     * @example
+     * // Get one SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends SubNoteImageFindFirstArgs>(args?: SelectSubset<T, SubNoteImageFindFirstArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first SubNoteImage that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageFindFirstOrThrowArgs} args - Arguments to find a SubNoteImage
+     * @example
+     * // Get one SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends SubNoteImageFindFirstOrThrowArgs>(args?: SelectSubset<T, SubNoteImageFindFirstOrThrowArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more SubNoteImages that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all SubNoteImages
+     * const subNoteImages = await prisma.subNoteImage.findMany()
+     * 
+     * // Get first 10 SubNoteImages
+     * const subNoteImages = await prisma.subNoteImage.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const subNoteImageWithIdOnly = await prisma.subNoteImage.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends SubNoteImageFindManyArgs>(args?: SelectSubset<T, SubNoteImageFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a SubNoteImage.
+     * @param {SubNoteImageCreateArgs} args - Arguments to create a SubNoteImage.
+     * @example
+     * // Create one SubNoteImage
+     * const SubNoteImage = await prisma.subNoteImage.create({
+     *   data: {
+     *     // ... data to create a SubNoteImage
+     *   }
+     * })
+     * 
+     */
+    create<T extends SubNoteImageCreateArgs>(args: SelectSubset<T, SubNoteImageCreateArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many SubNoteImages.
+     * @param {SubNoteImageCreateManyArgs} args - Arguments to create many SubNoteImages.
+     * @example
+     * // Create many SubNoteImages
+     * const subNoteImage = await prisma.subNoteImage.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends SubNoteImageCreateManyArgs>(args?: SelectSubset<T, SubNoteImageCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many SubNoteImages and returns the data saved in the database.
+     * @param {SubNoteImageCreateManyAndReturnArgs} args - Arguments to create many SubNoteImages.
+     * @example
+     * // Create many SubNoteImages
+     * const subNoteImage = await prisma.subNoteImage.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many SubNoteImages and only return the `id`
+     * const subNoteImageWithIdOnly = await prisma.subNoteImage.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends SubNoteImageCreateManyAndReturnArgs>(args?: SelectSubset<T, SubNoteImageCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a SubNoteImage.
+     * @param {SubNoteImageDeleteArgs} args - Arguments to delete one SubNoteImage.
+     * @example
+     * // Delete one SubNoteImage
+     * const SubNoteImage = await prisma.subNoteImage.delete({
+     *   where: {
+     *     // ... filter to delete one SubNoteImage
+     *   }
+     * })
+     * 
+     */
+    delete<T extends SubNoteImageDeleteArgs>(args: SelectSubset<T, SubNoteImageDeleteArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one SubNoteImage.
+     * @param {SubNoteImageUpdateArgs} args - Arguments to update one SubNoteImage.
+     * @example
+     * // Update one SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends SubNoteImageUpdateArgs>(args: SelectSubset<T, SubNoteImageUpdateArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more SubNoteImages.
+     * @param {SubNoteImageDeleteManyArgs} args - Arguments to filter SubNoteImages to delete.
+     * @example
+     * // Delete a few SubNoteImages
+     * const { count } = await prisma.subNoteImage.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends SubNoteImageDeleteManyArgs>(args?: SelectSubset<T, SubNoteImageDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNoteImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many SubNoteImages
+     * const subNoteImage = await prisma.subNoteImage.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends SubNoteImageUpdateManyArgs>(args: SelectSubset<T, SubNoteImageUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more SubNoteImages and returns the data updated in the database.
+     * @param {SubNoteImageUpdateManyAndReturnArgs} args - Arguments to update many SubNoteImages.
+     * @example
+     * // Update many SubNoteImages
+     * const subNoteImage = await prisma.subNoteImage.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more SubNoteImages and only return the `id`
+     * const subNoteImageWithIdOnly = await prisma.subNoteImage.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends SubNoteImageUpdateManyAndReturnArgs>(args: SelectSubset<T, SubNoteImageUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one SubNoteImage.
+     * @param {SubNoteImageUpsertArgs} args - Arguments to update or create a SubNoteImage.
+     * @example
+     * // Update or create a SubNoteImage
+     * const subNoteImage = await prisma.subNoteImage.upsert({
+     *   create: {
+     *     // ... data to create a SubNoteImage
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the SubNoteImage we want to update
+     *   }
+     * })
+     */
+    upsert<T extends SubNoteImageUpsertArgs>(args: SelectSubset<T, SubNoteImageUpsertArgs<ExtArgs>>): Prisma__SubNoteImageClient<$Result.GetResult<Prisma.$SubNoteImagePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of SubNoteImages.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageCountArgs} args - Arguments to filter SubNoteImages to count.
+     * @example
+     * // Count the number of SubNoteImages
+     * const count = await prisma.subNoteImage.count({
+     *   where: {
+     *     // ... the filter for the SubNoteImages we want to count
+     *   }
+     * })
+    **/
+    count<T extends SubNoteImageCountArgs>(
+      args?: Subset<T, SubNoteImageCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], SubNoteImageCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a SubNoteImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends SubNoteImageAggregateArgs>(args: Subset<T, SubNoteImageAggregateArgs>): Prisma.PrismaPromise<GetSubNoteImageAggregateType<T>>
+
+    /**
+     * Group by SubNoteImage.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {SubNoteImageGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends SubNoteImageGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: SubNoteImageGroupByArgs['orderBy'] }
+        : { orderBy?: SubNoteImageGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, SubNoteImageGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetSubNoteImageGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the SubNoteImage model
+   */
+  readonly fields: SubNoteImageFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for SubNoteImage.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__SubNoteImageClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    subNote<T extends SubNoteDefaultArgs<ExtArgs> = {}>(args?: Subset<T, SubNoteDefaultArgs<ExtArgs>>): Prisma__SubNoteClient<$Result.GetResult<Prisma.$SubNotePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the SubNoteImage model
+   */
+  interface SubNoteImageFieldRefs {
+    readonly id: FieldRef<"SubNoteImage", 'String'>
+    readonly url: FieldRef<"SubNoteImage", 'String'>
+    readonly alt_text: FieldRef<"SubNoteImage", 'String'>
+    readonly sub_note_id: FieldRef<"SubNoteImage", 'String'>
+    readonly created_at: FieldRef<"SubNoteImage", 'DateTime'>
+    readonly public_id: FieldRef<"SubNoteImage", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * SubNoteImage findUnique
+   */
+  export type SubNoteImageFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteImage to fetch.
+     */
+    where: SubNoteImageWhereUniqueInput
+  }
+
+  /**
+   * SubNoteImage findUniqueOrThrow
+   */
+  export type SubNoteImageFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteImage to fetch.
+     */
+    where: SubNoteImageWhereUniqueInput
+  }
+
+  /**
+   * SubNoteImage findFirst
+   */
+  export type SubNoteImageFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteImage to fetch.
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteImages to fetch.
+     */
+    orderBy?: SubNoteImageOrderByWithRelationInput | SubNoteImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNoteImages.
+     */
+    cursor?: SubNoteImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNoteImages.
+     */
+    distinct?: SubNoteImageScalarFieldEnum | SubNoteImageScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteImage findFirstOrThrow
+   */
+  export type SubNoteImageFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteImage to fetch.
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteImages to fetch.
+     */
+    orderBy?: SubNoteImageOrderByWithRelationInput | SubNoteImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for SubNoteImages.
+     */
+    cursor?: SubNoteImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteImages.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of SubNoteImages.
+     */
+    distinct?: SubNoteImageScalarFieldEnum | SubNoteImageScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteImage findMany
+   */
+  export type SubNoteImageFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter, which SubNoteImages to fetch.
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of SubNoteImages to fetch.
+     */
+    orderBy?: SubNoteImageOrderByWithRelationInput | SubNoteImageOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing SubNoteImages.
+     */
+    cursor?: SubNoteImageWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` SubNoteImages from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` SubNoteImages.
+     */
+    skip?: number
+    distinct?: SubNoteImageScalarFieldEnum | SubNoteImageScalarFieldEnum[]
+  }
+
+  /**
+   * SubNoteImage create
+   */
+  export type SubNoteImageCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * The data needed to create a SubNoteImage.
+     */
+    data: XOR<SubNoteImageCreateInput, SubNoteImageUncheckedCreateInput>
+  }
+
+  /**
+   * SubNoteImage createMany
+   */
+  export type SubNoteImageCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many SubNoteImages.
+     */
+    data: SubNoteImageCreateManyInput | SubNoteImageCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * SubNoteImage createManyAndReturn
+   */
+  export type SubNoteImageCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * The data used to create many SubNoteImages.
+     */
+    data: SubNoteImageCreateManyInput | SubNoteImageCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNoteImage update
+   */
+  export type SubNoteImageUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * The data needed to update a SubNoteImage.
+     */
+    data: XOR<SubNoteImageUpdateInput, SubNoteImageUncheckedUpdateInput>
+    /**
+     * Choose, which SubNoteImage to update.
+     */
+    where: SubNoteImageWhereUniqueInput
+  }
+
+  /**
+   * SubNoteImage updateMany
+   */
+  export type SubNoteImageUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update SubNoteImages.
+     */
+    data: XOR<SubNoteImageUpdateManyMutationInput, SubNoteImageUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNoteImages to update
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * Limit how many SubNoteImages to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNoteImage updateManyAndReturn
+   */
+  export type SubNoteImageUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * The data used to update SubNoteImages.
+     */
+    data: XOR<SubNoteImageUpdateManyMutationInput, SubNoteImageUncheckedUpdateManyInput>
+    /**
+     * Filter which SubNoteImages to update
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * Limit how many SubNoteImages to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * SubNoteImage upsert
+   */
+  export type SubNoteImageUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * The filter to search for the SubNoteImage to update in case it exists.
+     */
+    where: SubNoteImageWhereUniqueInput
+    /**
+     * In case the SubNoteImage found by the `where` argument doesn't exist, create a new SubNoteImage with this data.
+     */
+    create: XOR<SubNoteImageCreateInput, SubNoteImageUncheckedCreateInput>
+    /**
+     * In case the SubNoteImage was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<SubNoteImageUpdateInput, SubNoteImageUncheckedUpdateInput>
+  }
+
+  /**
+   * SubNoteImage delete
+   */
+  export type SubNoteImageDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+    /**
+     * Filter which SubNoteImage to delete.
+     */
+    where: SubNoteImageWhereUniqueInput
+  }
+
+  /**
+   * SubNoteImage deleteMany
+   */
+  export type SubNoteImageDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which SubNoteImages to delete
+     */
+    where?: SubNoteImageWhereInput
+    /**
+     * Limit how many SubNoteImages to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * SubNoteImage without action
+   */
+  export type SubNoteImageDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the SubNoteImage
+     */
+    select?: SubNoteImageSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the SubNoteImage
+     */
+    omit?: SubNoteImageOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: SubNoteImageInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -9481,6 +13095,38 @@ export namespace Prisma {
   };
 
   export type NoteImageScalarFieldEnum = (typeof NoteImageScalarFieldEnum)[keyof typeof NoteImageScalarFieldEnum]
+
+
+  export const SubNoteScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    note_id: 'note_id',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type SubNoteScalarFieldEnum = (typeof SubNoteScalarFieldEnum)[keyof typeof SubNoteScalarFieldEnum]
+
+
+  export const SubNoteTagScalarFieldEnum: {
+    sub_note_id: 'sub_note_id',
+    tag_id: 'tag_id'
+  };
+
+  export type SubNoteTagScalarFieldEnum = (typeof SubNoteTagScalarFieldEnum)[keyof typeof SubNoteTagScalarFieldEnum]
+
+
+  export const SubNoteImageScalarFieldEnum: {
+    id: 'id',
+    url: 'url',
+    alt_text: 'alt_text',
+    sub_note_id: 'sub_note_id',
+    created_at: 'created_at',
+    public_id: 'public_id'
+  };
+
+  export type SubNoteImageScalarFieldEnum = (typeof SubNoteImageScalarFieldEnum)[keyof typeof SubNoteImageScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -9782,6 +13428,7 @@ export namespace Prisma {
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     tags?: NoteTagListRelationFilter
     images?: NoteImageListRelationFilter
+    SubNote?: SubNoteListRelationFilter
   }
 
   export type NoteOrderByWithRelationInput = {
@@ -9798,10 +13445,12 @@ export namespace Prisma {
     category?: CategoryOrderByWithRelationInput
     tags?: NoteTagOrderByRelationAggregateInput
     images?: NoteImageOrderByRelationAggregateInput
+    SubNote?: SubNoteOrderByRelationAggregateInput
   }
 
   export type NoteWhereUniqueInput = Prisma.AtLeast<{
     id?: string
+    title_user_id?: NoteTitleUser_idCompoundUniqueInput
     AND?: NoteWhereInput | NoteWhereInput[]
     OR?: NoteWhereInput[]
     NOT?: NoteWhereInput | NoteWhereInput[]
@@ -9817,7 +13466,8 @@ export namespace Prisma {
     category?: XOR<CategoryNullableScalarRelationFilter, CategoryWhereInput> | null
     tags?: NoteTagListRelationFilter
     images?: NoteImageListRelationFilter
-  }, "id">
+    SubNote?: SubNoteListRelationFilter
+  }, "id" | "title_user_id">
 
   export type NoteOrderByWithAggregationInput = {
     id?: SortOrder
@@ -9858,6 +13508,7 @@ export namespace Prisma {
     user_id?: StringNullableFilter<"Tag"> | string | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     notes?: NoteTagListRelationFilter
+    SubNoteTag?: SubNoteTagListRelationFilter
   }
 
   export type TagOrderByWithRelationInput = {
@@ -9866,6 +13517,7 @@ export namespace Prisma {
     user_id?: SortOrderInput | SortOrder
     user?: UserOrderByWithRelationInput
     notes?: NoteTagOrderByRelationAggregateInput
+    SubNoteTag?: SubNoteTagOrderByRelationAggregateInput
   }
 
   export type TagWhereUniqueInput = Prisma.AtLeast<{
@@ -9878,6 +13530,7 @@ export namespace Prisma {
     user_id?: StringNullableFilter<"Tag"> | string | null
     user?: XOR<UserNullableScalarRelationFilter, UserWhereInput> | null
     notes?: NoteTagListRelationFilter
+    SubNoteTag?: SubNoteTagListRelationFilter
   }, "id" | "name_user_id">
 
   export type TagOrderByWithAggregationInput = {
@@ -10000,6 +13653,177 @@ export namespace Prisma {
     alt_text?: StringNullableWithAggregatesFilter<"NoteImage"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"NoteImage"> | Date | string
     note_id?: StringWithAggregatesFilter<"NoteImage"> | string
+  }
+
+  export type SubNoteWhereInput = {
+    AND?: SubNoteWhereInput | SubNoteWhereInput[]
+    OR?: SubNoteWhereInput[]
+    NOT?: SubNoteWhereInput | SubNoteWhereInput[]
+    id?: StringFilter<"SubNote"> | string
+    title?: StringFilter<"SubNote"> | string
+    description?: StringNullableFilter<"SubNote"> | string | null
+    note_id?: StringFilter<"SubNote"> | string
+    created_at?: DateTimeFilter<"SubNote"> | Date | string
+    updated_at?: DateTimeFilter<"SubNote"> | Date | string
+    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
+    tags?: SubNoteTagListRelationFilter
+    images?: SubNoteImageListRelationFilter
+  }
+
+  export type SubNoteOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    note_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    note?: NoteOrderByWithRelationInput
+    tags?: SubNoteTagOrderByRelationAggregateInput
+    images?: SubNoteImageOrderByRelationAggregateInput
+  }
+
+  export type SubNoteWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    title_note_id?: SubNoteTitleNote_idCompoundUniqueInput
+    AND?: SubNoteWhereInput | SubNoteWhereInput[]
+    OR?: SubNoteWhereInput[]
+    NOT?: SubNoteWhereInput | SubNoteWhereInput[]
+    title?: StringFilter<"SubNote"> | string
+    description?: StringNullableFilter<"SubNote"> | string | null
+    note_id?: StringFilter<"SubNote"> | string
+    created_at?: DateTimeFilter<"SubNote"> | Date | string
+    updated_at?: DateTimeFilter<"SubNote"> | Date | string
+    note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
+    tags?: SubNoteTagListRelationFilter
+    images?: SubNoteImageListRelationFilter
+  }, "id" | "title_note_id">
+
+  export type SubNoteOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrderInput | SortOrder
+    note_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: SubNoteCountOrderByAggregateInput
+    _max?: SubNoteMaxOrderByAggregateInput
+    _min?: SubNoteMinOrderByAggregateInput
+  }
+
+  export type SubNoteScalarWhereWithAggregatesInput = {
+    AND?: SubNoteScalarWhereWithAggregatesInput | SubNoteScalarWhereWithAggregatesInput[]
+    OR?: SubNoteScalarWhereWithAggregatesInput[]
+    NOT?: SubNoteScalarWhereWithAggregatesInput | SubNoteScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SubNote"> | string
+    title?: StringWithAggregatesFilter<"SubNote"> | string
+    description?: StringNullableWithAggregatesFilter<"SubNote"> | string | null
+    note_id?: StringWithAggregatesFilter<"SubNote"> | string
+    created_at?: DateTimeWithAggregatesFilter<"SubNote"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"SubNote"> | Date | string
+  }
+
+  export type SubNoteTagWhereInput = {
+    AND?: SubNoteTagWhereInput | SubNoteTagWhereInput[]
+    OR?: SubNoteTagWhereInput[]
+    NOT?: SubNoteTagWhereInput | SubNoteTagWhereInput[]
+    sub_note_id?: StringFilter<"SubNoteTag"> | string
+    tag_id?: StringFilter<"SubNoteTag"> | string
+    subNote?: XOR<SubNoteScalarRelationFilter, SubNoteWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }
+
+  export type SubNoteTagOrderByWithRelationInput = {
+    sub_note_id?: SortOrder
+    tag_id?: SortOrder
+    subNote?: SubNoteOrderByWithRelationInput
+    tag?: TagOrderByWithRelationInput
+  }
+
+  export type SubNoteTagWhereUniqueInput = Prisma.AtLeast<{
+    sub_note_id_tag_id?: SubNoteTagSub_note_idTag_idCompoundUniqueInput
+    AND?: SubNoteTagWhereInput | SubNoteTagWhereInput[]
+    OR?: SubNoteTagWhereInput[]
+    NOT?: SubNoteTagWhereInput | SubNoteTagWhereInput[]
+    sub_note_id?: StringFilter<"SubNoteTag"> | string
+    tag_id?: StringFilter<"SubNoteTag"> | string
+    subNote?: XOR<SubNoteScalarRelationFilter, SubNoteWhereInput>
+    tag?: XOR<TagScalarRelationFilter, TagWhereInput>
+  }, "sub_note_id_tag_id">
+
+  export type SubNoteTagOrderByWithAggregationInput = {
+    sub_note_id?: SortOrder
+    tag_id?: SortOrder
+    _count?: SubNoteTagCountOrderByAggregateInput
+    _max?: SubNoteTagMaxOrderByAggregateInput
+    _min?: SubNoteTagMinOrderByAggregateInput
+  }
+
+  export type SubNoteTagScalarWhereWithAggregatesInput = {
+    AND?: SubNoteTagScalarWhereWithAggregatesInput | SubNoteTagScalarWhereWithAggregatesInput[]
+    OR?: SubNoteTagScalarWhereWithAggregatesInput[]
+    NOT?: SubNoteTagScalarWhereWithAggregatesInput | SubNoteTagScalarWhereWithAggregatesInput[]
+    sub_note_id?: StringWithAggregatesFilter<"SubNoteTag"> | string
+    tag_id?: StringWithAggregatesFilter<"SubNoteTag"> | string
+  }
+
+  export type SubNoteImageWhereInput = {
+    AND?: SubNoteImageWhereInput | SubNoteImageWhereInput[]
+    OR?: SubNoteImageWhereInput[]
+    NOT?: SubNoteImageWhereInput | SubNoteImageWhereInput[]
+    id?: StringFilter<"SubNoteImage"> | string
+    url?: StringFilter<"SubNoteImage"> | string
+    alt_text?: StringNullableFilter<"SubNoteImage"> | string | null
+    sub_note_id?: StringFilter<"SubNoteImage"> | string
+    created_at?: DateTimeFilter<"SubNoteImage"> | Date | string
+    public_id?: StringNullableFilter<"SubNoteImage"> | string | null
+    subNote?: XOR<SubNoteScalarRelationFilter, SubNoteWhereInput>
+  }
+
+  export type SubNoteImageOrderByWithRelationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    alt_text?: SortOrderInput | SortOrder
+    sub_note_id?: SortOrder
+    created_at?: SortOrder
+    public_id?: SortOrderInput | SortOrder
+    subNote?: SubNoteOrderByWithRelationInput
+  }
+
+  export type SubNoteImageWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: SubNoteImageWhereInput | SubNoteImageWhereInput[]
+    OR?: SubNoteImageWhereInput[]
+    NOT?: SubNoteImageWhereInput | SubNoteImageWhereInput[]
+    url?: StringFilter<"SubNoteImage"> | string
+    alt_text?: StringNullableFilter<"SubNoteImage"> | string | null
+    sub_note_id?: StringFilter<"SubNoteImage"> | string
+    created_at?: DateTimeFilter<"SubNoteImage"> | Date | string
+    public_id?: StringNullableFilter<"SubNoteImage"> | string | null
+    subNote?: XOR<SubNoteScalarRelationFilter, SubNoteWhereInput>
+  }, "id">
+
+  export type SubNoteImageOrderByWithAggregationInput = {
+    id?: SortOrder
+    url?: SortOrder
+    alt_text?: SortOrderInput | SortOrder
+    sub_note_id?: SortOrder
+    created_at?: SortOrder
+    public_id?: SortOrderInput | SortOrder
+    _count?: SubNoteImageCountOrderByAggregateInput
+    _max?: SubNoteImageMaxOrderByAggregateInput
+    _min?: SubNoteImageMinOrderByAggregateInput
+  }
+
+  export type SubNoteImageScalarWhereWithAggregatesInput = {
+    AND?: SubNoteImageScalarWhereWithAggregatesInput | SubNoteImageScalarWhereWithAggregatesInput[]
+    OR?: SubNoteImageScalarWhereWithAggregatesInput[]
+    NOT?: SubNoteImageScalarWhereWithAggregatesInput | SubNoteImageScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"SubNoteImage"> | string
+    url?: StringWithAggregatesFilter<"SubNoteImage"> | string
+    alt_text?: StringNullableWithAggregatesFilter<"SubNoteImage"> | string | null
+    sub_note_id?: StringWithAggregatesFilter<"SubNoteImage"> | string
+    created_at?: DateTimeWithAggregatesFilter<"SubNoteImage"> | Date | string
+    public_id?: StringNullableWithAggregatesFilter<"SubNoteImage"> | string | null
   }
 
   export type RoleCreateInput = {
@@ -10204,6 +14028,7 @@ export namespace Prisma {
     category?: CategoryCreateNestedOneWithoutNotesInput
     tags?: NoteTagCreateNestedManyWithoutNoteInput
     images?: NoteImageCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUncheckedCreateInput = {
@@ -10218,6 +14043,7 @@ export namespace Prisma {
     category_id?: string | null
     tags?: NoteTagUncheckedCreateNestedManyWithoutNoteInput
     images?: NoteImageUncheckedCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteUncheckedCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUpdateInput = {
@@ -10232,6 +14058,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneWithoutNotesNestedInput
     tags?: NoteTagUpdateManyWithoutNoteNestedInput
     images?: NoteImageUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateInput = {
@@ -10246,6 +14073,7 @@ export namespace Prisma {
     category_id?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: NoteTagUncheckedUpdateManyWithoutNoteNestedInput
     images?: NoteImageUncheckedUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUncheckedUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteCreateManyInput = {
@@ -10287,6 +14115,7 @@ export namespace Prisma {
     name: string
     user?: UserCreateNestedOneWithoutTagsInput
     notes?: NoteTagCreateNestedManyWithoutTagInput
+    SubNoteTag?: SubNoteTagCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateInput = {
@@ -10294,6 +14123,7 @@ export namespace Prisma {
     name: string
     user_id?: string | null
     notes?: NoteTagUncheckedCreateNestedManyWithoutTagInput
+    SubNoteTag?: SubNoteTagUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagUpdateInput = {
@@ -10301,6 +14131,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutTagsNestedInput
     notes?: NoteTagUpdateManyWithoutTagNestedInput
+    SubNoteTag?: SubNoteTagUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateInput = {
@@ -10308,6 +14139,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     notes?: NoteTagUncheckedUpdateManyWithoutTagNestedInput
+    SubNoteTag?: SubNoteTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type TagCreateManyInput = {
@@ -10421,6 +14253,172 @@ export namespace Prisma {
     alt_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     note_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    note: NoteCreateNestedOneWithoutSubNoteInput
+    tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
+    images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteUncheckedCreateInput = {
+    id?: string
+    title: string
+    description?: string | null
+    note_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
+    images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
+    tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
+    images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
+    images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteCreateManyInput = {
+    id?: string
+    title: string
+    description?: string | null
+    note_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type SubNoteUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubNoteUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type SubNoteTagCreateInput = {
+    subNote: SubNoteCreateNestedOneWithoutTagsInput
+    tag: TagCreateNestedOneWithoutSubNoteTagInput
+  }
+
+  export type SubNoteTagUncheckedCreateInput = {
+    sub_note_id: string
+    tag_id: string
+  }
+
+  export type SubNoteTagUpdateInput = {
+    subNote?: SubNoteUpdateOneRequiredWithoutTagsNestedInput
+    tag?: TagUpdateOneRequiredWithoutSubNoteTagNestedInput
+  }
+
+  export type SubNoteTagUncheckedUpdateInput = {
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+    tag_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteTagCreateManyInput = {
+    sub_note_id: string
+    tag_id: string
+  }
+
+  export type SubNoteTagUpdateManyMutationInput = {
+
+  }
+
+  export type SubNoteTagUncheckedUpdateManyInput = {
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+    tag_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteImageCreateInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    created_at?: Date | string
+    public_id?: string | null
+    subNote: SubNoteCreateNestedOneWithoutImagesInput
+  }
+
+  export type SubNoteImageUncheckedCreateInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    sub_note_id: string
+    created_at?: Date | string
+    public_id?: string | null
+  }
+
+  export type SubNoteImageUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+    subNote?: SubNoteUpdateOneRequiredWithoutImagesNestedInput
+  }
+
+  export type SubNoteImageUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubNoteImageCreateManyInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    sub_note_id: string
+    created_at?: Date | string
+    public_id?: string | null
+  }
+
+  export type SubNoteImageUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubNoteImageUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -10754,12 +14752,27 @@ export namespace Prisma {
     none?: NoteImageWhereInput
   }
 
+  export type SubNoteListRelationFilter = {
+    every?: SubNoteWhereInput
+    some?: SubNoteWhereInput
+    none?: SubNoteWhereInput
+  }
+
   export type NoteTagOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
   export type NoteImageOrderByRelationAggregateInput = {
     _count?: SortOrder
+  }
+
+  export type SubNoteOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type NoteTitleUser_idCompoundUniqueInput = {
+    title: string
+    user_id: string
   }
 
   export type NoteCountOrderByAggregateInput = {
@@ -10796,6 +14809,16 @@ export namespace Prisma {
     updated_at?: SortOrder
     user_id?: SortOrder
     category_id?: SortOrder
+  }
+
+  export type SubNoteTagListRelationFilter = {
+    every?: SubNoteTagWhereInput
+    some?: SubNoteTagWhereInput
+    none?: SubNoteTagWhereInput
+  }
+
+  export type SubNoteTagOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type TagNameUser_idCompoundUniqueInput = {
@@ -10876,6 +14899,100 @@ export namespace Prisma {
     alt_text?: SortOrder
     created_at?: SortOrder
     note_id?: SortOrder
+  }
+
+  export type SubNoteImageListRelationFilter = {
+    every?: SubNoteImageWhereInput
+    some?: SubNoteImageWhereInput
+    none?: SubNoteImageWhereInput
+  }
+
+  export type SubNoteImageOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type SubNoteTitleNote_idCompoundUniqueInput = {
+    title: string
+    note_id: string
+  }
+
+  export type SubNoteCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    note_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SubNoteMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    note_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SubNoteMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    note_id?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type SubNoteScalarRelationFilter = {
+    is?: SubNoteWhereInput
+    isNot?: SubNoteWhereInput
+  }
+
+  export type SubNoteTagSub_note_idTag_idCompoundUniqueInput = {
+    sub_note_id: string
+    tag_id: string
+  }
+
+  export type SubNoteTagCountOrderByAggregateInput = {
+    sub_note_id?: SortOrder
+    tag_id?: SortOrder
+  }
+
+  export type SubNoteTagMaxOrderByAggregateInput = {
+    sub_note_id?: SortOrder
+    tag_id?: SortOrder
+  }
+
+  export type SubNoteTagMinOrderByAggregateInput = {
+    sub_note_id?: SortOrder
+    tag_id?: SortOrder
+  }
+
+  export type SubNoteImageCountOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    alt_text?: SortOrder
+    sub_note_id?: SortOrder
+    created_at?: SortOrder
+    public_id?: SortOrder
+  }
+
+  export type SubNoteImageMaxOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    alt_text?: SortOrder
+    sub_note_id?: SortOrder
+    created_at?: SortOrder
+    public_id?: SortOrder
+  }
+
+  export type SubNoteImageMinOrderByAggregateInput = {
+    id?: SortOrder
+    url?: SortOrder
+    alt_text?: SortOrder
+    sub_note_id?: SortOrder
+    created_at?: SortOrder
+    public_id?: SortOrder
   }
 
   export type UserCreateNestedManyWithoutRoleInput = {
@@ -11178,6 +15295,13 @@ export namespace Prisma {
     connect?: NoteImageWhereUniqueInput | NoteImageWhereUniqueInput[]
   }
 
+  export type SubNoteCreateNestedManyWithoutNoteInput = {
+    create?: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput> | SubNoteCreateWithoutNoteInput[] | SubNoteUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: SubNoteCreateOrConnectWithoutNoteInput | SubNoteCreateOrConnectWithoutNoteInput[]
+    createMany?: SubNoteCreateManyNoteInputEnvelope
+    connect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+  }
+
   export type NoteTagUncheckedCreateNestedManyWithoutNoteInput = {
     create?: XOR<NoteTagCreateWithoutNoteInput, NoteTagUncheckedCreateWithoutNoteInput> | NoteTagCreateWithoutNoteInput[] | NoteTagUncheckedCreateWithoutNoteInput[]
     connectOrCreate?: NoteTagCreateOrConnectWithoutNoteInput | NoteTagCreateOrConnectWithoutNoteInput[]
@@ -11190,6 +15314,13 @@ export namespace Prisma {
     connectOrCreate?: NoteImageCreateOrConnectWithoutNoteInput | NoteImageCreateOrConnectWithoutNoteInput[]
     createMany?: NoteImageCreateManyNoteInputEnvelope
     connect?: NoteImageWhereUniqueInput | NoteImageWhereUniqueInput[]
+  }
+
+  export type SubNoteUncheckedCreateNestedManyWithoutNoteInput = {
+    create?: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput> | SubNoteCreateWithoutNoteInput[] | SubNoteUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: SubNoteCreateOrConnectWithoutNoteInput | SubNoteCreateOrConnectWithoutNoteInput[]
+    createMany?: SubNoteCreateManyNoteInputEnvelope
+    connect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
   }
 
   export type UserUpdateOneRequiredWithoutNotesNestedInput = {
@@ -11238,6 +15369,20 @@ export namespace Prisma {
     deleteMany?: NoteImageScalarWhereInput | NoteImageScalarWhereInput[]
   }
 
+  export type SubNoteUpdateManyWithoutNoteNestedInput = {
+    create?: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput> | SubNoteCreateWithoutNoteInput[] | SubNoteUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: SubNoteCreateOrConnectWithoutNoteInput | SubNoteCreateOrConnectWithoutNoteInput[]
+    upsert?: SubNoteUpsertWithWhereUniqueWithoutNoteInput | SubNoteUpsertWithWhereUniqueWithoutNoteInput[]
+    createMany?: SubNoteCreateManyNoteInputEnvelope
+    set?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    disconnect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    delete?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    connect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    update?: SubNoteUpdateWithWhereUniqueWithoutNoteInput | SubNoteUpdateWithWhereUniqueWithoutNoteInput[]
+    updateMany?: SubNoteUpdateManyWithWhereWithoutNoteInput | SubNoteUpdateManyWithWhereWithoutNoteInput[]
+    deleteMany?: SubNoteScalarWhereInput | SubNoteScalarWhereInput[]
+  }
+
   export type NoteTagUncheckedUpdateManyWithoutNoteNestedInput = {
     create?: XOR<NoteTagCreateWithoutNoteInput, NoteTagUncheckedCreateWithoutNoteInput> | NoteTagCreateWithoutNoteInput[] | NoteTagUncheckedCreateWithoutNoteInput[]
     connectOrCreate?: NoteTagCreateOrConnectWithoutNoteInput | NoteTagCreateOrConnectWithoutNoteInput[]
@@ -11266,6 +15411,20 @@ export namespace Prisma {
     deleteMany?: NoteImageScalarWhereInput | NoteImageScalarWhereInput[]
   }
 
+  export type SubNoteUncheckedUpdateManyWithoutNoteNestedInput = {
+    create?: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput> | SubNoteCreateWithoutNoteInput[] | SubNoteUncheckedCreateWithoutNoteInput[]
+    connectOrCreate?: SubNoteCreateOrConnectWithoutNoteInput | SubNoteCreateOrConnectWithoutNoteInput[]
+    upsert?: SubNoteUpsertWithWhereUniqueWithoutNoteInput | SubNoteUpsertWithWhereUniqueWithoutNoteInput[]
+    createMany?: SubNoteCreateManyNoteInputEnvelope
+    set?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    disconnect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    delete?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    connect?: SubNoteWhereUniqueInput | SubNoteWhereUniqueInput[]
+    update?: SubNoteUpdateWithWhereUniqueWithoutNoteInput | SubNoteUpdateWithWhereUniqueWithoutNoteInput[]
+    updateMany?: SubNoteUpdateManyWithWhereWithoutNoteInput | SubNoteUpdateManyWithWhereWithoutNoteInput[]
+    deleteMany?: SubNoteScalarWhereInput | SubNoteScalarWhereInput[]
+  }
+
   export type UserCreateNestedOneWithoutTagsInput = {
     create?: XOR<UserCreateWithoutTagsInput, UserUncheckedCreateWithoutTagsInput>
     connectOrCreate?: UserCreateOrConnectWithoutTagsInput
@@ -11279,11 +15438,25 @@ export namespace Prisma {
     connect?: NoteTagWhereUniqueInput | NoteTagWhereUniqueInput[]
   }
 
+  export type SubNoteTagCreateNestedManyWithoutTagInput = {
+    create?: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput> | SubNoteTagCreateWithoutTagInput[] | SubNoteTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutTagInput | SubNoteTagCreateOrConnectWithoutTagInput[]
+    createMany?: SubNoteTagCreateManyTagInputEnvelope
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+  }
+
   export type NoteTagUncheckedCreateNestedManyWithoutTagInput = {
     create?: XOR<NoteTagCreateWithoutTagInput, NoteTagUncheckedCreateWithoutTagInput> | NoteTagCreateWithoutTagInput[] | NoteTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: NoteTagCreateOrConnectWithoutTagInput | NoteTagCreateOrConnectWithoutTagInput[]
     createMany?: NoteTagCreateManyTagInputEnvelope
     connect?: NoteTagWhereUniqueInput | NoteTagWhereUniqueInput[]
+  }
+
+  export type SubNoteTagUncheckedCreateNestedManyWithoutTagInput = {
+    create?: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput> | SubNoteTagCreateWithoutTagInput[] | SubNoteTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutTagInput | SubNoteTagCreateOrConnectWithoutTagInput[]
+    createMany?: SubNoteTagCreateManyTagInputEnvelope
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
   }
 
   export type UserUpdateOneWithoutTagsNestedInput = {
@@ -11310,6 +15483,20 @@ export namespace Prisma {
     deleteMany?: NoteTagScalarWhereInput | NoteTagScalarWhereInput[]
   }
 
+  export type SubNoteTagUpdateManyWithoutTagNestedInput = {
+    create?: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput> | SubNoteTagCreateWithoutTagInput[] | SubNoteTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutTagInput | SubNoteTagCreateOrConnectWithoutTagInput[]
+    upsert?: SubNoteTagUpsertWithWhereUniqueWithoutTagInput | SubNoteTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: SubNoteTagCreateManyTagInputEnvelope
+    set?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    disconnect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    delete?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    update?: SubNoteTagUpdateWithWhereUniqueWithoutTagInput | SubNoteTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: SubNoteTagUpdateManyWithWhereWithoutTagInput | SubNoteTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
+  }
+
   export type NoteTagUncheckedUpdateManyWithoutTagNestedInput = {
     create?: XOR<NoteTagCreateWithoutTagInput, NoteTagUncheckedCreateWithoutTagInput> | NoteTagCreateWithoutTagInput[] | NoteTagUncheckedCreateWithoutTagInput[]
     connectOrCreate?: NoteTagCreateOrConnectWithoutTagInput | NoteTagCreateOrConnectWithoutTagInput[]
@@ -11322,6 +15509,20 @@ export namespace Prisma {
     update?: NoteTagUpdateWithWhereUniqueWithoutTagInput | NoteTagUpdateWithWhereUniqueWithoutTagInput[]
     updateMany?: NoteTagUpdateManyWithWhereWithoutTagInput | NoteTagUpdateManyWithWhereWithoutTagInput[]
     deleteMany?: NoteTagScalarWhereInput | NoteTagScalarWhereInput[]
+  }
+
+  export type SubNoteTagUncheckedUpdateManyWithoutTagNestedInput = {
+    create?: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput> | SubNoteTagCreateWithoutTagInput[] | SubNoteTagUncheckedCreateWithoutTagInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutTagInput | SubNoteTagCreateOrConnectWithoutTagInput[]
+    upsert?: SubNoteTagUpsertWithWhereUniqueWithoutTagInput | SubNoteTagUpsertWithWhereUniqueWithoutTagInput[]
+    createMany?: SubNoteTagCreateManyTagInputEnvelope
+    set?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    disconnect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    delete?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    update?: SubNoteTagUpdateWithWhereUniqueWithoutTagInput | SubNoteTagUpdateWithWhereUniqueWithoutTagInput[]
+    updateMany?: SubNoteTagUpdateManyWithWhereWithoutTagInput | SubNoteTagUpdateManyWithWhereWithoutTagInput[]
+    deleteMany?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
   }
 
   export type NoteCreateNestedOneWithoutTagsInput = {
@@ -11364,6 +15565,146 @@ export namespace Prisma {
     upsert?: NoteUpsertWithoutImagesInput
     connect?: NoteWhereUniqueInput
     update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutImagesInput, NoteUpdateWithoutImagesInput>, NoteUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type NoteCreateNestedOneWithoutSubNoteInput = {
+    create?: XOR<NoteCreateWithoutSubNoteInput, NoteUncheckedCreateWithoutSubNoteInput>
+    connectOrCreate?: NoteCreateOrConnectWithoutSubNoteInput
+    connect?: NoteWhereUniqueInput
+  }
+
+  export type SubNoteTagCreateNestedManyWithoutSubNoteInput = {
+    create?: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput> | SubNoteTagCreateWithoutSubNoteInput[] | SubNoteTagUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutSubNoteInput | SubNoteTagCreateOrConnectWithoutSubNoteInput[]
+    createMany?: SubNoteTagCreateManySubNoteInputEnvelope
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+  }
+
+  export type SubNoteImageCreateNestedManyWithoutSubNoteInput = {
+    create?: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput> | SubNoteImageCreateWithoutSubNoteInput[] | SubNoteImageUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteImageCreateOrConnectWithoutSubNoteInput | SubNoteImageCreateOrConnectWithoutSubNoteInput[]
+    createMany?: SubNoteImageCreateManySubNoteInputEnvelope
+    connect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+  }
+
+  export type SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput = {
+    create?: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput> | SubNoteTagCreateWithoutSubNoteInput[] | SubNoteTagUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutSubNoteInput | SubNoteTagCreateOrConnectWithoutSubNoteInput[]
+    createMany?: SubNoteTagCreateManySubNoteInputEnvelope
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+  }
+
+  export type SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput = {
+    create?: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput> | SubNoteImageCreateWithoutSubNoteInput[] | SubNoteImageUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteImageCreateOrConnectWithoutSubNoteInput | SubNoteImageCreateOrConnectWithoutSubNoteInput[]
+    createMany?: SubNoteImageCreateManySubNoteInputEnvelope
+    connect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+  }
+
+  export type NoteUpdateOneRequiredWithoutSubNoteNestedInput = {
+    create?: XOR<NoteCreateWithoutSubNoteInput, NoteUncheckedCreateWithoutSubNoteInput>
+    connectOrCreate?: NoteCreateOrConnectWithoutSubNoteInput
+    upsert?: NoteUpsertWithoutSubNoteInput
+    connect?: NoteWhereUniqueInput
+    update?: XOR<XOR<NoteUpdateToOneWithWhereWithoutSubNoteInput, NoteUpdateWithoutSubNoteInput>, NoteUncheckedUpdateWithoutSubNoteInput>
+  }
+
+  export type SubNoteTagUpdateManyWithoutSubNoteNestedInput = {
+    create?: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput> | SubNoteTagCreateWithoutSubNoteInput[] | SubNoteTagUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutSubNoteInput | SubNoteTagCreateOrConnectWithoutSubNoteInput[]
+    upsert?: SubNoteTagUpsertWithWhereUniqueWithoutSubNoteInput | SubNoteTagUpsertWithWhereUniqueWithoutSubNoteInput[]
+    createMany?: SubNoteTagCreateManySubNoteInputEnvelope
+    set?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    disconnect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    delete?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    update?: SubNoteTagUpdateWithWhereUniqueWithoutSubNoteInput | SubNoteTagUpdateWithWhereUniqueWithoutSubNoteInput[]
+    updateMany?: SubNoteTagUpdateManyWithWhereWithoutSubNoteInput | SubNoteTagUpdateManyWithWhereWithoutSubNoteInput[]
+    deleteMany?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
+  }
+
+  export type SubNoteImageUpdateManyWithoutSubNoteNestedInput = {
+    create?: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput> | SubNoteImageCreateWithoutSubNoteInput[] | SubNoteImageUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteImageCreateOrConnectWithoutSubNoteInput | SubNoteImageCreateOrConnectWithoutSubNoteInput[]
+    upsert?: SubNoteImageUpsertWithWhereUniqueWithoutSubNoteInput | SubNoteImageUpsertWithWhereUniqueWithoutSubNoteInput[]
+    createMany?: SubNoteImageCreateManySubNoteInputEnvelope
+    set?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    disconnect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    delete?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    connect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    update?: SubNoteImageUpdateWithWhereUniqueWithoutSubNoteInput | SubNoteImageUpdateWithWhereUniqueWithoutSubNoteInput[]
+    updateMany?: SubNoteImageUpdateManyWithWhereWithoutSubNoteInput | SubNoteImageUpdateManyWithWhereWithoutSubNoteInput[]
+    deleteMany?: SubNoteImageScalarWhereInput | SubNoteImageScalarWhereInput[]
+  }
+
+  export type SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput = {
+    create?: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput> | SubNoteTagCreateWithoutSubNoteInput[] | SubNoteTagUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteTagCreateOrConnectWithoutSubNoteInput | SubNoteTagCreateOrConnectWithoutSubNoteInput[]
+    upsert?: SubNoteTagUpsertWithWhereUniqueWithoutSubNoteInput | SubNoteTagUpsertWithWhereUniqueWithoutSubNoteInput[]
+    createMany?: SubNoteTagCreateManySubNoteInputEnvelope
+    set?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    disconnect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    delete?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    connect?: SubNoteTagWhereUniqueInput | SubNoteTagWhereUniqueInput[]
+    update?: SubNoteTagUpdateWithWhereUniqueWithoutSubNoteInput | SubNoteTagUpdateWithWhereUniqueWithoutSubNoteInput[]
+    updateMany?: SubNoteTagUpdateManyWithWhereWithoutSubNoteInput | SubNoteTagUpdateManyWithWhereWithoutSubNoteInput[]
+    deleteMany?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
+  }
+
+  export type SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput = {
+    create?: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput> | SubNoteImageCreateWithoutSubNoteInput[] | SubNoteImageUncheckedCreateWithoutSubNoteInput[]
+    connectOrCreate?: SubNoteImageCreateOrConnectWithoutSubNoteInput | SubNoteImageCreateOrConnectWithoutSubNoteInput[]
+    upsert?: SubNoteImageUpsertWithWhereUniqueWithoutSubNoteInput | SubNoteImageUpsertWithWhereUniqueWithoutSubNoteInput[]
+    createMany?: SubNoteImageCreateManySubNoteInputEnvelope
+    set?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    disconnect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    delete?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    connect?: SubNoteImageWhereUniqueInput | SubNoteImageWhereUniqueInput[]
+    update?: SubNoteImageUpdateWithWhereUniqueWithoutSubNoteInput | SubNoteImageUpdateWithWhereUniqueWithoutSubNoteInput[]
+    updateMany?: SubNoteImageUpdateManyWithWhereWithoutSubNoteInput | SubNoteImageUpdateManyWithWhereWithoutSubNoteInput[]
+    deleteMany?: SubNoteImageScalarWhereInput | SubNoteImageScalarWhereInput[]
+  }
+
+  export type SubNoteCreateNestedOneWithoutTagsInput = {
+    create?: XOR<SubNoteCreateWithoutTagsInput, SubNoteUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: SubNoteCreateOrConnectWithoutTagsInput
+    connect?: SubNoteWhereUniqueInput
+  }
+
+  export type TagCreateNestedOneWithoutSubNoteTagInput = {
+    create?: XOR<TagCreateWithoutSubNoteTagInput, TagUncheckedCreateWithoutSubNoteTagInput>
+    connectOrCreate?: TagCreateOrConnectWithoutSubNoteTagInput
+    connect?: TagWhereUniqueInput
+  }
+
+  export type SubNoteUpdateOneRequiredWithoutTagsNestedInput = {
+    create?: XOR<SubNoteCreateWithoutTagsInput, SubNoteUncheckedCreateWithoutTagsInput>
+    connectOrCreate?: SubNoteCreateOrConnectWithoutTagsInput
+    upsert?: SubNoteUpsertWithoutTagsInput
+    connect?: SubNoteWhereUniqueInput
+    update?: XOR<XOR<SubNoteUpdateToOneWithWhereWithoutTagsInput, SubNoteUpdateWithoutTagsInput>, SubNoteUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type TagUpdateOneRequiredWithoutSubNoteTagNestedInput = {
+    create?: XOR<TagCreateWithoutSubNoteTagInput, TagUncheckedCreateWithoutSubNoteTagInput>
+    connectOrCreate?: TagCreateOrConnectWithoutSubNoteTagInput
+    upsert?: TagUpsertWithoutSubNoteTagInput
+    connect?: TagWhereUniqueInput
+    update?: XOR<XOR<TagUpdateToOneWithWhereWithoutSubNoteTagInput, TagUpdateWithoutSubNoteTagInput>, TagUncheckedUpdateWithoutSubNoteTagInput>
+  }
+
+  export type SubNoteCreateNestedOneWithoutImagesInput = {
+    create?: XOR<SubNoteCreateWithoutImagesInput, SubNoteUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: SubNoteCreateOrConnectWithoutImagesInput
+    connect?: SubNoteWhereUniqueInput
+  }
+
+  export type SubNoteUpdateOneRequiredWithoutImagesNestedInput = {
+    create?: XOR<SubNoteCreateWithoutImagesInput, SubNoteUncheckedCreateWithoutImagesInput>
+    connectOrCreate?: SubNoteCreateOrConnectWithoutImagesInput
+    upsert?: SubNoteUpsertWithoutImagesInput
+    connect?: SubNoteWhereUniqueInput
+    update?: XOR<XOR<SubNoteUpdateToOneWithWhereWithoutImagesInput, SubNoteUpdateWithoutImagesInput>, SubNoteUncheckedUpdateWithoutImagesInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -11662,6 +16003,7 @@ export namespace Prisma {
     category?: CategoryCreateNestedOneWithoutNotesInput
     tags?: NoteTagCreateNestedManyWithoutNoteInput
     images?: NoteImageCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUncheckedCreateWithoutUserInput = {
@@ -11675,6 +16017,7 @@ export namespace Prisma {
     category_id?: string | null
     tags?: NoteTagUncheckedCreateNestedManyWithoutNoteInput
     images?: NoteImageUncheckedCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteUncheckedCreateNestedManyWithoutNoteInput
   }
 
   export type NoteCreateOrConnectWithoutUserInput = {
@@ -11691,12 +16034,14 @@ export namespace Prisma {
     id?: string
     name: string
     notes?: NoteTagCreateNestedManyWithoutTagInput
+    SubNoteTag?: SubNoteTagCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateWithoutUserInput = {
     id?: string
     name: string
     notes?: NoteTagUncheckedCreateNestedManyWithoutTagInput
+    SubNoteTag?: SubNoteTagUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagCreateOrConnectWithoutUserInput = {
@@ -11857,6 +16202,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNotesInput
     tags?: NoteTagCreateNestedManyWithoutNoteInput
     images?: NoteImageCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUncheckedCreateWithoutCategoryInput = {
@@ -11870,6 +16216,7 @@ export namespace Prisma {
     user_id: string
     tags?: NoteTagUncheckedCreateNestedManyWithoutNoteInput
     images?: NoteImageUncheckedCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteUncheckedCreateNestedManyWithoutNoteInput
   }
 
   export type NoteCreateOrConnectWithoutCategoryInput = {
@@ -12033,6 +16380,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type SubNoteCreateWithoutNoteInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
+    images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteUncheckedCreateWithoutNoteInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
+    images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteCreateOrConnectWithoutNoteInput = {
+    where: SubNoteWhereUniqueInput
+    create: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput>
+  }
+
+  export type SubNoteCreateManyNoteInputEnvelope = {
+    data: SubNoteCreateManyNoteInput | SubNoteCreateManyNoteInput[]
+    skipDuplicates?: boolean
+  }
+
   export type UserUpsertWithoutNotesInput = {
     update: XOR<UserUpdateWithoutNotesInput, UserUncheckedUpdateWithoutNotesInput>
     create: XOR<UserCreateWithoutNotesInput, UserUncheckedCreateWithoutNotesInput>
@@ -12149,6 +16526,34 @@ export namespace Prisma {
     note_id?: StringFilter<"NoteImage"> | string
   }
 
+  export type SubNoteUpsertWithWhereUniqueWithoutNoteInput = {
+    where: SubNoteWhereUniqueInput
+    update: XOR<SubNoteUpdateWithoutNoteInput, SubNoteUncheckedUpdateWithoutNoteInput>
+    create: XOR<SubNoteCreateWithoutNoteInput, SubNoteUncheckedCreateWithoutNoteInput>
+  }
+
+  export type SubNoteUpdateWithWhereUniqueWithoutNoteInput = {
+    where: SubNoteWhereUniqueInput
+    data: XOR<SubNoteUpdateWithoutNoteInput, SubNoteUncheckedUpdateWithoutNoteInput>
+  }
+
+  export type SubNoteUpdateManyWithWhereWithoutNoteInput = {
+    where: SubNoteScalarWhereInput
+    data: XOR<SubNoteUpdateManyMutationInput, SubNoteUncheckedUpdateManyWithoutNoteInput>
+  }
+
+  export type SubNoteScalarWhereInput = {
+    AND?: SubNoteScalarWhereInput | SubNoteScalarWhereInput[]
+    OR?: SubNoteScalarWhereInput[]
+    NOT?: SubNoteScalarWhereInput | SubNoteScalarWhereInput[]
+    id?: StringFilter<"SubNote"> | string
+    title?: StringFilter<"SubNote"> | string
+    description?: StringNullableFilter<"SubNote"> | string | null
+    note_id?: StringFilter<"SubNote"> | string
+    created_at?: DateTimeFilter<"SubNote"> | Date | string
+    updated_at?: DateTimeFilter<"SubNote"> | Date | string
+  }
+
   export type UserCreateWithoutTagsInput = {
     id?: string
     name: string
@@ -12197,6 +16602,24 @@ export namespace Prisma {
 
   export type NoteTagCreateManyTagInputEnvelope = {
     data: NoteTagCreateManyTagInput | NoteTagCreateManyTagInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubNoteTagCreateWithoutTagInput = {
+    subNote: SubNoteCreateNestedOneWithoutTagsInput
+  }
+
+  export type SubNoteTagUncheckedCreateWithoutTagInput = {
+    sub_note_id: string
+  }
+
+  export type SubNoteTagCreateOrConnectWithoutTagInput = {
+    where: SubNoteTagWhereUniqueInput
+    create: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type SubNoteTagCreateManyTagInputEnvelope = {
+    data: SubNoteTagCreateManyTagInput | SubNoteTagCreateManyTagInput[]
     skipDuplicates?: boolean
   }
 
@@ -12255,6 +16678,30 @@ export namespace Prisma {
     data: XOR<NoteTagUpdateManyMutationInput, NoteTagUncheckedUpdateManyWithoutTagInput>
   }
 
+  export type SubNoteTagUpsertWithWhereUniqueWithoutTagInput = {
+    where: SubNoteTagWhereUniqueInput
+    update: XOR<SubNoteTagUpdateWithoutTagInput, SubNoteTagUncheckedUpdateWithoutTagInput>
+    create: XOR<SubNoteTagCreateWithoutTagInput, SubNoteTagUncheckedCreateWithoutTagInput>
+  }
+
+  export type SubNoteTagUpdateWithWhereUniqueWithoutTagInput = {
+    where: SubNoteTagWhereUniqueInput
+    data: XOR<SubNoteTagUpdateWithoutTagInput, SubNoteTagUncheckedUpdateWithoutTagInput>
+  }
+
+  export type SubNoteTagUpdateManyWithWhereWithoutTagInput = {
+    where: SubNoteTagScalarWhereInput
+    data: XOR<SubNoteTagUpdateManyMutationInput, SubNoteTagUncheckedUpdateManyWithoutTagInput>
+  }
+
+  export type SubNoteTagScalarWhereInput = {
+    AND?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
+    OR?: SubNoteTagScalarWhereInput[]
+    NOT?: SubNoteTagScalarWhereInput | SubNoteTagScalarWhereInput[]
+    sub_note_id?: StringFilter<"SubNoteTag"> | string
+    tag_id?: StringFilter<"SubNoteTag"> | string
+  }
+
   export type NoteCreateWithoutTagsInput = {
     id?: string
     title?: string | null
@@ -12266,6 +16713,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNotesInput
     category?: CategoryCreateNestedOneWithoutNotesInput
     images?: NoteImageCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUncheckedCreateWithoutTagsInput = {
@@ -12279,6 +16727,7 @@ export namespace Prisma {
     user_id: string
     category_id?: string | null
     images?: NoteImageUncheckedCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteUncheckedCreateNestedManyWithoutNoteInput
   }
 
   export type NoteCreateOrConnectWithoutTagsInput = {
@@ -12290,12 +16739,14 @@ export namespace Prisma {
     id?: string
     name: string
     user?: UserCreateNestedOneWithoutTagsInput
+    SubNoteTag?: SubNoteTagCreateNestedManyWithoutTagInput
   }
 
   export type TagUncheckedCreateWithoutNotesInput = {
     id?: string
     name: string
     user_id?: string | null
+    SubNoteTag?: SubNoteTagUncheckedCreateNestedManyWithoutTagInput
   }
 
   export type TagCreateOrConnectWithoutNotesInput = {
@@ -12325,6 +16776,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNotesNestedInput
     category?: CategoryUpdateOneWithoutNotesNestedInput
     images?: NoteImageUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutTagsInput = {
@@ -12338,6 +16790,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     category_id?: NullableStringFieldUpdateOperationsInput | string | null
     images?: NoteImageUncheckedUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUncheckedUpdateManyWithoutNoteNestedInput
   }
 
   export type TagUpsertWithoutNotesInput = {
@@ -12355,12 +16808,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneWithoutTagsNestedInput
+    SubNoteTag?: SubNoteTagUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateWithoutNotesInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    SubNoteTag?: SubNoteTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type NoteCreateWithoutImagesInput = {
@@ -12374,6 +16829,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutNotesInput
     category?: CategoryCreateNestedOneWithoutNotesInput
     tags?: NoteTagCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteCreateNestedManyWithoutNoteInput
   }
 
   export type NoteUncheckedCreateWithoutImagesInput = {
@@ -12387,6 +16843,7 @@ export namespace Prisma {
     user_id: string
     category_id?: string | null
     tags?: NoteTagUncheckedCreateNestedManyWithoutNoteInput
+    SubNote?: SubNoteUncheckedCreateNestedManyWithoutNoteInput
   }
 
   export type NoteCreateOrConnectWithoutImagesInput = {
@@ -12416,6 +16873,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNotesNestedInput
     category?: CategoryUpdateOneWithoutNotesNestedInput
     tags?: NoteTagUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutImagesInput = {
@@ -12429,6 +16887,323 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     category_id?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: NoteTagUncheckedUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUncheckedUpdateManyWithoutNoteNestedInput
+  }
+
+  export type NoteCreateWithoutSubNoteInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    is_archived?: boolean
+    is_pinned?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutNotesInput
+    category?: CategoryCreateNestedOneWithoutNotesInput
+    tags?: NoteTagCreateNestedManyWithoutNoteInput
+    images?: NoteImageCreateNestedManyWithoutNoteInput
+  }
+
+  export type NoteUncheckedCreateWithoutSubNoteInput = {
+    id?: string
+    title?: string | null
+    content?: string | null
+    is_archived?: boolean
+    is_pinned?: boolean
+    created_at?: Date | string
+    updated_at?: Date | string
+    user_id: string
+    category_id?: string | null
+    tags?: NoteTagUncheckedCreateNestedManyWithoutNoteInput
+    images?: NoteImageUncheckedCreateNestedManyWithoutNoteInput
+  }
+
+  export type NoteCreateOrConnectWithoutSubNoteInput = {
+    where: NoteWhereUniqueInput
+    create: XOR<NoteCreateWithoutSubNoteInput, NoteUncheckedCreateWithoutSubNoteInput>
+  }
+
+  export type SubNoteTagCreateWithoutSubNoteInput = {
+    tag: TagCreateNestedOneWithoutSubNoteTagInput
+  }
+
+  export type SubNoteTagUncheckedCreateWithoutSubNoteInput = {
+    tag_id: string
+  }
+
+  export type SubNoteTagCreateOrConnectWithoutSubNoteInput = {
+    where: SubNoteTagWhereUniqueInput
+    create: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput>
+  }
+
+  export type SubNoteTagCreateManySubNoteInputEnvelope = {
+    data: SubNoteTagCreateManySubNoteInput | SubNoteTagCreateManySubNoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type SubNoteImageCreateWithoutSubNoteInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    created_at?: Date | string
+    public_id?: string | null
+  }
+
+  export type SubNoteImageUncheckedCreateWithoutSubNoteInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    created_at?: Date | string
+    public_id?: string | null
+  }
+
+  export type SubNoteImageCreateOrConnectWithoutSubNoteInput = {
+    where: SubNoteImageWhereUniqueInput
+    create: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput>
+  }
+
+  export type SubNoteImageCreateManySubNoteInputEnvelope = {
+    data: SubNoteImageCreateManySubNoteInput | SubNoteImageCreateManySubNoteInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type NoteUpsertWithoutSubNoteInput = {
+    update: XOR<NoteUpdateWithoutSubNoteInput, NoteUncheckedUpdateWithoutSubNoteInput>
+    create: XOR<NoteCreateWithoutSubNoteInput, NoteUncheckedCreateWithoutSubNoteInput>
+    where?: NoteWhereInput
+  }
+
+  export type NoteUpdateToOneWithWhereWithoutSubNoteInput = {
+    where?: NoteWhereInput
+    data: XOR<NoteUpdateWithoutSubNoteInput, NoteUncheckedUpdateWithoutSubNoteInput>
+  }
+
+  export type NoteUpdateWithoutSubNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutNotesNestedInput
+    category?: CategoryUpdateOneWithoutNotesNestedInput
+    tags?: NoteTagUpdateManyWithoutNoteNestedInput
+    images?: NoteImageUpdateManyWithoutNoteNestedInput
+  }
+
+  export type NoteUncheckedUpdateWithoutSubNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    content?: NullableStringFieldUpdateOperationsInput | string | null
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    category_id?: NullableStringFieldUpdateOperationsInput | string | null
+    tags?: NoteTagUncheckedUpdateManyWithoutNoteNestedInput
+    images?: NoteImageUncheckedUpdateManyWithoutNoteNestedInput
+  }
+
+  export type SubNoteTagUpsertWithWhereUniqueWithoutSubNoteInput = {
+    where: SubNoteTagWhereUniqueInput
+    update: XOR<SubNoteTagUpdateWithoutSubNoteInput, SubNoteTagUncheckedUpdateWithoutSubNoteInput>
+    create: XOR<SubNoteTagCreateWithoutSubNoteInput, SubNoteTagUncheckedCreateWithoutSubNoteInput>
+  }
+
+  export type SubNoteTagUpdateWithWhereUniqueWithoutSubNoteInput = {
+    where: SubNoteTagWhereUniqueInput
+    data: XOR<SubNoteTagUpdateWithoutSubNoteInput, SubNoteTagUncheckedUpdateWithoutSubNoteInput>
+  }
+
+  export type SubNoteTagUpdateManyWithWhereWithoutSubNoteInput = {
+    where: SubNoteTagScalarWhereInput
+    data: XOR<SubNoteTagUpdateManyMutationInput, SubNoteTagUncheckedUpdateManyWithoutSubNoteInput>
+  }
+
+  export type SubNoteImageUpsertWithWhereUniqueWithoutSubNoteInput = {
+    where: SubNoteImageWhereUniqueInput
+    update: XOR<SubNoteImageUpdateWithoutSubNoteInput, SubNoteImageUncheckedUpdateWithoutSubNoteInput>
+    create: XOR<SubNoteImageCreateWithoutSubNoteInput, SubNoteImageUncheckedCreateWithoutSubNoteInput>
+  }
+
+  export type SubNoteImageUpdateWithWhereUniqueWithoutSubNoteInput = {
+    where: SubNoteImageWhereUniqueInput
+    data: XOR<SubNoteImageUpdateWithoutSubNoteInput, SubNoteImageUncheckedUpdateWithoutSubNoteInput>
+  }
+
+  export type SubNoteImageUpdateManyWithWhereWithoutSubNoteInput = {
+    where: SubNoteImageScalarWhereInput
+    data: XOR<SubNoteImageUpdateManyMutationInput, SubNoteImageUncheckedUpdateManyWithoutSubNoteInput>
+  }
+
+  export type SubNoteImageScalarWhereInput = {
+    AND?: SubNoteImageScalarWhereInput | SubNoteImageScalarWhereInput[]
+    OR?: SubNoteImageScalarWhereInput[]
+    NOT?: SubNoteImageScalarWhereInput | SubNoteImageScalarWhereInput[]
+    id?: StringFilter<"SubNoteImage"> | string
+    url?: StringFilter<"SubNoteImage"> | string
+    alt_text?: StringNullableFilter<"SubNoteImage"> | string | null
+    sub_note_id?: StringFilter<"SubNoteImage"> | string
+    created_at?: DateTimeFilter<"SubNoteImage"> | Date | string
+    public_id?: StringNullableFilter<"SubNoteImage"> | string | null
+  }
+
+  export type SubNoteCreateWithoutTagsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    note: NoteCreateNestedOneWithoutSubNoteInput
+    images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteUncheckedCreateWithoutTagsInput = {
+    id?: string
+    title: string
+    description?: string | null
+    note_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteCreateOrConnectWithoutTagsInput = {
+    where: SubNoteWhereUniqueInput
+    create: XOR<SubNoteCreateWithoutTagsInput, SubNoteUncheckedCreateWithoutTagsInput>
+  }
+
+  export type TagCreateWithoutSubNoteTagInput = {
+    id?: string
+    name: string
+    user?: UserCreateNestedOneWithoutTagsInput
+    notes?: NoteTagCreateNestedManyWithoutTagInput
+  }
+
+  export type TagUncheckedCreateWithoutSubNoteTagInput = {
+    id?: string
+    name: string
+    user_id?: string | null
+    notes?: NoteTagUncheckedCreateNestedManyWithoutTagInput
+  }
+
+  export type TagCreateOrConnectWithoutSubNoteTagInput = {
+    where: TagWhereUniqueInput
+    create: XOR<TagCreateWithoutSubNoteTagInput, TagUncheckedCreateWithoutSubNoteTagInput>
+  }
+
+  export type SubNoteUpsertWithoutTagsInput = {
+    update: XOR<SubNoteUpdateWithoutTagsInput, SubNoteUncheckedUpdateWithoutTagsInput>
+    create: XOR<SubNoteCreateWithoutTagsInput, SubNoteUncheckedCreateWithoutTagsInput>
+    where?: SubNoteWhereInput
+  }
+
+  export type SubNoteUpdateToOneWithWhereWithoutTagsInput = {
+    where?: SubNoteWhereInput
+    data: XOR<SubNoteUpdateWithoutTagsInput, SubNoteUncheckedUpdateWithoutTagsInput>
+  }
+
+  export type SubNoteUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
+    images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteUncheckedUpdateWithoutTagsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type TagUpsertWithoutSubNoteTagInput = {
+    update: XOR<TagUpdateWithoutSubNoteTagInput, TagUncheckedUpdateWithoutSubNoteTagInput>
+    create: XOR<TagCreateWithoutSubNoteTagInput, TagUncheckedCreateWithoutSubNoteTagInput>
+    where?: TagWhereInput
+  }
+
+  export type TagUpdateToOneWithWhereWithoutSubNoteTagInput = {
+    where?: TagWhereInput
+    data: XOR<TagUpdateWithoutSubNoteTagInput, TagUncheckedUpdateWithoutSubNoteTagInput>
+  }
+
+  export type TagUpdateWithoutSubNoteTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    user?: UserUpdateOneWithoutTagsNestedInput
+    notes?: NoteTagUpdateManyWithoutTagNestedInput
+  }
+
+  export type TagUncheckedUpdateWithoutSubNoteTagInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    user_id?: NullableStringFieldUpdateOperationsInput | string | null
+    notes?: NoteTagUncheckedUpdateManyWithoutTagNestedInput
+  }
+
+  export type SubNoteCreateWithoutImagesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+    note: NoteCreateNestedOneWithoutSubNoteInput
+    tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteUncheckedCreateWithoutImagesInput = {
+    id?: string
+    title: string
+    description?: string | null
+    note_id: string
+    created_at?: Date | string
+    updated_at?: Date | string
+    tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
+  }
+
+  export type SubNoteCreateOrConnectWithoutImagesInput = {
+    where: SubNoteWhereUniqueInput
+    create: XOR<SubNoteCreateWithoutImagesInput, SubNoteUncheckedCreateWithoutImagesInput>
+  }
+
+  export type SubNoteUpsertWithoutImagesInput = {
+    update: XOR<SubNoteUpdateWithoutImagesInput, SubNoteUncheckedUpdateWithoutImagesInput>
+    create: XOR<SubNoteCreateWithoutImagesInput, SubNoteUncheckedCreateWithoutImagesInput>
+    where?: SubNoteWhereInput
+  }
+
+  export type SubNoteUpdateToOneWithWhereWithoutImagesInput = {
+    where?: SubNoteWhereInput
+    data: XOR<SubNoteUpdateWithoutImagesInput, SubNoteUncheckedUpdateWithoutImagesInput>
+  }
+
+  export type SubNoteUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
+    tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteUncheckedUpdateWithoutImagesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    note_id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
   }
 
   export type UserCreateManyRoleInput = {
@@ -12534,6 +17309,7 @@ export namespace Prisma {
     category?: CategoryUpdateOneWithoutNotesNestedInput
     tags?: NoteTagUpdateManyWithoutNoteNestedInput
     images?: NoteImageUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutUserInput = {
@@ -12547,6 +17323,7 @@ export namespace Prisma {
     category_id?: NullableStringFieldUpdateOperationsInput | string | null
     tags?: NoteTagUncheckedUpdateManyWithoutNoteNestedInput
     images?: NoteImageUncheckedUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUncheckedUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateManyWithoutUserInput = {
@@ -12564,12 +17341,14 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     notes?: NoteTagUpdateManyWithoutTagNestedInput
+    SubNoteTag?: SubNoteTagUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     name?: StringFieldUpdateOperationsInput | string
     notes?: NoteTagUncheckedUpdateManyWithoutTagNestedInput
+    SubNoteTag?: SubNoteTagUncheckedUpdateManyWithoutTagNestedInput
   }
 
   export type TagUncheckedUpdateManyWithoutUserInput = {
@@ -12599,6 +17378,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutNotesNestedInput
     tags?: NoteTagUpdateManyWithoutNoteNestedInput
     images?: NoteImageUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateWithoutCategoryInput = {
@@ -12612,6 +17392,7 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     tags?: NoteTagUncheckedUpdateManyWithoutNoteNestedInput
     images?: NoteImageUncheckedUpdateManyWithoutNoteNestedInput
+    SubNote?: SubNoteUncheckedUpdateManyWithoutNoteNestedInput
   }
 
   export type NoteUncheckedUpdateManyWithoutCategoryInput = {
@@ -12635,6 +17416,14 @@ export namespace Prisma {
     public_id?: string | null
     alt_text?: string | null
     created_at?: Date | string
+  }
+
+  export type SubNoteCreateManyNoteInput = {
+    id?: string
+    title: string
+    description?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
   }
 
   export type NoteTagUpdateWithoutNoteInput = {
@@ -12673,8 +17462,40 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type SubNoteUpdateWithoutNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
+    images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteUncheckedUpdateWithoutNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
+    images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
+  }
+
+  export type SubNoteUncheckedUpdateManyWithoutNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type NoteTagCreateManyTagInput = {
     note_id: string
+  }
+
+  export type SubNoteTagCreateManyTagInput = {
+    sub_note_id: string
   }
 
   export type NoteTagUpdateWithoutTagInput = {
@@ -12687,6 +17508,66 @@ export namespace Prisma {
 
   export type NoteTagUncheckedUpdateManyWithoutTagInput = {
     note_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteTagUpdateWithoutTagInput = {
+    subNote?: SubNoteUpdateOneRequiredWithoutTagsNestedInput
+  }
+
+  export type SubNoteTagUncheckedUpdateWithoutTagInput = {
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteTagUncheckedUpdateManyWithoutTagInput = {
+    sub_note_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteTagCreateManySubNoteInput = {
+    tag_id: string
+  }
+
+  export type SubNoteImageCreateManySubNoteInput = {
+    id?: string
+    url: string
+    alt_text?: string | null
+    created_at?: Date | string
+    public_id?: string | null
+  }
+
+  export type SubNoteTagUpdateWithoutSubNoteInput = {
+    tag?: TagUpdateOneRequiredWithoutSubNoteTagNestedInput
+  }
+
+  export type SubNoteTagUncheckedUpdateWithoutSubNoteInput = {
+    tag_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteTagUncheckedUpdateManyWithoutSubNoteInput = {
+    tag_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type SubNoteImageUpdateWithoutSubNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubNoteImageUncheckedUpdateWithoutSubNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type SubNoteImageUncheckedUpdateManyWithoutSubNoteInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    alt_text?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    public_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

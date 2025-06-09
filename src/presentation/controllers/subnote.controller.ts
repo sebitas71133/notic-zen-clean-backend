@@ -1,0 +1,228 @@
+import { Request, RequestHandler, Response } from "express";
+import { CustomError } from "../../domain/errors/custom.error";
+import { CreateCategoryDto } from "../dtos/category/create-category.dto";
+import { CategoryService } from "../services/category.service";
+
+import { Uuid } from "../../config/uuid";
+import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
+import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
+import { CreateNoteDTO } from "../dtos/note/create-note.dto";
+import { NoteService } from "../services/note.service";
+import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
+import { SaveNoteDTO } from "../dtos/note/save-note.dto";
+
+import { ImageService } from "../services/Image.service";
+import { PaginationNoteDTO } from "../dtos/note/pagination-note";
+import { CreateSubNoteSchema } from "../dtos/subnote/create-subnote.dto";
+import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
+import { SubNoteService } from "../services/subnote.service";
+import { PaginationSubNoteSchema } from "../dtos/subnote/pagination-subnote";
+import { SaveSubNoteSchema } from "../dtos/subnote/save-subnote.dto";
+
+export class SubNoteController {
+  //DI ?
+  constructor(
+    private readonly subNoteService: SubNoteService,
+    private readonly noteService: NoteService
+  ) {} // private readonly imageService: ImageService // private readonly noteService: NoteService,
+
+  private handleError = (error: any, res: Response) => {
+    if (error instanceof CustomError) {
+      return res.status(error.statusCode).json({ error: error.message });
+    }
+
+    console.log(`${error}`);
+    return res.status(500).json({ error: "Internal server error" });
+  };
+
+  public createSubNote: RequestHandler = async (
+    req: Request,
+    res: Response
+  ) => {
+    try {
+      const user = req.body.user;
+      const payload = req.body;
+      const { noteId } = req.params;
+
+      const result = CreateSubNoteSchema.safeParse({ ...payload, noteId });
+
+      if (!result.success) {
+        const message = result.error.errors[0].message;
+
+        throw CustomError.badRequest(message);
+      }
+
+      const newNote = await this.subNoteService.createSubNote(
+        user.id,
+        result.data
+      );
+
+      return res.status(201).json({
+        success: true,
+        message: "Subnota registrada con éxito",
+        data: newNote,
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public saveSubNoteById = async (req: Request, res: Response) => {
+    try {
+      const payload = req.body;
+
+      const { noteId, subNoteId } = req.params;
+
+      const userId = req.body.user.id;
+
+      const result = SaveSubNoteSchema.safeParse({
+        ...payload,
+        noteId,
+        subNoteId,
+      });
+
+      if (!result.success) {
+        const message = result.error.errors[0].message;
+
+        throw CustomError.badRequest(message);
+      }
+
+      // throw new Error();
+      const newNote = await this.subNoteService.saveSubNote(
+        subNoteId,
+        result.data,
+
+        userId
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: "Note actualizada",
+        data: newNote, //Por si acaso xd
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public getSubNotesByNoteId = async (req: Request, res: Response) => {
+    try {
+      // const dto = PaginationNoteDTO.createDTO(req.query);
+
+      const user = req.body.user;
+
+      const payload = req.query;
+
+      const { noteId } = req.params;
+
+      const result = PaginationSubNoteSchema.safeParse({ ...payload, noteId });
+
+      if (!result.success) {
+        const message = result.error.errors[0].message;
+
+        throw CustomError.badRequest(message);
+      }
+
+      const dto = result.data;
+
+      console.log({ dto });
+
+      console.log({ noteId: dto.noteId, userId: user.id });
+
+      const note = await this.noteService.getNoteById(dto.noteId, user.id);
+
+      const notes = await this.subNoteService.getSubNotesByNoteId(
+        dto.page,
+        dto.limit,
+        dto.noteId,
+        dto.tagId,
+        dto.isArchived,
+        dto.isPinned,
+        dto.sortDate,
+        dto.sortTitle
+      );
+
+      return res.status(200).json({
+        success: true,
+        message: `subnotas registradas del usuario ${user.email}`,
+        ...dto,
+        data: notes ?? [], //Por si acaso xd
+      });
+    } catch (error) {
+      // console.log(error);
+      this.handleError(error, res);
+    }
+  };
+
+  //   public deleteNoteById = async (req: Request, res: Response) => {
+  //     try {
+  //       const id = req.params["id"];
+  //       const user = req.body.user;
+
+  //       console.log({ id });
+
+  //       if (!Uuid.isUUID(id) || !id) {
+  //         throw CustomError.badRequest("Invalid or missing category ID");
+  //       }
+
+  //       await this.noteService.deleteNoteById(id, user);
+  //       return res.status(200).json({
+  //         success: true,
+  //         message: "Categoria eliminada",
+  //       });
+  //     } catch (error) {
+  //       this.handleError(error, res);
+  //     }
+  //   };
+
+  public getSubNoteById = async (req: Request, res: Response) => {
+    try {
+      const { subNoteId } = req.params;
+
+      const user = req.body.user;
+
+      const subNote = await this.subNoteService.getSubNoteById(
+        subNoteId,
+        user.id
+      );
+      return res.status(200).json({
+        success: true,
+        message: "SubNota encontrada",
+        data: subNote, //Por si acaso xd
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  //   public cleanOrphanImages = async (req: Request, res: Response) => {
+  //     try {
+  //       // const user = req.body.user;
+
+  //       // if (!user || user.role !== "admin") {
+  //       //   throw CustomError.unauthorized("No tienes permiso para esto");
+  //       // }
+
+  //       await this.imageService.cleanOrphanImages();
+  //       return res.status(200).json({
+  //         success: true,
+  //         message: "Imágenes huérfanas eliminadas de Cloudinary.",
+  //       });
+  //     } catch (error) {
+  //       this.handleError(error, res);
+  //     }
+  //   };
+
+  //   public getAllImages = async (req: Request, res: Response) => {
+  //     try {
+  //       const result = await this.imageService.getAllImages();
+  //       return res.status(200).json({
+  //         data: result,
+  //         success: true,
+  //         message: "Imágenes huérfanas eliminadas de Cloudinary.",
+  //       });
+  //     } catch (error) {
+  //       this.handleError(error, res);
+  //     }
+  //   };
+}

@@ -68,6 +68,8 @@ model Note {
   images NoteImage[]
 
   SubNote SubNote[]
+
+  @@unique([title, user_id])
 }
 
 model Tag {
@@ -111,6 +113,8 @@ model SubNote {
   images      SubNoteImage[]
   created_at  DateTime       @default(now())
   updated_at  DateTime       @updatedAt
+
+  @@unique([title, note_id])
 }
 
 model SubNoteTag {
@@ -123,8 +127,11 @@ model SubNoteTag {
 }
 
 model SubNoteImage {
-  id          String  @id @default(uuid())
+  id          String   @id @default(uuid())
   url         String
-  subNote     SubNote @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
+  subNote     SubNote  @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
+  alt_text    String?
   sub_note_id String
+  created_at  DateTime @default(now())
+  public_id   String?
 }

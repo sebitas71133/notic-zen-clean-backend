@@ -190,69 +190,76 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
   }
 
   async getNoteById(noteId: string, userId: string): Promise<NoteEntity | any> {
-    const note = await prismaClient.note.findFirst({
-      where: {
-        id: noteId,
-        user_id: userId,
-      },
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true,
-            // agrega aquí los campos del usuario que quieras devolver
-          },
+    try {
+      const note = await prismaClient.note.findFirst({
+        where: {
+          id: noteId,
+          user_id: userId,
         },
-        category: {
-          select: {
-            id: true,
-            name: true,
-            color: true,
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              // agrega aquí los campos del usuario que quieras devolver
+            },
           },
-        },
-        tags: {
-          include: {
-            tag: {
-              select: {
-                id: true,
-                name: true,
+          category: {
+            select: {
+              id: true,
+              name: true,
+              color: true,
+            },
+          },
+          tags: {
+            include: {
+              tag: {
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
             },
           },
-        },
-        images: {
-          select: {
-            id: true,
-            url: true,
-            alt_text: true,
-            created_at: true,
-            public_id: true,
+          images: {
+            select: {
+              id: true,
+              url: true,
+              alt_text: true,
+              created_at: true,
+              public_id: true,
+            },
           },
         },
-      },
-    });
+      });
 
-    if (!note) {
-      throw new Error("Nota no encontrada o no pertenece al usuario");
+      if (!note) {
+        return null;
+        // throw CustomError.unauthorized(
+        //   "Nota no encontrada o no pertenece al usuario"
+        // );
+      }
+
+      // Adaptar los tags a arreglo simple
+      const tags = note.tags.map((nt) => nt.tag);
+
+      return {
+        id: note.id,
+        title: note.title!,
+        content: note.content!,
+        isArchived: note.is_archived,
+        isPinned: note.is_pinned,
+        createdAt: note.created_at,
+        updatedAt: note.updated_at,
+        category: note.category,
+        tags,
+        images: note.images,
+        userId: note.user.id,
+      };
+    } catch (error: any) {
+      throw CustomError.badRequest(error.message || "Error al guardar la nota");
     }
-
-    // Adaptar los tags a arreglo simple
-    const tags = note.tags.map((nt) => nt.tag);
-
-    return {
-      id: note.id,
-      title: note.title!,
-      content: note.content!,
-      isArchived: note.is_archived,
-      isPinned: note.is_pinned,
-      createdAt: note.created_at,
-      updatedAt: note.updated_at,
-      category: note.category,
-      tags,
-      images: note.images,
-      userId: note.user.id,
-    };
   }
 
   async deleteNoteById(noteId: string): Promise<void> {

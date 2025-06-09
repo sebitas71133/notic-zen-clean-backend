@@ -177,6 +177,29 @@ exports.Prisma.NoteImageScalarFieldEnum = {
   note_id: 'note_id'
 };
 
+exports.Prisma.SubNoteScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  note_id: 'note_id',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
+exports.Prisma.SubNoteTagScalarFieldEnum = {
+  sub_note_id: 'sub_note_id',
+  tag_id: 'tag_id'
+};
+
+exports.Prisma.SubNoteImageScalarFieldEnum = {
+  id: 'id',
+  url: 'url',
+  alt_text: 'alt_text',
+  sub_note_id: 'sub_note_id',
+  created_at: 'created_at',
+  public_id: 'public_id'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -200,7 +223,10 @@ exports.Prisma.ModelName = {
   Note: 'Note',
   Tag: 'Tag',
   NoteTag: 'NoteTag',
-  NoteImage: 'NoteImage'
+  NoteImage: 'NoteImage',
+  SubNote: 'SubNote',
+  SubNoteTag: 'SubNoteTag',
+  SubNoteImage: 'SubNoteImage'
 };
 
 /**

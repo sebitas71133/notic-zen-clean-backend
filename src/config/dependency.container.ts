@@ -2,20 +2,24 @@ import { NoteDataSource } from "../domain/datasources/note.datasource";
 import { PostgresCategoryDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.category.datasource.impl";
 import { PostgresNoteDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.note.datasource.impl";
 import { PostgresRoleDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.role.datasource.impl";
+import { PostgresSubNoteDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.subnote.datasource";
 import { PostgresTagDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.tag.datasource";
 import { PostgresUserDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.user.datasource.impl";
 import { CategoryRepositoryImpl } from "../infrastructure/repository/category.repository.impl";
 import { NoteRepositoryImpl } from "../infrastructure/repository/note.repository.impl";
 import { RoleRepositoryImpl } from "../infrastructure/repository/role.repository.impl";
+import { SubNoteRepositoryImpl } from "../infrastructure/repository/subnotenote.repository.impl";
 import { TagRepositoryImpl } from "../infrastructure/repository/tag.respository.impl";
 import { UserRepositoryImpl } from "../infrastructure/repository/user.repository.impl";
 import { CategoryController } from "../presentation/controllers/category.controller";
 import { NoteController } from "../presentation/controllers/note.controller";
+import { SubNoteController } from "../presentation/controllers/subnote.controller";
 import { TagController } from "../presentation/controllers/tag.controller";
 import { AuthMiddleware } from "../presentation/middlewares/auth.middlewares";
 import { CategoryService } from "../presentation/services/category.service";
 import { ImageService } from "../presentation/services/Image.service";
 import { NoteService } from "../presentation/services/note.service";
+import { SubNoteService } from "../presentation/services/subnote.service";
 import { TagService } from "../presentation/services/tags.service";
 
 // dependency.container.ts
@@ -49,9 +53,23 @@ export const noteSerice = new NoteService(
   imageService
 );
 
+//SUBNOTE
+export const subNoteDatasource = new PostgresSubNoteDataSourceImpl();
+export const subNoteRepository = new SubNoteRepositoryImpl(subNoteDatasource);
+export const subNoteSerice = new SubNoteService(
+  tagService,
+  subNoteRepository,
+  imageService
+);
+
 export const categoryService = new CategoryService(categoryRepository);
 export const categoryController = new CategoryController(categoryService);
 export const tagController = new TagController(tagService);
 export const noteController = new NoteController(noteSerice, imageService);
+
+export const subNoteController = new SubNoteController(
+  subNoteSerice,
+  noteSerice
+);
 
 export const authMiddleware = new AuthMiddleware(userRepository);

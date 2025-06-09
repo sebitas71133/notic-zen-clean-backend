@@ -16,6 +16,8 @@ export class AppRoutes {
 
     router.use("/api/note", NoteRoutes.routes);
 
+    // router.use("/api/subnote", SubNoteRoutes.routes);
+
     return router;
   }
 }

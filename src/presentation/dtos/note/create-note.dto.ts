@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { CustomError } from "../../../domain/errors/custom.error";
-import { NoteImageEntity } from "../../../domain/entities/image.entitie";
-import { TagEntity } from "../../../domain/entities/tagEntity";
+
 import { CreateTagDto } from "../tags/create-tag.dto";
 import { CreateImageDto } from "../image/create-image.dto";
 
@@ -9,7 +8,6 @@ interface objectDTO {
   title: string;
   content?: string;
   categoryId: string;
-
   images?: CreateImageDto[];
   tags?: CreateTagDto[];
 }
@@ -64,17 +62,6 @@ export class CreateNoteDTO {
       images = [],
       tags = [],
     } = result.data;
-
-    // const imageDTOs = images.map((img) =>
-    //   CreateImageDto.create({
-    //     url: img.url,
-    //     altText: img.altText,
-    //   })
-    // );
-
-    // const tagDTOs = tags.map(
-    //   (tag) => CreateTagDto.create({ name: tag.name }) // rellena lo necesario
-    // );
 
     const noteDTO = new CreateNoteDTO(
       title,

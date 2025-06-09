@@ -26,14 +26,6 @@ export class NoteEntity {
       throw CustomError.badRequest("The title must be more than 2 characters");
     }
 
-    // const tagEntities = dto.tagsIds.map((tagId: any) =>
-    //   TagEntity.fromObject({ id: tagId, name: "", userId: null })
-    // );
-
-    // const imagesEntities = dto.images.map((img: any) =>
-    //   NoteImageEntity.create()
-    // );
-
     return new NoteEntity(
       id,
       dto.title,
@@ -87,20 +79,5 @@ export class NoteEntity {
     );
 
     return category;
-  }
-
-  archiveNote() {
-    this.isArchived = true;
-    this.updatedAt = new Date();
-  }
-
-  pinNote() {
-    this.isPinned = true;
-    this.updatedAt = new Date();
-  }
-
-  updateContent(newContent: string) {
-    this.content = newContent;
-    this.updatedAt = new Date();
   }
 }

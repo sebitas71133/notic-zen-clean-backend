@@ -16,16 +16,6 @@ export class PostgresRoleDataSourceImpl implements RoleDataSource {
   constructor() {
     // this.createUserFiles();
   }
-  // async getRoleByName(roleName: RoleName): Promise<RoleEntity> {
-  //   const result = await pgPool.query(`SELECT * FROM roles WHERE name = $1`, [
-  //     roleName,
-  //   ]);
-  //   const row = result.rows[0];
-
-  //   if (!row) throw CustomError.notFound("Role not found");
-
-  //   return RoleEntity.fromObject(row);
-  // }
 
   async getRoleByName(roleName: RoleName): Promise<RoleEntity> {
     const role = await prismaClient.role.findUnique({
@@ -37,16 +27,6 @@ export class PostgresRoleDataSourceImpl implements RoleDataSource {
     return RoleEntity.fromObject(role);
   }
 
-  // async getRoleById(id: string): Promise<RoleEntity> {
-  //   const result = await pgPool.query(`SELECT * FROM roles WHERE id = $1`, [
-  //     id,
-  //   ]);
-  //   const row = result.rows[0];
-
-  //   if (!row) throw CustomError.notFound("Role not found");
-
-  //   return RoleEntity.fromObject(row);
-  // }
   async getRoleById(id: string): Promise<RoleEntity> {
     const role = await prismaClient.role.findUnique({
       where: { id: Number(id) },
