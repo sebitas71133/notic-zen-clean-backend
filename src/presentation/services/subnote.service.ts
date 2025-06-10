@@ -1,18 +1,9 @@
-import { BycripAdapter } from "../../config/bcrypt.adapter";
-import { JwtAdapter } from "../../config/jwt.adapter";
-import { Uuid } from "../../config/uuid";
-import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { NoteEntity } from "../../domain/entities/note.entitie";
-import { NoteRepository } from "../../domain/repository/note.repository";
-import { SaveNoteDTO } from "../dtos/note/save-note.dto";
-import { NoteImageEntity } from "../../domain/entities/image.entitie";
-import { TagEntity } from "../../domain/entities/tagEntity";
 import { TagService } from "./tags.service";
-import { CreateTagDto } from "../dtos/tags/create-tag.dto";
+
 import { CreateImageDto } from "../dtos/image/create-image.dto";
-import { CreateNoteDTO } from "../dtos/note/create-note.dto";
+
 import { ImageService } from "./Image.service";
 import { SubNoteRepository } from "../../domain/repository/subnote.repository";
 import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
@@ -52,11 +43,14 @@ export class SubNoteService {
         await this.subNoteRepository.addTagsToSubNote(subNoteId, tagIds);
       }
 
-      const processedImages = await this.imageService.processImages(imagesD);
+      const processedImages = await this.imageService.processImages(
+        imagesD,
+        "subnote"
+      );
 
       console.log({ processedImages });
 
-      // // 4. Imágenes
+      // 4. Imágenes
       await this.subNoteRepository.clearImages(subNoteId);
       if (imagesD.length) {
         const subImagesEntity = processedImages.map((img) =>
@@ -78,7 +72,7 @@ export class SubNoteService {
 
       return await this.subNoteRepository.getSubNoteById(subNoteId, userId);
     } catch (error) {
-      console.log(error);
+      console.log({ service: error });
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error saving Subnote");
     }
@@ -123,7 +117,10 @@ export class SubNoteService {
         await this.subNoteRepository.addTagsToSubNote(subNoteId, tagIds);
       }
 
-      const processedImages = await this.imageService.processImages(imagesD);
+      const processedImages = await this.imageService.processImages(
+        imagesD,
+        "subnote"
+      );
 
       // 4. Imágenes
       await this.subNoteRepository.clearImages(subNoteId);
@@ -205,24 +202,26 @@ export class SubNoteService {
     }
   };
 
-  // deleteNoteById = async (id: string, user: UserEntity): Promise<void> => {
-  //   try {
-  //     const tag = await this.noteRepository.getNoteById(id, user.id);
+  deleteSubNoteById = async (
+    subNoteId: string,
+    userId: string
+  ): Promise<void> => {
+    try {
+      const subNote = await this.subNoteRepository.isValidUserToEditSubNote(
+        subNoteId,
+        userId
+      );
 
-  //     if (!tag) {
-  //       throw CustomError.badRequest("Note no encontrada o no tienes permisos");
-  //     }
+      if (!subNote) {
+        throw CustomError.badRequest(
+          "SubNote no encontrada o no tienes permisos"
+        );
+      }
 
-  //     // if (tag.userId !== user.id) {
-  //     //   throw CustomError.forbidden(
-  //     //     "No tienes permiso para modificar esta tag"
-  //     //   );
-  //     // }
-
-  //     await this.noteRepository.deleteNoteById(id);
-  //   } catch (error) {
-  //     if (error instanceof CustomError) throw error;
-  //     throw CustomError.internalServer("Error deleting note");
-  //   }
-  // };
+      await this.subNoteRepository.deleteSubNoteById(subNoteId);
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error deleting note");
+    }
+  };
 }

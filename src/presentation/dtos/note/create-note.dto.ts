@@ -17,7 +17,7 @@ const schema = z.object({
     .string({ required_error: "Missing Title" })
     .min(3, "The title must be at least 3 characters long")
     .max(100),
-  content: z.string().max(500).optional(),
+  content: z.string().max(1000).optional(),
   categoryId: z.string().uuid("Invalid categoryId format (must be UUID)"),
 
   images: z

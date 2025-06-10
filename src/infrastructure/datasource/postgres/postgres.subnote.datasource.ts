@@ -32,8 +32,12 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
 
       return SubNoteEntity.fromPrisma({ ...subnote });
     } catch (error: any) {
-      console.log(error);
-      throw CustomError.badRequest(error.detail);
+      if (error.code === "P2002") {
+        throw CustomError.notFound("No se puede crear una subnota repetida");
+      }
+      throw CustomError.badRequest(
+        error.message || "Error al eliminar SubNota"
+      );
     }
   }
 
@@ -233,18 +237,20 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
     });
   }
 
-  // async deleteNoteById(noteId: string): Promise<void> {
-  //   try {
-  //     await prismaClient.note.delete({
-  //       where: { id: noteId },
-  //     });
-  //   } catch (error: any) {
-  //     if (error.code === "P2025") {
-  //       throw CustomError.notFound("Nota no encontrada para eliminar");
-  //     }
-  //     throw CustomError.badRequest(error.message || "Error al eliminar Nota");
-  //   }
-  // }
+  async deleteSubNoteById(subNoteId: string): Promise<void> {
+    try {
+      await prismaClient.subNote.delete({
+        where: { id: subNoteId },
+      });
+    } catch (error: any) {
+      if (error.code === "P2025") {
+        throw CustomError.notFound("SubNota no encontrada para eliminar");
+      }
+      throw CustomError.badRequest(
+        error.message || "Error al eliminar SubNota"
+      );
+    }
+  }
 
   async clearTags(subNoteId: string): Promise<void> {
     await prismaClient.subNoteTag.deleteMany({

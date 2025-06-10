@@ -23,7 +23,8 @@ export class SubNoteController {
   //DI ?
   constructor(
     private readonly subNoteService: SubNoteService,
-    private readonly noteService: NoteService
+    private readonly noteService: NoteService,
+    private readonly imageService: ImageService
   ) {} // private readonly imageService: ImageService // private readonly noteService: NoteService,
 
   private handleError = (error: any, res: Response) => {
@@ -154,26 +155,28 @@ export class SubNoteController {
     }
   };
 
-  //   public deleteNoteById = async (req: Request, res: Response) => {
-  //     try {
-  //       const id = req.params["id"];
-  //       const user = req.body.user;
+  public deleteSubNoteById = async (req: Request, res: Response) => {
+    try {
+      const { subNoteId, noteId } = req.params;
+      const user = req.body.user;
 
-  //       console.log({ id });
+      if (!Uuid.isUUID(subNoteId) || !subNoteId) {
+        throw CustomError.badRequest("Invalid or missing subNoteId");
+      }
 
-  //       if (!Uuid.isUUID(id) || !id) {
-  //         throw CustomError.badRequest("Invalid or missing category ID");
-  //       }
+      if (!Uuid.isUUID(noteId) || !noteId) {
+        throw CustomError.badRequest("Invalid or missing noteId");
+      }
 
-  //       await this.noteService.deleteNoteById(id, user);
-  //       return res.status(200).json({
-  //         success: true,
-  //         message: "Categoria eliminada",
-  //       });
-  //     } catch (error) {
-  //       this.handleError(error, res);
-  //     }
-  //   };
+      await this.subNoteService.deleteSubNoteById(subNoteId, user.id);
+      return res.status(200).json({
+        success: true,
+        message: "Subnote eliminada",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
 
   public getSubNoteById = async (req: Request, res: Response) => {
     try {
@@ -195,34 +198,28 @@ export class SubNoteController {
     }
   };
 
-  //   public cleanOrphanImages = async (req: Request, res: Response) => {
-  //     try {
-  //       // const user = req.body.user;
+  public cleanOrphanSubImages = async (req: Request, res: Response) => {
+    try {
+      await this.imageService.cleanOrphanSubImages();
+      return res.status(200).json({
+        success: true,
+        message: "Imágenes de subNotas huérfanas eliminadas de Cloudinary.",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
 
-  //       // if (!user || user.role !== "admin") {
-  //       //   throw CustomError.unauthorized("No tienes permiso para esto");
-  //       // }
-
-  //       await this.imageService.cleanOrphanImages();
-  //       return res.status(200).json({
-  //         success: true,
-  //         message: "Imágenes huérfanas eliminadas de Cloudinary.",
-  //       });
-  //     } catch (error) {
-  //       this.handleError(error, res);
-  //     }
-  //   };
-
-  //   public getAllImages = async (req: Request, res: Response) => {
-  //     try {
-  //       const result = await this.imageService.getAllImages();
-  //       return res.status(200).json({
-  //         data: result,
-  //         success: true,
-  //         message: "Imágenes huérfanas eliminadas de Cloudinary.",
-  //       });
-  //     } catch (error) {
-  //       this.handleError(error, res);
-  //     }
-  //   };
+  public getAllSubImages = async (req: Request, res: Response) => {
+    try {
+      const result = await this.imageService.getAllSubImages();
+      return res.status(200).json({
+        data: result,
+        success: true,
+        message: "Imágenes de subNotas huérfanas eliminadas de Cloudinary.",
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
 }

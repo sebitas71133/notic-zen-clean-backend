@@ -69,7 +69,8 @@ export const noteController = new NoteController(noteSerice, imageService);
 
 export const subNoteController = new SubNoteController(
   subNoteSerice,
-  noteSerice
+  noteSerice,
+  imageService
 );
 
 export const authMiddleware = new AuthMiddleware(userRepository);

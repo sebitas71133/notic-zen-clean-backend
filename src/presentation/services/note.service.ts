@@ -44,7 +44,10 @@ export class NoteService {
         await this.noteRepository.addTagsToNote(noteId, tagIds);
       }
 
-      const processedImages = await this.imageService.processImages(imagesD);
+      const processedImages = await this.imageService.processImages(
+        imagesD,
+        "note"
+      );
 
       // 4. Imágenes
       await this.noteRepository.clearImages(noteId);
@@ -92,7 +95,10 @@ export class NoteService {
         await this.noteRepository.addTagsToNote(noteId, tagIds);
       }
 
-      const processedImages = await this.imageService.processImages(imagesD);
+      const processedImages = await this.imageService.processImages(
+        imagesD,
+        "note"
+      );
 
       // 4. Imágenes
       await this.noteRepository.clearImages(noteId);

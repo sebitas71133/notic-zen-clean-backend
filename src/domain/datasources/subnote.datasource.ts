@@ -26,7 +26,7 @@ export abstract class SubNoteDataSource {
     updates: Partial<SubNoteEntity>
   ): Promise<SubNoteEntity>;
 
-  // abstract deleteNoteById(id: string): Promise<void>;
+  abstract deleteSubNoteById(subNoteId: string): Promise<void>;
 
   abstract clearTags(subNoteId: string): Promise<void>;
 

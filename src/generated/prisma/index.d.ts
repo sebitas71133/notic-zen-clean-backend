@@ -9795,6 +9795,8 @@ export namespace Prisma {
     note_id: string | null
     created_at: Date | null
     updated_at: Date | null
+    is_archived: boolean | null
+    is_pinned: boolean | null
   }
 
   export type SubNoteMaxAggregateOutputType = {
@@ -9804,6 +9806,8 @@ export namespace Prisma {
     note_id: string | null
     created_at: Date | null
     updated_at: Date | null
+    is_archived: boolean | null
+    is_pinned: boolean | null
   }
 
   export type SubNoteCountAggregateOutputType = {
@@ -9813,6 +9817,8 @@ export namespace Prisma {
     note_id: number
     created_at: number
     updated_at: number
+    is_archived: number
+    is_pinned: number
     _all: number
   }
 
@@ -9824,6 +9830,8 @@ export namespace Prisma {
     note_id?: true
     created_at?: true
     updated_at?: true
+    is_archived?: true
+    is_pinned?: true
   }
 
   export type SubNoteMaxAggregateInputType = {
@@ -9833,6 +9841,8 @@ export namespace Prisma {
     note_id?: true
     created_at?: true
     updated_at?: true
+    is_archived?: true
+    is_pinned?: true
   }
 
   export type SubNoteCountAggregateInputType = {
@@ -9842,6 +9852,8 @@ export namespace Prisma {
     note_id?: true
     created_at?: true
     updated_at?: true
+    is_archived?: true
+    is_pinned?: true
     _all?: true
   }
 
@@ -9924,6 +9936,8 @@ export namespace Prisma {
     note_id: string
     created_at: Date
     updated_at: Date
+    is_archived: boolean
+    is_pinned: boolean
     _count: SubNoteCountAggregateOutputType | null
     _min: SubNoteMinAggregateOutputType | null
     _max: SubNoteMaxAggregateOutputType | null
@@ -9950,6 +9964,8 @@ export namespace Prisma {
     note_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    is_archived?: boolean
+    is_pinned?: boolean
     note?: boolean | NoteDefaultArgs<ExtArgs>
     tags?: boolean | SubNote$tagsArgs<ExtArgs>
     images?: boolean | SubNote$imagesArgs<ExtArgs>
@@ -9963,6 +9979,8 @@ export namespace Prisma {
     note_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    is_archived?: boolean
+    is_pinned?: boolean
     note?: boolean | NoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subNote"]>
 
@@ -9973,6 +9991,8 @@ export namespace Prisma {
     note_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    is_archived?: boolean
+    is_pinned?: boolean
     note?: boolean | NoteDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["subNote"]>
 
@@ -9983,9 +10003,11 @@ export namespace Prisma {
     note_id?: boolean
     created_at?: boolean
     updated_at?: boolean
+    is_archived?: boolean
+    is_pinned?: boolean
   }
 
-  export type SubNoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "note_id" | "created_at" | "updated_at", ExtArgs["result"]["subNote"]>
+  export type SubNoteOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "note_id" | "created_at" | "updated_at" | "is_archived" | "is_pinned", ExtArgs["result"]["subNote"]>
   export type SubNoteInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     note?: boolean | NoteDefaultArgs<ExtArgs>
     tags?: boolean | SubNote$tagsArgs<ExtArgs>
@@ -10013,6 +10035,8 @@ export namespace Prisma {
       note_id: string
       created_at: Date
       updated_at: Date
+      is_archived: boolean
+      is_pinned: boolean
     }, ExtArgs["result"]["subNote"]>
     composites: {}
   }
@@ -10445,6 +10469,8 @@ export namespace Prisma {
     readonly note_id: FieldRef<"SubNote", 'String'>
     readonly created_at: FieldRef<"SubNote", 'DateTime'>
     readonly updated_at: FieldRef<"SubNote", 'DateTime'>
+    readonly is_archived: FieldRef<"SubNote", 'Boolean'>
+    readonly is_pinned: FieldRef<"SubNote", 'Boolean'>
   }
     
 
@@ -13103,7 +13129,9 @@ export namespace Prisma {
     description: 'description',
     note_id: 'note_id',
     created_at: 'created_at',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    is_archived: 'is_archived',
+    is_pinned: 'is_pinned'
   };
 
   export type SubNoteScalarFieldEnum = (typeof SubNoteScalarFieldEnum)[keyof typeof SubNoteScalarFieldEnum]
@@ -13665,6 +13693,8 @@ export namespace Prisma {
     note_id?: StringFilter<"SubNote"> | string
     created_at?: DateTimeFilter<"SubNote"> | Date | string
     updated_at?: DateTimeFilter<"SubNote"> | Date | string
+    is_archived?: BoolFilter<"SubNote"> | boolean
+    is_pinned?: BoolFilter<"SubNote"> | boolean
     note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
     tags?: SubNoteTagListRelationFilter
     images?: SubNoteImageListRelationFilter
@@ -13677,6 +13707,8 @@ export namespace Prisma {
     note_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    is_archived?: SortOrder
+    is_pinned?: SortOrder
     note?: NoteOrderByWithRelationInput
     tags?: SubNoteTagOrderByRelationAggregateInput
     images?: SubNoteImageOrderByRelationAggregateInput
@@ -13693,6 +13725,8 @@ export namespace Prisma {
     note_id?: StringFilter<"SubNote"> | string
     created_at?: DateTimeFilter<"SubNote"> | Date | string
     updated_at?: DateTimeFilter<"SubNote"> | Date | string
+    is_archived?: BoolFilter<"SubNote"> | boolean
+    is_pinned?: BoolFilter<"SubNote"> | boolean
     note?: XOR<NoteScalarRelationFilter, NoteWhereInput>
     tags?: SubNoteTagListRelationFilter
     images?: SubNoteImageListRelationFilter
@@ -13705,6 +13739,8 @@ export namespace Prisma {
     note_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    is_archived?: SortOrder
+    is_pinned?: SortOrder
     _count?: SubNoteCountOrderByAggregateInput
     _max?: SubNoteMaxOrderByAggregateInput
     _min?: SubNoteMinOrderByAggregateInput
@@ -13720,6 +13756,8 @@ export namespace Prisma {
     note_id?: StringWithAggregatesFilter<"SubNote"> | string
     created_at?: DateTimeWithAggregatesFilter<"SubNote"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"SubNote"> | Date | string
+    is_archived?: BoolWithAggregatesFilter<"SubNote"> | boolean
+    is_pinned?: BoolWithAggregatesFilter<"SubNote"> | boolean
   }
 
   export type SubNoteTagWhereInput = {
@@ -14261,6 +14299,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     note: NoteCreateNestedOneWithoutSubNoteInput
     tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
     images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
@@ -14273,6 +14313,8 @@ export namespace Prisma {
     note_id: string
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
     images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
   }
@@ -14283,6 +14325,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
     tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
     images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
@@ -14295,6 +14339,8 @@ export namespace Prisma {
     note_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
     images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
   }
@@ -14306,6 +14352,8 @@ export namespace Prisma {
     note_id: string
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
   }
 
   export type SubNoteUpdateManyMutationInput = {
@@ -14314,6 +14362,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SubNoteUncheckedUpdateManyInput = {
@@ -14323,6 +14373,8 @@ export namespace Prisma {
     note_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type SubNoteTagCreateInput = {
@@ -14923,6 +14975,8 @@ export namespace Prisma {
     note_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    is_archived?: SortOrder
+    is_pinned?: SortOrder
   }
 
   export type SubNoteMaxOrderByAggregateInput = {
@@ -14932,6 +14986,8 @@ export namespace Prisma {
     note_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    is_archived?: SortOrder
+    is_pinned?: SortOrder
   }
 
   export type SubNoteMinOrderByAggregateInput = {
@@ -14941,6 +14997,8 @@ export namespace Prisma {
     note_id?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+    is_archived?: SortOrder
+    is_pinned?: SortOrder
   }
 
   export type SubNoteScalarRelationFilter = {
@@ -16386,6 +16444,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
     images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
   }
@@ -16396,6 +16456,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
     images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
   }
@@ -16552,6 +16614,8 @@ export namespace Prisma {
     note_id?: StringFilter<"SubNote"> | string
     created_at?: DateTimeFilter<"SubNote"> | Date | string
     updated_at?: DateTimeFilter<"SubNote"> | Date | string
+    is_archived?: BoolFilter<"SubNote"> | boolean
+    is_pinned?: BoolFilter<"SubNote"> | boolean
   }
 
   export type UserCreateWithoutTagsInput = {
@@ -17056,6 +17120,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     note: NoteCreateNestedOneWithoutSubNoteInput
     images?: SubNoteImageCreateNestedManyWithoutSubNoteInput
   }
@@ -17067,6 +17133,8 @@ export namespace Prisma {
     note_id: string
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     images?: SubNoteImageUncheckedCreateNestedManyWithoutSubNoteInput
   }
 
@@ -17111,6 +17179,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
     images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
   }
@@ -17122,6 +17192,8 @@ export namespace Prisma {
     note_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
   }
 
@@ -17156,6 +17228,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     note: NoteCreateNestedOneWithoutSubNoteInput
     tags?: SubNoteTagCreateNestedManyWithoutSubNoteInput
   }
@@ -17167,6 +17241,8 @@ export namespace Prisma {
     note_id: string
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
     tags?: SubNoteTagUncheckedCreateNestedManyWithoutSubNoteInput
   }
 
@@ -17192,6 +17268,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     note?: NoteUpdateOneRequiredWithoutSubNoteNestedInput
     tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
   }
@@ -17203,6 +17281,8 @@ export namespace Prisma {
     note_id?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
   }
 
@@ -17424,6 +17504,8 @@ export namespace Prisma {
     description?: string | null
     created_at?: Date | string
     updated_at?: Date | string
+    is_archived?: boolean
+    is_pinned?: boolean
   }
 
   export type NoteTagUpdateWithoutNoteInput = {
@@ -17468,6 +17550,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     tags?: SubNoteTagUpdateManyWithoutSubNoteNestedInput
     images?: SubNoteImageUpdateManyWithoutSubNoteNestedInput
   }
@@ -17478,6 +17562,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
     tags?: SubNoteTagUncheckedUpdateManyWithoutSubNoteNestedInput
     images?: SubNoteImageUncheckedUpdateManyWithoutSubNoteNestedInput
   }
@@ -17488,6 +17574,8 @@ export namespace Prisma {
     description?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    is_archived?: BoolFieldUpdateOperationsInput | boolean
+    is_pinned?: BoolFieldUpdateOperationsInput | boolean
   }
 
   export type NoteTagCreateManyTagInput = {

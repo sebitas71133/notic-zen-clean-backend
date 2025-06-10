@@ -36,8 +36,10 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
 
       return NoteEntity.fromObject({ ...note });
     } catch (error: any) {
-      console.log(error);
-      throw CustomError.badRequest(error.detail);
+      if (error.code === "P2002") {
+        throw CustomError.notFound("No se puede crear una nota repetida");
+      }
+      throw CustomError.badRequest(error.message || "Error al eliminar Nota");
     }
   }
 

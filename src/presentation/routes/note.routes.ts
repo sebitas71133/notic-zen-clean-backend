@@ -74,11 +74,23 @@ export class NoteRoutes {
       subNoteController.saveSubNoteById
     );
 
-    // router.delete(
-    //   "/:noteId/subnotes/:subNoteId",
-    //   [authMiddleware.validateJWT],
-    //   subNoteController.deleteSubNote
-    // );
+    router.delete(
+      "/:noteId/subnotes/:subNoteId",
+      [authMiddleware.validateJWT],
+      subNoteController.deleteSubNoteById
+    );
+
+    router.post(
+      "/admin/sub-images/cleanup",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      subNoteController.cleanOrphanSubImages
+    );
+
+    router.get(
+      "/admin/sub-images/all",
+      [authMiddleware.validateJWT, authMiddleware.isAdmin],
+      subNoteController.getAllSubImages
+    );
 
     return router;
   }

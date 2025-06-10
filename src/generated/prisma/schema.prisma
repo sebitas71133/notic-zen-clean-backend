@@ -113,6 +113,8 @@ model SubNote {
   images      SubNoteImage[]
   created_at  DateTime       @default(now())
   updated_at  DateTime       @updatedAt
+  is_archived Boolean        @default(false)
+  is_pinned   Boolean        @default(false)
 
   @@unique([title, note_id])
 }

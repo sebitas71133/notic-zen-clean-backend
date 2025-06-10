@@ -54,9 +54,9 @@ export class SubNoteRepositoryImpl implements SubNoteRepository {
   ): Promise<SubNoteEntity> {
     return this.subNoteDataSource.saveSubNoteById(subNoteId, userId, updates);
   }
-  // deleteNoteById(id: string): Promise<void> {
-  //   return this.noteDataSource.deleteNoteById(id);
-  // }
+  deleteSubNoteById(subNoteId: string): Promise<void> {
+    return this.subNoteDataSource.deleteSubNoteById(subNoteId);
+  }
 
   clearTags(subNoteId: string): Promise<void> {
     return this.subNoteDataSource.clearTags(subNoteId);

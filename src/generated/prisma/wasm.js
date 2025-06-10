@@ -183,7 +183,9 @@ exports.Prisma.SubNoteScalarFieldEnum = {
   description: 'description',
   note_id: 'note_id',
   created_at: 'created_at',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  is_archived: 'is_archived',
+  is_pinned: 'is_pinned'
 };
 
 exports.Prisma.SubNoteTagScalarFieldEnum = {
