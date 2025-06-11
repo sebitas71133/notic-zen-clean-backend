@@ -8,8 +8,6 @@ import express, {
 } from "express";
 import cors from "cors";
 
-import path from "path";
-
 interface serverOptions {
   port: number;
   routes: Router | RequestHandler;
@@ -56,13 +54,6 @@ export class Server {
 
     //* Public Folder
     this.app.use(express.static(this.publicPath));
-
-    // this.app.get("*", (req, res) => {
-    //   const indexPath = path.join(
-    //     __dirname + `../../../${this.publicPath}/index.html`
-    //   );
-    //   res.sendFile(indexPath);
-    // });
 
     // Manejo de errores globales de body-parser
     this.app.use(

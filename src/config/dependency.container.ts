@@ -1,4 +1,3 @@
-import { NoteDataSource } from "../domain/datasources/note.datasource";
 import { PostgresCategoryDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.category.datasource.impl";
 import { PostgresNoteDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.note.datasource.impl";
 import { PostgresRoleDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.role.datasource.impl";

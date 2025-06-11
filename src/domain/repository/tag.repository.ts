@@ -1,4 +1,3 @@
-import { NoteEntity } from "../entities/note.entitie";
 import { TagEntity } from "../entities/tagEntity";
 import { UserEntity } from "../entities/user.entitie";
 

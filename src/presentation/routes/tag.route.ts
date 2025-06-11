@@ -2,7 +2,6 @@ import { Router } from "express";
 
 import {
   authMiddleware,
-  categoryController,
   tagController,
 } from "../../config/dependency.container";
 

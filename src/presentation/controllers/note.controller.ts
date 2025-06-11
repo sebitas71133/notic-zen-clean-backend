@@ -1,14 +1,11 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
-import { CreateCategoryDto } from "../dtos/category/create-category.dto";
-import { CategoryService } from "../services/category.service";
 
 import { Uuid } from "../../config/uuid";
-import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
-import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
+
 import { CreateNoteDTO } from "../dtos/note/create-note.dto";
 import { NoteService } from "../services/note.service";
-import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
+
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
 import { ImageService } from "../services/Image.service";
@@ -168,12 +165,6 @@ export class NoteController {
 
   public cleanOrphanImages = async (req: Request, res: Response) => {
     try {
-      // const user = req.body.user;
-
-      // if (!user || user.role !== "admin") {
-      //   throw CustomError.unauthorized("No tienes permiso para esto");
-      // }
-
       await this.imageService.cleanOrphanImages();
       return res.status(200).json({
         success: true,

@@ -19,8 +19,6 @@ export class AppRoutes {
 
     router.use("/api/admin", AdminRoutes.routes);
 
-    // router.use("/api/subnote", SubNoteRoutes.routes);
-
     return router;
   }
 }

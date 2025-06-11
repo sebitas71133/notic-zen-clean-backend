@@ -67,13 +67,6 @@ export class CategoryEntity {
     color: string | null;
     user_id?: null | string;
   }): CategoryEntity {
-    // const category = new CategoryEntity(
-    //   props.id,
-    //   props.name,
-    //   props.color ?? "SIN COLOR",
-    //   props.user
-    // );
-
     const reCat = {
       id: props.id,
       name: props.name,

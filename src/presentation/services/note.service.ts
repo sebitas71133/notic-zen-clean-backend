@@ -1,6 +1,3 @@
-import { BycripAdapter } from "../../config/bcrypt.adapter";
-import { JwtAdapter } from "../../config/jwt.adapter";
-import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
@@ -8,9 +5,7 @@ import { NoteEntity } from "../../domain/entities/note.entitie";
 import { NoteRepository } from "../../domain/repository/note.repository";
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
-import { TagEntity } from "../../domain/entities/tagEntity";
 import { TagService } from "./tags.service";
-import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 import { CreateImageDto } from "../dtos/image/create-image.dto";
 import { CreateNoteDTO } from "../dtos/note/create-note.dto";
 import { ImageService } from "./Image.service";
@@ -182,12 +177,6 @@ export class NoteService {
       if (!tag) {
         throw CustomError.badRequest("Note no encontrada o no tienes permisos");
       }
-
-      // if (tag.userId !== user.id) {
-      //   throw CustomError.forbidden(
-      //     "No tienes permiso para modificar esta tag"
-      //   );
-      // }
 
       await this.noteRepository.deleteNoteById(id);
     } catch (error) {

@@ -1,20 +1,14 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
-import { CreateCategoryDto } from "../dtos/category/create-category.dto";
-import { CategoryService } from "../services/category.service";
 
 import { Uuid } from "../../config/uuid";
-import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
-import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
-import { CreateNoteDTO } from "../dtos/note/create-note.dto";
+
 import { NoteService } from "../services/note.service";
-import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
-import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
 import { ImageService } from "../services/Image.service";
-import { PaginationNoteDTO } from "../dtos/note/pagination-note";
+
 import { CreateSubNoteSchema } from "../dtos/subnote/create-subnote.dto";
-import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
+
 import { SubNoteService } from "../services/subnote.service";
 import { PaginationSubNoteSchema } from "../dtos/subnote/pagination-subnote";
 import { SaveSubNoteSchema } from "../dtos/subnote/save-subnote.dto";

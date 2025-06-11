@@ -1,16 +1,8 @@
-import { CategoryDataSource } from "../../domain/datasources/category.datasource";
-import { NoteDataSource } from "../../domain/datasources/note.datasource";
 import { SubNoteDataSource } from "../../domain/datasources/subnote.datasource";
 
-import { CategoryEntity } from "../../domain/entities/categories.entitie";
-import { NoteImageEntity } from "../../domain/entities/image.entitie";
-import { NoteEntity } from "../../domain/entities/note.entitie";
 import { SubNoteImageEntity } from "../../domain/entities/subImage.entitie";
 import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
-import { UserEntity } from "../../domain/entities/user.entitie";
 
-import { CategoryRepository } from "../../domain/repository/category.repository";
-import { NoteRepository } from "../../domain/repository/note.repository";
 import { SubNoteRepository } from "../../domain/repository/subnote.repository";
 
 export class SubNoteRepositoryImpl implements SubNoteRepository {

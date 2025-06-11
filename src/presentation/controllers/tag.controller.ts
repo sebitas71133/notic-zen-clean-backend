@@ -1,9 +1,8 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
-import { CreateCategoryDto } from "../dtos/category/create-category.dto";
 
 import { Uuid } from "../../config/uuid";
-import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
+
 import { TagService } from "../services/tags.service";
 import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { CreateTagDto } from "../dtos/tags/create-tag.dto";

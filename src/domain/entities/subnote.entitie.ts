@@ -1,7 +1,7 @@
 // src/domain/entities/subnote.entity.ts
 import { Uuid } from "../../config/uuid";
 import { CustomError } from "../errors/custom.error";
-import { NoteImageEntity } from "./image.entitie";
+
 import { SubNoteImageEntity } from "./subImage.entitie";
 import { TagEntity } from "./tagEntity";
 

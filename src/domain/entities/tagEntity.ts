@@ -1,6 +1,5 @@
 import { Uuid } from "../../config/uuid";
 import { CustomError } from "../errors/custom.error";
-import { UserEntity } from "./user.entitie";
 
 export interface TagProps {
   name: string;

@@ -1,29 +1,13 @@
-import { pgPool } from "../../../data/postgresql/init";
 import { UserDataSource } from "../../../domain/datasources/user.datasource";
 import { RoleEntity } from "../../../domain/entities/role.entitie";
 import { UserEntity } from "../../../domain/entities/user.entitie";
 import { RoleName } from "../../../domain/enums/role.enum";
 import { CustomError } from "../../../domain/errors/custom.error";
 import { PrismaClient } from "../../../generated/prisma";
-import { RoleRepositoryImpl } from "../../repository/role.repository.impl";
 
 const prismaClient = new PrismaClient();
 export class PostgresUserDataSourceImpl implements UserDataSource {
-  constructor(private readonly roleRepository: RoleRepositoryImpl) {}
-  // public async saveUser(user: UserEntity): Promise<UserEntity> {
-  //   try {
-  //     const { id, email, emailValidated, image, name, password_hash, role } =
-  //       user;
-  //     await pgPool.query(
-  //       `INSERT INTO users (id,name,email,password_hash,role_id,emailValidated,image) VALUES($1,$2,$3,$4,$5,$6,$7) `,
-  //       [id, name, email, password_hash, role.id, emailValidated, image]
-  //     );
-
-  //     return UserEntity.fromObject({ ...user });
-  //   } catch (error: any) {
-  //     throw CustomError.badRequest(error.detail);
-  //   }
-  // }
+  constructor() {}
 
   public async saveUser(user: UserEntity): Promise<UserEntity> {
     try {

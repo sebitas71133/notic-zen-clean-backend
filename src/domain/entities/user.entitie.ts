@@ -31,7 +31,6 @@ export class UserEntity {
 
     //Regla de negocio en la entidad
     if (!params.email.endsWith("@gmail.com")) {
-      // return [new Error("Only Gmail addresses are allowed."), null];
       throw CustomError.badRequest("Only Gmail addresses are allowed.");
     }
     console.log(params.password_hash.length);
@@ -74,7 +73,7 @@ export class UserEntity {
       props.email,
       props.password_hash,
       props.emailValidated,
-      props.role ??undefined,
+      props.role ?? undefined,
       props.image!
     );
 

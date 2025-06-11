@@ -1,8 +1,8 @@
-import { NextFunction, Request, RequestHandler, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 
 import { AuthService } from "../services/auth.service";
 import { CustomError } from "../../domain/errors/custom.error";
-import { UserEntity } from "../../domain/entities/user.entitie";
+
 import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
 
 import { UpdateUserDTO } from "../dtos/users/update.user.dto";

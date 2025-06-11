@@ -31,21 +31,7 @@ export class RoleEntity {
       props.description ?? undefined
     );
   }
-
-  // isAdmin(): boolean {
-  //   return this.name.toLowerCase() === "admin";
-  // }
-
-  // isEditor(): boolean {
-  //   return this.name.toLowerCase() === "editor";
-  // }
-
-  // Puedes seguir agregando reglas aquí
 }
-
-// const user = RoleEntity.create(1, RoleName.ADMIN,"test");
-
-// user.isAdmin
 
 function generateSecureUniqueNumber(): number {
   const timestamp = Date.now(); // tiempo en milisegundos

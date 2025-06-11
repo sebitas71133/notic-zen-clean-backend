@@ -1,6 +1,5 @@
 import { CustomError } from "../../../domain/errors/custom.error";
 
-import { pgPool } from "../../../data/postgresql/init";
 import { CategoryDataSource } from "../../../domain/datasources/category.datasource";
 import { CategoryEntity } from "../../../domain/entities/categories.entitie";
 import { UserRepository } from "../../../domain/repository/user.repository";

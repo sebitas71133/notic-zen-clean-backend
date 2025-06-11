@@ -1,5 +1,3 @@
-import { BycripAdapter } from "../../config/bcrypt.adapter";
-import { JwtAdapter } from "../../config/jwt.adapter";
 import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";

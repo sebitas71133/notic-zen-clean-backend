@@ -25,17 +25,13 @@ export class SubNoteService {
       const subNoteEntity = SubNoteEntity.create(dto);
 
       const tagIds = dto.tags ?? [];
-      const imagesD = (dto.images as CreateImageDto[]) ?? [];
-
-      console.log({ subNoteEntity, tagIds, imagesD });
+      const subImages = (dto.images as CreateImageDto[]) ?? [];
 
       const newSubNote = await this.subNoteRepository.createSubNote(
         subNoteEntity
       );
 
       const subNoteId = newSubNote.id;
-
-      console.log({ subNoteId });
 
       // 3. Tags
       await this.subNoteRepository.clearTags(subNoteId);
@@ -44,15 +40,13 @@ export class SubNoteService {
       }
 
       const processedImages = await this.imageService.processImages(
-        imagesD,
+        subImages,
         "subnote"
       );
 
-      console.log({ processedImages });
-
       // 4. Imágenes
       await this.subNoteRepository.clearImages(subNoteId);
-      if (imagesD.length) {
+      if (subImages.length) {
         const subImagesEntity = processedImages.map((img) =>
           SubNoteImageEntity.create({
             subNoteId: subNoteId,
@@ -61,7 +55,7 @@ export class SubNoteService {
             publicId: img.publicId,
           })
         );
-        console.log({ subImagesEntity });
+
         await this.subNoteRepository.addImagesToSubNote(
           subNoteId,
           subImagesEntity
@@ -85,12 +79,12 @@ export class SubNoteService {
     userId: string
   ): Promise<SubNoteEntity | null> => {
     try {
-      const note = await this.subNoteRepository.isValidUserToEditSubNote(
+      const subNote = await this.subNoteRepository.isValidUserToEditSubNote(
         subNoteId,
         userId
       );
 
-      if (!note)
+      if (!subNote)
         throw CustomError.forbidden("No tienes permiso sobre la subnota");
 
       // 1. Actualizar nota principal
@@ -98,8 +92,6 @@ export class SubNoteService {
         description: dto.description,
         title: dto.title,
       });
-
-      console.log(subNoteEntity);
 
       await this.subNoteRepository.saveSubNoteById(
         subNoteId,
@@ -133,7 +125,7 @@ export class SubNoteService {
             publicId: img.publicId,
           })
         );
-        console.log({ subImagesEntity });
+
         await this.subNoteRepository.addImagesToSubNote(
           subNoteId,
           subImagesEntity
@@ -144,7 +136,7 @@ export class SubNoteService {
       return await this.subNoteRepository.getSubNoteById(subNoteId, userId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error saving note");
+      throw CustomError.internalServer("Error saving subNote");
     }
   };
 
@@ -169,8 +161,6 @@ export class SubNoteService {
         sortDate,
         sortTitle
       );
-
-      // const i = notes.images;
 
       return notes ?? [];
     } catch (error) {
@@ -198,7 +188,7 @@ export class SubNoteService {
       return subNote;
     } catch (error) {
       if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error fetching note");
+      throw CustomError.internalServer("Error fetching subNote");
     }
   };
 
@@ -221,7 +211,7 @@ export class SubNoteService {
       await this.subNoteRepository.deleteSubNoteById(subNoteId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error deleting note");
+      throw CustomError.internalServer("Error deleting subNote");
     }
   };
 }

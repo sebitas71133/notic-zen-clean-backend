@@ -35,7 +35,7 @@ export class ImageService {
     folder: string
   ): Promise<{ secure_url: string; public_id: string }> {
     const result = await cloudinary.uploader.upload(base64, {
-      folder: folder, // puedes cambiar esto si quieres
+      folder: folder,
     });
     return {
       secure_url: result.secure_url,
@@ -73,13 +73,13 @@ export class ImageService {
         processedImages.push({
           url: uploadResult.secure_url,
           altText: image.altText,
-          publicId: uploadResult.public_id, // 👈 Añadir el public_id
+          publicId: uploadResult.public_id, //  Añadir el public_id
         });
       } else {
         processedImages.push({
           url: image.url,
           altText: image.altText,
-          publicId: image.publicId, // 👈 No hay public_id para URLs externas
+          publicId: image.publicId, //  No hay public_id para URLs externas
         });
       }
     }
@@ -87,7 +87,7 @@ export class ImageService {
     return processedImages;
   }
 
-  /** 👇 Método de limpieza mensual */
+  /** Método de limpieza mensual */
   public async cleanOrphanImages() {
     const orphanPublicIds: string[] = [];
 
@@ -161,7 +161,7 @@ export class ImageService {
     do {
       const result = await cloudinary.api.resources({
         type: "upload",
-        prefix: "note/", // Ajusta según tu carpeta en Cloudinary
+        prefix: "note/",
         max_results: 100,
         next_cursor: nextCursor,
       });
