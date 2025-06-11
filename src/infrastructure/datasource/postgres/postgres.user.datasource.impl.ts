@@ -242,14 +242,23 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
 
   public async getTotals(): Promise<any> {
     try {
-      const [totalUser, totalNote, totalTag, totalCategory, totalImages] =
-        await Promise.all([
-          prismaClient.user.count(),
-          prismaClient.note.count(),
-          prismaClient.tag.count(),
-          prismaClient.category.count(),
-          prismaClient.noteImage.count(),
-        ]);
+      const [
+        totalUser,
+        totalNote,
+        totalTag,
+        totalCategory,
+        totalImages,
+        totalSubNotes,
+        totalSubImages,
+      ] = await Promise.all([
+        prismaClient.user.count(),
+        prismaClient.note.count(),
+        prismaClient.tag.count(),
+        prismaClient.category.count(),
+        prismaClient.noteImage.count(),
+        prismaClient.subNote.count(),
+        prismaClient.subNoteImage.count(),
+      ]);
 
       return {
         totalUser,
@@ -257,6 +266,8 @@ export class PostgresUserDataSourceImpl implements UserDataSource {
         totalTag,
         totalCategory,
         totalImages,
+        totalSubNotes,
+        totalSubImages,
       };
     } catch (error: any) {
       throw CustomError.badRequest(

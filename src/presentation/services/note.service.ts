@@ -195,4 +195,15 @@ export class NoteService {
       throw CustomError.internalServer("Error deleting note");
     }
   };
+
+  getTotals = async (userId: string) => {
+    try {
+      const documents = await this.noteRepository.getTotals(userId);
+
+      return documents;
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+      throw CustomError.internalServer("Error generating token");
+    }
+  };
 }

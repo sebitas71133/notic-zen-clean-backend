@@ -3,6 +3,7 @@ import { AuthRoutes } from "./routes/auth.routes";
 import { CategoryRoutes } from "./routes/category.routes";
 import { TagRoutes } from "./routes/tag.route";
 import { NoteRoutes } from "./routes/note.routes";
+import { AdminRoutes } from "./routes/admin.routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -15,6 +16,8 @@ export class AppRoutes {
     router.use("/api/tag", TagRoutes.routes);
 
     router.use("/api/note", NoteRoutes.routes);
+
+    router.use("/api/admin", AdminRoutes.routes);
 
     // router.use("/api/subnote", SubNoteRoutes.routes);
 

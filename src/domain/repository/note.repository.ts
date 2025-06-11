@@ -31,6 +31,8 @@ export abstract class NoteRepository {
 
   abstract addTagsToNote(noteId: string, tagIds: string[]): Promise<void>;
 
+  abstract getTotals(userId: string): Promise<any>;
+
   abstract clearImages(noteId: string): Promise<void>;
 
   abstract addImagesToNote(

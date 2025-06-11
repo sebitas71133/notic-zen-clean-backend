@@ -1,4 +1,5 @@
 import nodemailer, { Transporter } from "nodemailer";
+import { SettingService } from "./setting.service";
 
 export interface SendMailOptions {
   to: string | string[];
@@ -19,7 +20,7 @@ export class EmailService {
     mailService: string,
     mailerEmail: string,
     senderEmailPassowrd: string,
-    private readonly postToProvider: boolean
+    private readonly settingService: SettingService
   ) {
     this.transporter = nodemailer.createTransport({
       service: mailService,
@@ -33,8 +34,11 @@ export class EmailService {
   async sendEmail(options: SendMailOptions): Promise<boolean> {
     const { to, subject, htmlBody, attachements = [] } = options;
 
+    const shouldSendEmail =
+      (await this.settingService.getValue("sendEmail")) === "true";
+
     try {
-      if (!this.postToProvider) return true;
+      if (!shouldSendEmail) return true;
       const sentInformation = await this.transporter.sendMail({
         to: to,
         subject: subject,

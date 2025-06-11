@@ -3,6 +3,7 @@ import { envs } from "../../config/envs";
 import { prismaClient } from "../../data/prisma/init";
 import axios from "axios";
 import { CustomError } from "../../domain/errors/custom.error";
+import { SettingService } from "./setting.service";
 
 cloudinary.config({
   cloud_name: envs.CLOUDINARY_NAME,
@@ -23,6 +24,8 @@ interface ImageOutput {
 }
 
 export class ImageService {
+  constructor(private readonly settingService: SettingService) {}
+
   private isBase64Image(url: string): boolean {
     return url.startsWith("data:image/");
   }
@@ -45,6 +48,8 @@ export class ImageService {
     folder: string
   ): Promise<ImageOutput[]> {
     const processedImages: ImageOutput[] = [];
+    const shouldModerate =
+      (await this.settingService.getValue("moderateImage")) === "true";
 
     for (const image of images) {
       if (this.isBase64Image(image.url)) {
@@ -52,7 +57,7 @@ export class ImageService {
 
         //  MODERAR ANTES DE GUARDAR
 
-        if (envs.MODERATE_IMAGE) {
+        if (shouldModerate) {
           const { isSafe, details } = await this.moderateImage(
             uploadResult.secure_url
           );
@@ -156,7 +161,7 @@ export class ImageService {
     do {
       const result = await cloudinary.api.resources({
         type: "upload",
-        prefix: "notes/", // Ajusta según tu carpeta en Cloudinary
+        prefix: "note/", // Ajusta según tu carpeta en Cloudinary
         max_results: 100,
         next_cursor: nextCursor,
       });
@@ -204,7 +209,7 @@ export class ImageService {
     do {
       const result = await cloudinary.api.resources({
         type: "upload",
-        prefix: "subnotes/", // Ajusta según tu carpeta en Cloudinary
+        prefix: "subnote/", // Carpeta en cloudinary
         max_results: 100,
         next_cursor: nextCursor,
       });

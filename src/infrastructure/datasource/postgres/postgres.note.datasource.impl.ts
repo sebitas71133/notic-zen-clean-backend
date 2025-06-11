@@ -317,6 +317,55 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     });
   }
 
+  async getTotals(userId: string): Promise<any> {
+    try {
+      const [
+        totalNote,
+        totalTag,
+        totalCategory,
+        totalImages,
+        totalSubNote,
+        totalSubImage,
+      ] = await Promise.all([
+        prismaClient.note.count({ where: { user_id: userId } }),
+        prismaClient.tag.count({
+          where: {
+            OR: [{ user_id: userId }, { user_id: null }],
+          },
+        }),
+        prismaClient.category.count({
+          where: {
+            OR: [{ user_id: userId }, { user_id: null }],
+          },
+        }),
+        prismaClient.noteImage.count({ where: { note: { user_id: userId } } }),
+        prismaClient.subNote.count({ where: { note: { user_id: userId } } }),
+        prismaClient.subNoteImage.count({
+          where: {
+            subNote: {
+              note: {
+                user_id: userId,
+              },
+            },
+          },
+        }),
+      ]);
+
+      return {
+        totalNote,
+        totalTag,
+        totalCategory,
+        totalImages,
+        totalSubNote,
+        totalSubImage,
+      };
+    } catch (error: any) {
+      throw CustomError.badRequest(
+        error.message || "Error obtener total de datos"
+      );
+    }
+  }
+
   toBoolean(value?: string | boolean): boolean | undefined {
     if (value === "true") return true;
     if (value === "false") return false;

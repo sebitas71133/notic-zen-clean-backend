@@ -33,6 +33,8 @@ export abstract class NoteDataSource {
 
   abstract clearImages(noteId: string): Promise<void>;
 
+  abstract getTotals(userId: string): Promise<any>;
+
   abstract addImagesToNote(
     noteId: string,
     images: NoteImageEntity[]

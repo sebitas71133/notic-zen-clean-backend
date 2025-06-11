@@ -1,12 +1,8 @@
-import { CategoryDataSource } from "../../domain/datasources/category.datasource";
 import { NoteDataSource } from "../../domain/datasources/note.datasource";
 
-import { CategoryEntity } from "../../domain/entities/categories.entitie";
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
 import { NoteEntity } from "../../domain/entities/note.entitie";
-import { UserEntity } from "../../domain/entities/user.entitie";
 
-import { CategoryRepository } from "../../domain/repository/category.repository";
 import { NoteRepository } from "../../domain/repository/note.repository";
 
 export class NoteRepositoryImpl implements NoteRepository {
@@ -58,6 +54,10 @@ export class NoteRepositoryImpl implements NoteRepository {
 
   addTagsToNote(noteId: string, tagIds: string[]): Promise<void> {
     return this.noteDataSource.addTagsToNote(noteId, tagIds);
+  }
+
+  getTotals(userId: string): Promise<any> {
+    return this.noteDataSource.getTotals(userId);
   }
 
   clearImages(noteId: string): Promise<void> {

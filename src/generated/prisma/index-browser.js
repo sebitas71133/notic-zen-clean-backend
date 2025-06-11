@@ -202,6 +202,14 @@ exports.Prisma.SubNoteImageScalarFieldEnum = {
   public_id: 'public_id'
 };
 
+exports.Prisma.SettingScalarFieldEnum = {
+  key: 'key',
+  value: 'value',
+  description: 'description',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -228,7 +236,8 @@ exports.Prisma.ModelName = {
   NoteImage: 'NoteImage',
   SubNote: 'SubNote',
   SubNoteTag: 'SubNoteTag',
-  SubNoteImage: 'SubNoteImage'
+  SubNoteImage: 'SubNoteImage',
+  Setting: 'Setting'
 };
 
 /**

@@ -22,6 +22,12 @@ export class NoteRoutes {
       noteController.getNotesById
     );
 
+    router.get(
+      "/stats",
+      [authMiddleware.validateJWT],
+      noteController.getTotals
+    );
+
     router.get("/notes/:id", noteController.getNoteById);
 
     router.put(
@@ -35,6 +41,8 @@ export class NoteRoutes {
       [authMiddleware.validateJWT],
       noteController.deleteNoteById
     );
+
+    // NOTES - ADMIN
 
     router.post(
       "/admin/images/cleanup",

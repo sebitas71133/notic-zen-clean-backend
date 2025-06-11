@@ -137,3 +137,11 @@ model SubNoteImage {
   created_at  DateTime @default(now())
   public_id   String?
 }
+
+model Setting {
+  key         String   @id
+  value       String
+  description String?
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+}

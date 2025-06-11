@@ -150,6 +150,22 @@ export class NoteController {
     }
   };
 
+  public getTotals = async (req: Request, res: Response) => {
+    try {
+      const user = req.body.user;
+
+      const documents = await this.noteService.getTotals(user.id);
+
+      return res.status(200).json({
+        success: true,
+        message: "Documentos totales",
+        data: documents,
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
   public cleanOrphanImages = async (req: Request, res: Response) => {
     try {
       // const user = req.body.user;
