@@ -120,10 +120,6 @@ export class SubNoteController {
 
       const dto = result.data;
 
-      console.log({ dto });
-
-      console.log({ noteId: dto.noteId, userId: user.id });
-
       const note = await this.noteService.getNoteById(dto.noteId, user.id);
 
       const notes = await this.subNoteService.getSubNotesByNoteId(

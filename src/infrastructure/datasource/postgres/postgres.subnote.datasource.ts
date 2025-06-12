@@ -15,7 +15,6 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
 
   async createSubNote(subnote: SubNoteEntity): Promise<SubNoteEntity> {
     try {
-      // console.log({ source: subnote });
       await prismaClient.subNote.create({
         data: {
           id: subnote.id, // Puedes dejar que Prisma genere UUID si es undefined
@@ -266,7 +265,6 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
       tag_id: tagId,
     }));
 
-    console.log({ data });
     await prismaClient.subNoteTag.createMany({
       data,
       skipDuplicates: true, // evita errores por relaciones ya existentes

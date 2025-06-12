@@ -23,6 +23,6 @@ export class CreateTagDto {
     }
 
     const { name } = result.data;
-    return new CreateTagDto(name);
+    return new CreateTagDto(name.toLowerCase());
   }
 }

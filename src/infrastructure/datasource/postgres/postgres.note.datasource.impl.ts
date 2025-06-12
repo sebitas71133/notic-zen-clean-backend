@@ -97,8 +97,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       const archivedBool = this.toBoolean(isArchived);
       const pinnedBool = this.toBoolean(isPinned);
 
-      console.log({ isPinned, isArchived });
-
       const orderBy: any[] = [];
 
       if (sortDate) {

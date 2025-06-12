@@ -34,7 +34,7 @@ export class PaginationTagDTO {
     }
 
     const { page, limit } = result.data;
-    console.log({ page, limit });
+
     const tagDTO = new PaginationTagDTO(page, limit);
 
     return tagDTO;

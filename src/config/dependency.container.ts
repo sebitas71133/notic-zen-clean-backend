@@ -33,7 +33,7 @@ import { envs } from "./envs";
 export const roleDataSource = new PostgresRoleDataSourceImpl();
 export const roleRepository = new RoleRepositoryImpl(roleDataSource);
 
-export const userDataSource = new PostgresUserDataSourceImpl(roleRepository);
+export const userDataSource = new PostgresUserDataSourceImpl();
 export const userRepository = new UserRepositoryImpl(userDataSource);
 
 export const categoryDataSource = new PostgresCategoryDataSourceImpl(

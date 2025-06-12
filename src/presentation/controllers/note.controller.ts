@@ -80,8 +80,6 @@ export class NoteController {
 
       const user = req.body.user;
 
-      console.log({ dto });
-
       const notes = await this.noteService.getNotesById(
         dto.page,
         dto.limit,
@@ -109,8 +107,6 @@ export class NoteController {
     try {
       const id = req.params["id"];
       const user = req.body.user;
-
-      console.log({ id });
 
       if (!Uuid.isUUID(id) || !id) {
         throw CustomError.badRequest("Invalid or missing category ID");
