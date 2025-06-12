@@ -170,6 +170,18 @@ export class SubNoteService {
     }
   };
 
+  getAllSubNotesByUserId = async (userId: string): Promise<SubNoteEntity[]> => {
+    try {
+      const notes = await this.subNoteRepository.getAllSubNotesByUserId(userId);
+
+      return notes ?? [];
+    } catch (error) {
+      if (error instanceof CustomError) throw error;
+
+      throw CustomError.internalServer("Error fetching notes");
+    }
+  };
+
   getSubNoteById = async (
     subNoteId: string,
     userId: string

@@ -145,6 +145,28 @@ export class SubNoteController {
     }
   };
 
+  public getAllSubNotesByUserId = async (req: Request, res: Response) => {
+    try {
+      // const dto = PaginationNoteDTO.createDTO(req.query);
+
+      const user = req.body.user;
+
+      const userId = user.id;
+
+      const notes = await this.subNoteService.getAllSubNotesByUserId(userId);
+
+      return res.status(200).json({
+        success: true,
+        message: `subnotas registradas del usuario ${user.email}`,
+        userId,
+        data: notes ?? [], //Por si acaso xd
+      });
+    } catch (error) {
+      // console.log(error);
+      this.handleError(error, res);
+    }
+  };
+
   public deleteSubNoteById = async (req: Request, res: Response) => {
     try {
       const { subNoteId, noteId } = req.params;

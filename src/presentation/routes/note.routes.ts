@@ -64,6 +64,12 @@ export class NoteRoutes {
       subNoteController.getSubNotesByNoteId
     );
 
+    router.get(
+      "/subnotes",
+      [authMiddleware.validateJWT],
+      subNoteController.getAllSubNotesByUserId
+    );
+
     router.post(
       "/:noteId/subnotes",
       [authMiddleware.validateJWT],

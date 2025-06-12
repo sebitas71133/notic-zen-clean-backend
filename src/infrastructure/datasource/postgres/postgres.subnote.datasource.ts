@@ -295,6 +295,63 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
     });
   }
 
+  async getAllSubNotesByUserId(userId: string): Promise<SubNoteEntity[]> {
+    try {
+      const prismaSubNotes = await prismaClient.subNote.findMany({
+        where: {
+          note: {
+            user_id: userId,
+          },
+        },
+        include: {
+          tags: {
+            include: {
+              tag: {
+                select: { id: true, name: true },
+              },
+            },
+          },
+          images: {
+            select: {
+              id: true,
+              url: true,
+              alt_text: true,
+              created_at: true,
+              public_id: true,
+            },
+          },
+        },
+      });
+
+      return prismaSubNotes.map((sub) =>
+        SubNoteEntity.fromPrisma({
+          id: sub.id,
+          title: sub.title,
+          description: sub.description ?? "",
+          noteId: sub.note_id,
+          createdAt: sub.created_at,
+          updatedAt: sub.updated_at,
+          tags: sub.tags.map(
+            (t) => ({ id: t.tag.id, name: t.tag.name } as TagEntity)
+          ),
+          images: sub.images.map(
+            (img) =>
+              ({
+                id: img.id,
+                url: img.url,
+                altText: img.alt_text ?? undefined,
+                createdAt: img.created_at,
+                publicId: img.public_id,
+              } as SubNoteImageEntity)
+          ),
+        })
+      );
+    } catch (error: any) {
+      console.error(error);
+      throw CustomError.badRequest(error.message);
+    }
+  }
+
   toBoolean(value?: string | boolean): boolean | undefined {
     if (value === "true") return true;
     if (value === "false") return false;

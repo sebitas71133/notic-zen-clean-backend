@@ -58,6 +58,10 @@ export class SubNoteRepositoryImpl implements SubNoteRepository {
     return this.subNoteDataSource.addTagsToSubNote(subNoteId, tagIds);
   }
 
+  getAllSubNotesByUserId(userId: string): Promise<SubNoteEntity[]> {
+    return this.subNoteDataSource.getAllSubNotesByUserId(userId);
+  }
+
   clearImages(subNoteId: string): Promise<void> {
     return this.subNoteDataSource.clearImages(subNoteId);
   }

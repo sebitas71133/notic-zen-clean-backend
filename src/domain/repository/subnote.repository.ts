@@ -43,4 +43,6 @@ export abstract class SubNoteRepository {
     subNoteId: string,
     userId: string
   ): Promise<boolean>;
+
+  abstract getAllSubNotesByUserId(userId: string): Promise<SubNoteEntity[]>;
 }
