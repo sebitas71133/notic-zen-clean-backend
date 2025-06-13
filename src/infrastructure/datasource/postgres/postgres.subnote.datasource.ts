@@ -2,13 +2,11 @@ import { CustomError } from "../../../domain/errors/custom.error";
 
 import { TagEntity } from "../../../domain/entities/tagEntity";
 
-import { Prisma, PrismaClient } from "../../../generated/prisma";
-
 import { SubNoteDataSource } from "../../../domain/datasources/subnote.datasource";
 import { SubNoteEntity } from "../../../domain/entities/subnote.entitie";
 import { SubNoteImageEntity } from "../../../domain/entities/subImage.entitie";
-
-const prismaClient = new PrismaClient();
+import { Prisma } from "@prisma/client";
+import { prismaClient } from "../../../data/prisma/init";
 
 export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
   constructor() {}

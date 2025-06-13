@@ -1,8 +1,5 @@
+import { prismaClient } from "../../../data/prisma/init";
 import { SettingDataSource } from "../../../domain/datasources/setting.datasource";
-
-import { PrismaClient } from "../../../generated/prisma";
-
-const prismaClient = new PrismaClient();
 
 export class PostgresSettingDataSourceImpl implements SettingDataSource {
   async getValue(key: string): Promise<string | null> {

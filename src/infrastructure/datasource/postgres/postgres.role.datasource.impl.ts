@@ -2,9 +2,7 @@ import { CustomError } from "../../../domain/errors/custom.error";
 import { RoleDataSource } from "../../../domain/datasources/role.datasource";
 import { RoleEntity } from "../../../domain/entities/role.entitie";
 import { RoleName } from "../../../domain/enums/role.enum";
-
-import { PrismaClient } from "../../../generated/prisma";
-const prismaClient = new PrismaClient();
+import { prismaClient } from "../../../data/prisma/init";
 
 export class PostgresRoleDataSourceImpl implements RoleDataSource {
   constructor() {}

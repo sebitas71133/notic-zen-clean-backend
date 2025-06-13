@@ -6,9 +6,11 @@ import { NoteDataSource } from "../../../domain/datasources/note.datasource";
 import { NoteImageEntity } from "../../../domain/entities/image.entitie";
 import { TagEntity } from "../../../domain/entities/tagEntity";
 
-import { Prisma, PrismaClient } from "../../../generated/prisma";
+// import { Prisma, PrismaClient } from "../../../generated/prisma";
 import { CategoryEntity } from "../../../domain/entities/categories.entitie";
-const prismaClient = new PrismaClient();
+import { prismaClient } from "../../../data/prisma/init";
+import { Prisma } from "@prisma/client";
+// const prismaClient = new PrismaClient();
 
 export class PostgresNoteDataSourceImpl implements NoteDataSource {
   constructor() {}

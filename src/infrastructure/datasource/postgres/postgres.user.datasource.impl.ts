@@ -1,11 +1,10 @@
+import { prismaClient } from "../../../data/prisma/init";
 import { UserDataSource } from "../../../domain/datasources/user.datasource";
 import { RoleEntity } from "../../../domain/entities/role.entitie";
 import { UserEntity } from "../../../domain/entities/user.entitie";
 import { RoleName } from "../../../domain/enums/role.enum";
 import { CustomError } from "../../../domain/errors/custom.error";
-import { PrismaClient } from "../../../generated/prisma";
 
-const prismaClient = new PrismaClient();
 export class PostgresUserDataSourceImpl implements UserDataSource {
   constructor() {}
 
