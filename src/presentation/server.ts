@@ -7,6 +7,7 @@ import express, {
   ErrorRequestHandler,
 } from "express";
 import cors from "cors";
+import { envs } from "../config/envs";
 
 interface serverOptions {
   port: number;
@@ -36,9 +37,10 @@ export class Server {
     this.app.use(
       cors({
         origin: [
-          "http://localhost:5173",
-          "http://localhost:3000",
-          "http://192.168.0.8:5173",
+          envs.CLIENT_URL,
+          // "http://localhost:5173",
+          // "http://localhost:3000",
+          // "http://192.168.0.8:5173",
         ],
         credentials: true, // si necesitas cookies / headers auth
         methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
