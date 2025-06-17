@@ -108,6 +108,12 @@ WEBSERVICE_URL=http://localhost:3000
 CLIENT_URL=http://localhost:5173
 ```
 
+## 🗂️ Estructura de la Base de Datos (PostgreSQL)
+
+A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
+
+![Diagrama de Base de Datos](https://github.com/user-attachments/assets/87f49899-0e0b-43b5-8a83-dcbe01621a20)
+
 ---
 
 # 📚 ENDPOINTS.md – Documentación de API (Proyecto Notas Zen)
