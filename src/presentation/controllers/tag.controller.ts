@@ -1,12 +1,11 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { Uuid } from "../../config/uuid";
-
 import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 import { UpdateTagDTO } from "../dtos/tags/update-tag.dto";
 import { TagService } from "../../application/services/tags.service";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class TagController {
   //DI ?

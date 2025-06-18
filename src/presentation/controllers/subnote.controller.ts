@@ -1,8 +1,6 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { Uuid } from "../../config/uuid";
-
 import { CreateSubNoteSchema } from "../dtos/subnote/create-subnote.dto";
 
 import { PaginationSubNoteSchema } from "../dtos/subnote/pagination-subnote";
@@ -10,6 +8,7 @@ import { SaveSubNoteSchema } from "../dtos/subnote/save-subnote.dto";
 import { SubNoteService } from "../../application/services/subnote.service";
 import { NoteService } from "../../application/services/note.service";
 import { ImageService } from "../../application/services/Image.service";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class SubNoteController {
   //DI ?

@@ -69,7 +69,7 @@ export const imageService = new ImageService(settingSerice);
 
 export const noteDatasource = new PostgresNoteDataSourceImpl();
 export const noteRepository = new NoteRepositoryImpl(noteDatasource);
-export const noteSerice = new NoteService(
+export const noteService = new NoteService(
   tagService,
   noteRepository,
   imageService
@@ -88,11 +88,11 @@ export const categoryService = new CategoryService(categoryRepository);
 
 export const categoryController = new CategoryController(categoryService);
 export const tagController = new TagController(tagService);
-export const noteController = new NoteController(noteSerice, imageService);
+export const noteController = new NoteController(noteService, imageService);
 
 export const subNoteController = new SubNoteController(
   subNoteSerice,
-  noteSerice,
+  noteService,
   imageService
 );
 

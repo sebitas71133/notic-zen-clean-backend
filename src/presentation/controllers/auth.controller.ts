@@ -5,12 +5,14 @@ import { CustomError } from "../../domain/errors/custom.error";
 import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
 
 import { UpdateUserDTO } from "../dtos/users/update.user.dto";
-import { Uuid } from "../../config/uuid";
+
 import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { PaginationUserDTO } from "../dtos/auth/pagination-user.dto";
-import { JwtAdapter } from "../../config/jwt.adapter";
+
 import { envs } from "../../config/envs";
 import { AuthService } from "../../application/services/auth.service";
+import { Uuid } from "../../shared/adapters.ts/uuid";
+import { JwtAdapter } from "../../shared/adapters.ts/jwt.adapter";
 
 export class AuthController {
   //DI ?

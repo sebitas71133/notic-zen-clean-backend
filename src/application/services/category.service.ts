@@ -1,4 +1,3 @@
-import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
@@ -6,6 +5,7 @@ import { CategoryRepository } from "../../domain/repository/category.repository"
 import { CategoryEntity } from "../../domain/entities/categories.entitie";
 import { UpdateCategoryDTO } from "../../presentation/dtos/category/update-category.dto";
 import { CreateCategoryDto } from "../../presentation/dtos/category/create-category.dto";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class CategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}

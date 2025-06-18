@@ -2,10 +2,10 @@ import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { CreateCategoryDto } from "../dtos/category/create-category.dto";
 
-import { Uuid } from "../../config/uuid";
 import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
 import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
 import { CategoryService } from "../../application/services/category.service";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class CategoryController {
   //DI ?

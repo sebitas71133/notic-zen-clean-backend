@@ -1,10 +1,10 @@
-import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
 import { TagRepository } from "../../domain/repository/tag.repository";
 import { TagEntity } from "../../domain/entities/tagEntity";
 import { CreateTagDto } from "../../presentation/dtos/tags/create-tag.dto";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class TagService {
   constructor(private readonly tagRepository: TagRepository) {}

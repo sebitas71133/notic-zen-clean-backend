@@ -1,6 +1,3 @@
-import { BycripAdapter } from "../../config/bcrypt.adapter";
-import { JwtAdapter } from "../../config/jwt.adapter";
-import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
@@ -12,6 +9,9 @@ import { RoleRepository } from "../../domain/repository/role.repository";
 import { UserRepository } from "../../domain/repository/user.repository";
 import { AuthRegisterRequestDTO } from "../../presentation/dtos/auth/register-user.dto";
 import { LoginUserDto } from "../../presentation/dtos/auth/login-user.dto";
+import { JwtAdapter } from "../../shared/adapters.ts/jwt.adapter";
+import { BycripAdapter } from "../../shared/adapters.ts/bcrypt.adapter";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export class AuthService {
   constructor(
