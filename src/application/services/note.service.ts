@@ -3,12 +3,14 @@ import { CustomError } from "../../domain/errors/custom.error";
 
 import { NoteEntity } from "../../domain/entities/note.entitie";
 import { NoteRepository } from "../../domain/repository/note.repository";
-import { SaveNoteDTO } from "../dtos/note/save-note.dto";
+
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
 import { TagService } from "./tags.service";
-import { CreateImageDto } from "../dtos/image/create-image.dto";
-import { CreateNoteDTO } from "../dtos/note/create-note.dto";
+
 import { ImageService } from "./Image.service";
+import { CreateImageDto } from "../../presentation/dtos/image/create-image.dto";
+import { SaveNoteDTO } from "../../presentation/dtos/note/save-note.dto";
+import { CreateNoteDTO } from "../../presentation/dtos/note/create-note.dto";
 
 export class NoteService {
   constructor(

@@ -4,15 +4,14 @@ import { Uuid } from "../../config/uuid";
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
-
-import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { envs } from "../../config/envs";
 import { EmailService } from "./email.service";
 import { RoleName } from "../../domain/enums/role.enum";
 
 import { RoleRepository } from "../../domain/repository/role.repository";
 import { UserRepository } from "../../domain/repository/user.repository";
+import { AuthRegisterRequestDTO } from "../../presentation/dtos/auth/register-user.dto";
+import { LoginUserDto } from "../../presentation/dtos/auth/login-user.dto";
 
 export class AuthService {
   constructor(

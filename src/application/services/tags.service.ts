@@ -4,7 +4,7 @@ import { CustomError } from "../../domain/errors/custom.error";
 
 import { TagRepository } from "../../domain/repository/tag.repository";
 import { TagEntity } from "../../domain/entities/tagEntity";
-import { CreateTagDto } from "../dtos/tags/create-tag.dto";
+import { CreateTagDto } from "../../presentation/dtos/tags/create-tag.dto";
 
 export class TagService {
   constructor(private readonly tagRepository: TagRepository) {}

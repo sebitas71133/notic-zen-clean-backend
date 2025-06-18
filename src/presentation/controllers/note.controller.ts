@@ -4,12 +4,12 @@ import { CustomError } from "../../domain/errors/custom.error";
 import { Uuid } from "../../config/uuid";
 
 import { CreateNoteDTO } from "../dtos/note/create-note.dto";
-import { NoteService } from "../services/note.service";
 
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
-import { ImageService } from "../services/Image.service";
 import { PaginationNoteDTO } from "../dtos/note/pagination-note";
+import { NoteService } from "../../application/services/note.service";
+import { ImageService } from "../../application/services/Image.service";
 
 export class NoteController {
   //DI ?

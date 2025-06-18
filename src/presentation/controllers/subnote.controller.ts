@@ -3,15 +3,13 @@ import { CustomError } from "../../domain/errors/custom.error";
 
 import { Uuid } from "../../config/uuid";
 
-import { NoteService } from "../services/note.service";
-
-import { ImageService } from "../services/Image.service";
-
 import { CreateSubNoteSchema } from "../dtos/subnote/create-subnote.dto";
 
-import { SubNoteService } from "../services/subnote.service";
 import { PaginationSubNoteSchema } from "../dtos/subnote/pagination-subnote";
 import { SaveSubNoteSchema } from "../dtos/subnote/save-subnote.dto";
+import { SubNoteService } from "../../application/services/subnote.service";
+import { NoteService } from "../../application/services/note.service";
+import { ImageService } from "../../application/services/Image.service";
 
 export class SubNoteController {
   //DI ?

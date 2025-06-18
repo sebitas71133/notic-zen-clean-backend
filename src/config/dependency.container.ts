@@ -1,3 +1,11 @@
+import { AuthService } from "../application/services/auth.service";
+import { CategoryService } from "../application/services/category.service";
+import { EmailService } from "../application/services/email.service";
+import { ImageService } from "../application/services/Image.service";
+import { NoteService } from "../application/services/note.service";
+import { SettingService } from "../application/services/setting.service";
+import { SubNoteService } from "../application/services/subnote.service";
+import { TagService } from "../application/services/tags.service";
 import { PostgresCategoryDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.category.datasource.impl";
 import { PostgresNoteDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.note.datasource.impl";
 import { PostgresRoleDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.role.datasource.impl";
@@ -19,14 +27,7 @@ import { NoteController } from "../presentation/controllers/note.controller";
 import { SubNoteController } from "../presentation/controllers/subnote.controller";
 import { TagController } from "../presentation/controllers/tag.controller";
 import { AuthMiddleware } from "../presentation/middlewares/auth.middlewares";
-import { AuthService } from "../presentation/services/auth.service";
-import { CategoryService } from "../presentation/services/category.service";
-import { EmailService } from "../presentation/services/email.service";
-import { ImageService } from "../presentation/services/Image.service";
-import { NoteService } from "../presentation/services/note.service";
-import { SettingService } from "../presentation/services/setting.service";
-import { SubNoteService } from "../presentation/services/subnote.service";
-import { TagService } from "../presentation/services/tags.service";
+
 import { envs } from "./envs";
 
 // dependency.container.ts

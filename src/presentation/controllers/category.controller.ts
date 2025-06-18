@@ -1,11 +1,11 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 import { CreateCategoryDto } from "../dtos/category/create-category.dto";
-import { CategoryService } from "../services/category.service";
 
 import { Uuid } from "../../config/uuid";
 import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
 import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
+import { CategoryService } from "../../application/services/category.service";
 
 export class CategoryController {
   //DI ?

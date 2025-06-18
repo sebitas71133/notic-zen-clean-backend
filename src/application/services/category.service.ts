@@ -4,8 +4,8 @@ import { CustomError } from "../../domain/errors/custom.error";
 
 import { CategoryRepository } from "../../domain/repository/category.repository";
 import { CategoryEntity } from "../../domain/entities/categories.entitie";
-import { CreateCategoryDto } from "../dtos/category/create-category.dto";
-import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
+import { UpdateCategoryDTO } from "../../presentation/dtos/category/update-category.dto";
+import { CreateCategoryDto } from "../../presentation/dtos/category/create-category.dto";
 
 export class CategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}

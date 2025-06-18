@@ -3,10 +3,10 @@ import { CustomError } from "../../domain/errors/custom.error";
 
 import { Uuid } from "../../config/uuid";
 
-import { TagService } from "../services/tags.service";
 import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 import { UpdateTagDTO } from "../dtos/tags/update-tag.dto";
+import { TagService } from "../../application/services/tags.service";
 
 export class TagController {
   //DI ?

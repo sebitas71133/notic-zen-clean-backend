@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
-import { SettingService } from "../services/setting.service";
+import { SettingService } from "../../application/services/setting.service";
 
 export class AdminController {
   constructor(private readonly settingService: SettingService) {}

@@ -1,6 +1,5 @@
 import { Request, RequestHandler, Response } from "express";
 
-import { AuthService } from "../services/auth.service";
 import { CustomError } from "../../domain/errors/custom.error";
 
 import { AuthRegisterRequestDTO } from "../dtos/auth/register-user.dto";
@@ -11,6 +10,7 @@ import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { PaginationUserDTO } from "../dtos/auth/pagination-user.dto";
 import { JwtAdapter } from "../../config/jwt.adapter";
 import { envs } from "../../config/envs";
+import { AuthService } from "../../application/services/auth.service";
 
 export class AuthController {
   //DI ?
