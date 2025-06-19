@@ -4,12 +4,13 @@ import { CustomError } from "../../domain/errors/custom.error";
 import { PaginationTagDTO } from "../dtos/tags/pagination-tag";
 import { CreateTagDto } from "../dtos/tags/create-tag.dto";
 import { UpdateTagDTO } from "../dtos/tags/update-tag.dto";
-import { TagService } from "../../application/services/tags.service";
+
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { ITagService } from "../../domain/services/tag.service";
 
 export class TagController {
   //DI ?
-  constructor(private readonly tagService: TagService) {}
+  constructor(private readonly tagService: ITagService) {}
 
   private handleError = (error: any, res: Response) => {
     if (error instanceof CustomError) {

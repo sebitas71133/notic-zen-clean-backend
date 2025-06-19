@@ -1,6 +1,5 @@
 import { NoteImageEntity } from "../entities/image.entitie";
 import { NoteEntity } from "../entities/note.entitie";
-import { UserEntity } from "../entities/user.entitie";
 
 export abstract class NoteDataSource {
   abstract createNote(note: NoteEntity): Promise<NoteEntity>;

@@ -6,15 +6,16 @@ import { CreateNoteDTO } from "../dtos/note/create-note.dto";
 import { SaveNoteDTO } from "../dtos/note/save-note.dto";
 
 import { PaginationNoteDTO } from "../dtos/note/pagination-note";
-import { NoteService } from "../../application/services/note.service";
-import { ImageService } from "../../application/services/Image.service";
+
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { INoteService } from "../../domain/services/note.service";
+import { IImageService } from "../../domain/services/image.service";
 
 export class NoteController {
   //DI ?
   constructor(
-    private readonly noteService: NoteService,
-    private readonly imageService: ImageService
+    private readonly noteService: INoteService,
+    private readonly imageService: IImageService
   ) {}
 
   private handleError = (error: any, res: Response) => {

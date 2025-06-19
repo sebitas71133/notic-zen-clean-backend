@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
-import { SettingService } from "../../application/services/setting.service";
+
+import { ISettingService } from "../../domain/services/setting.service";
 
 export class AdminController {
-  constructor(private readonly settingService: SettingService) {}
+  constructor(private readonly settingService: ISettingService) {}
 
   private handleError = (error: any, res: Response) => {
     if (error instanceof CustomError) {

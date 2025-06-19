@@ -1,4 +1,4 @@
-import { Uuid } from "../../config/uuid";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 
 export interface NoteImageProps {
   noteId: string;

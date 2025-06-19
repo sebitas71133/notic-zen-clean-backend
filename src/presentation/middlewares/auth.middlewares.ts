@@ -1,8 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { JwtAdapter } from "../../config/jwt.adapter";
+
 import { UserEntity } from "../../domain/entities/user.entitie";
 import { CustomError } from "../../domain/errors/custom.error";
 import { UserRepository } from "../../domain/repository/user.repository";
+import { JwtAdapter } from "../../shared/adapters.ts/jwt.adapter";
 
 export class AuthMiddleware {
   constructor(private readonly userRepository: UserRepository) {}

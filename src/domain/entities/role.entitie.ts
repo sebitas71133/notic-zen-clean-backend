@@ -1,4 +1,3 @@
-import { Uuid } from "../../config/uuid";
 import { RoleName } from "../enums/role.enum";
 
 interface params {

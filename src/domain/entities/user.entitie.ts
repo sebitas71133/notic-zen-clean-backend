@@ -1,6 +1,5 @@
-import { BycripAdapter } from "../../config/bcrypt.adapter";
-import { Uuid } from "../../config/uuid";
-import { RoleName } from "../enums/role.enum";
+import { BycripAdapter } from "../../shared/adapters.ts/bcrypt.adapter";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 import { CustomError } from "../errors/custom.error";
 import { RoleEntity } from "./role.entitie";
 

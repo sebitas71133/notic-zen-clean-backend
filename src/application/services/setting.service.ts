@@ -1,8 +1,9 @@
 import { CustomError } from "../../domain/errors/custom.error";
 
 import { SettingRepository } from "../../domain/repository/setting.repository";
+import { ISettingService } from "../../domain/services/setting.service";
 
-export class SettingService {
+export class SettingService implements ISettingService {
   constructor(private readonly settingRepository: SettingRepository) {}
 
   getValue = async (key: string): Promise<string | null> => {

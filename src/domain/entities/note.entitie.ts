@@ -1,4 +1,4 @@
-import { Uuid } from "../../config/uuid";
+import { Uuid } from "../../shared/adapters.ts/uuid";
 import { CustomError } from "../errors/custom.error";
 import { CategoryEntity } from "./categories.entitie";
 import { NoteImageEntity } from "./image.entitie";

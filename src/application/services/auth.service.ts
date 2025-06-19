@@ -12,15 +12,29 @@ import { LoginUserDto } from "../../presentation/dtos/auth/login-user.dto";
 import { JwtAdapter } from "../../shared/adapters.ts/jwt.adapter";
 import { BycripAdapter } from "../../shared/adapters.ts/bcrypt.adapter";
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { RoleEntity } from "../../domain/entities/role.entitie";
+import { IAuthService } from "../../domain/services/auth.service";
 
-export class AuthService {
+export class AuthService implements IAuthService {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly emailService: EmailService,
     private readonly roleRepository: RoleRepository
   ) {}
 
-  saveUser = async (userDTO: AuthRegisterRequestDTO) => {
+  saveUser = async (
+    userDTO: AuthRegisterRequestDTO
+  ): Promise<{
+    user: {
+      id: string;
+      name: string;
+      email: string;
+      emailValidated: boolean;
+      role?: RoleEntity | undefined;
+      image?: string | undefined;
+    };
+    token: {};
+  }> => {
     try {
       const existUser = await this.userRepository.existUserByEmail(
         userDTO.email
@@ -66,7 +80,7 @@ export class AuthService {
     }
   };
 
-  resendEmailValidationLink = async (email: string) => {
+  resendEmailValidationLink = async (email: string): Promise<boolean> => {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) throw CustomError.notFound("Usuario no encontrado");
     if (user.emailValidated)
@@ -117,7 +131,7 @@ export class AuthService {
   };
 
   //LO QUE ENVIA EL USUARIO DESDE SU CORREO
-  validateEmailtoLogin = async (token: string) => {
+  validateEmailtoLogin = async (token: string): Promise<boolean> => {
     try {
       const payload = await JwtAdapter.validateToken<{ email: string }>(token);
       if (!payload) throw CustomError.unauthorized("Invalid token");
@@ -140,7 +154,19 @@ export class AuthService {
     }
   };
 
-  loginUser = async (dto: LoginUserDto) => {
+  loginUser = async (
+    dto: LoginUserDto
+  ): Promise<{
+    userEntity: {
+      id: string;
+      name: string;
+      email: string;
+      emailValidated: boolean;
+      role?: RoleEntity | undefined;
+      image?: string | undefined;
+    };
+    token: {};
+  }> => {
     try {
       const user = await this.userRepository.findUserByEmail(dto.email);
 
@@ -281,7 +307,7 @@ export class AuthService {
     }
   };
 
-  generateTokenService = async (userId: string) => {
+  generateTokenService = async (userId: string): Promise<{}> => {
     try {
       const token = await JwtAdapter.generateToken({
         id: userId,
@@ -297,7 +323,7 @@ export class AuthService {
     }
   };
 
-  getTotals = async () => {
+  getTotals = async (): Promise<any> => {
     try {
       const documents = await this.userRepository.getTotals();
 

@@ -6,11 +6,17 @@ import { CategoryEntity } from "../../domain/entities/categories.entitie";
 import { UpdateCategoryDTO } from "../../presentation/dtos/category/update-category.dto";
 import { CreateCategoryDto } from "../../presentation/dtos/category/create-category.dto";
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { ICategoryService } from "../../domain/services/category.service";
 
-export class CategoryService {
+export class CategoryService implements ICategoryService {
   constructor(private readonly categoryRepository: CategoryRepository) {}
 
-  createCategory = async (dto: CreateCategoryDto, user: UserEntity) => {
+  createCategory = async (
+    dto: CreateCategoryDto,
+    user: UserEntity
+  ): Promise<{
+    category: CategoryEntity;
+  }> => {
     try {
       //2. Crear Entidad
 

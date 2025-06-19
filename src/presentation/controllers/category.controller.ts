@@ -4,12 +4,13 @@ import { CreateCategoryDto } from "../dtos/category/create-category.dto";
 
 import { UpdateCategoryDTO } from "../dtos/category/update-category.dto";
 import { PaginationCategoryDTO } from "../dtos/category/pagination-category";
-import { CategoryService } from "../../application/services/category.service";
+
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { ICategoryService } from "../../domain/services/category.service";
 
 export class CategoryController {
   //DI ?
-  constructor(private readonly categoryService: CategoryService) {}
+  constructor(private readonly categoryService: ICategoryService) {}
 
   private handleError = (error: any, res: Response) => {
     if (error instanceof CustomError) {

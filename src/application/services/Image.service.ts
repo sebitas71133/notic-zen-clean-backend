@@ -4,6 +4,11 @@ import { prismaClient } from "../../data/prisma/init";
 import axios from "axios";
 import { CustomError } from "../../domain/errors/custom.error";
 import { SettingService } from "./setting.service";
+import {
+  IImageService,
+  ImageInput,
+  ImageOutput,
+} from "../../domain/services/image.service";
 
 cloudinary.config({
   cloud_name: envs.CLOUDINARY_NAME,
@@ -11,19 +16,19 @@ cloudinary.config({
   api_secret: envs.CLOUDINARY_API_SECRET,
 });
 
-interface ImageInput {
-  publicId?: string | undefined;
-  url: string;
-  altText?: string;
-}
+// interface ImageInput {
+//   publicId?: string | undefined;
+//   url: string;
+//   altText?: string;
+// }
 
-interface ImageOutput {
-  url: string;
-  altText?: string;
-  publicId?: string;
-}
+// interface ImageOutput {
+//   url: string;
+//   altText?: string;
+//   publicId?: string;
+// }
 
-export class ImageService {
+export class ImageService implements IImageService {
   constructor(private readonly settingService: SettingService) {}
 
   private isBase64Image(url: string): boolean {
@@ -88,7 +93,7 @@ export class ImageService {
   }
 
   /** Método de limpieza mensual */
-  public async cleanOrphanImages() {
+  public async cleanOrphanImages(): Promise<void> {
     const orphanPublicIds: string[] = [];
 
     // 1. Traer todos los public_id válidos en tu base de datos
@@ -227,7 +232,7 @@ export class ImageService {
     };
   }
 
-  public async cleanOrphanSubImages() {
+  public async cleanOrphanSubImages(): Promise<void> {
     const orphanPublicIds: string[] = [];
 
     // 1. Traer todos los public_id válidos en tu base de datos

@@ -6,6 +6,7 @@ import { NoteService } from "../application/services/note.service";
 import { SettingService } from "../application/services/setting.service";
 import { SubNoteService } from "../application/services/subnote.service";
 import { TagService } from "../application/services/tags.service";
+import { INoteService } from "../domain/services/note.service";
 import { PostgresCategoryDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.category.datasource.impl";
 import { PostgresNoteDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.note.datasource.impl";
 import { PostgresRoleDataSourceImpl } from "../infrastructure/datasource/postgres/postgres.role.datasource.impl";
@@ -29,6 +30,11 @@ import { TagController } from "../presentation/controllers/tag.controller";
 import { AuthMiddleware } from "../presentation/middlewares/auth.middlewares";
 
 import { envs } from "./envs";
+import { NoteDataSource } from "../domain/datasources/note.datasource";
+import { ISubNoteService } from "../domain/services/subnote.service";
+import { ITagService } from "../domain/services/tag.service";
+import { IAuthService } from "../domain/services/auth.service";
+import { IImageService } from "../domain/services/image.service";
 
 // dependency.container.ts
 export const roleDataSource = new PostgresRoleDataSourceImpl();
@@ -61,16 +67,15 @@ const emailService = new EmailService(
 
 export const tagDataSource = new PostgresTagDataSourceImpl(userRepository);
 export const tagRepository = new TagRepositoryImpl(tagDataSource);
-export const tagService = new TagService(tagRepository);
+export const tagService: ITagService = new TagService(tagRepository);
 
-export const imageService = new ImageService(settingSerice);
+export const imageService: IImageService = new ImageService(settingSerice);
 
 //NOTE
 
-export const noteDatasource = new PostgresNoteDataSourceImpl();
+export const noteDatasource: NoteDataSource = new PostgresNoteDataSourceImpl();
 export const noteRepository = new NoteRepositoryImpl(noteDatasource);
-export const noteService = new NoteService(
-  tagService,
+export const noteService: INoteService = new NoteService(
   noteRepository,
   imageService
 );
@@ -78,8 +83,7 @@ export const noteService = new NoteService(
 //SUBNOTE
 export const subNoteDatasource = new PostgresSubNoteDataSourceImpl();
 export const subNoteRepository = new SubNoteRepositoryImpl(subNoteDatasource);
-export const subNoteSerice = new SubNoteService(
-  tagService,
+export const subNoteSerice: ISubNoteService = new SubNoteService(
   subNoteRepository,
   imageService
 );
@@ -96,7 +100,7 @@ export const subNoteController = new SubNoteController(
   imageService
 );
 
-const authService = new AuthService(
+const authService: IAuthService = new AuthService(
   userRepository,
   emailService,
   roleRepository

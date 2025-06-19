@@ -5,17 +5,18 @@ import { CreateSubNoteSchema } from "../dtos/subnote/create-subnote.dto";
 
 import { PaginationSubNoteSchema } from "../dtos/subnote/pagination-subnote";
 import { SaveSubNoteSchema } from "../dtos/subnote/save-subnote.dto";
-import { SubNoteService } from "../../application/services/subnote.service";
-import { NoteService } from "../../application/services/note.service";
-import { ImageService } from "../../application/services/Image.service";
+
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { INoteService } from "../../domain/services/note.service";
+import { ISubNoteService } from "../../domain/services/subnote.service";
+import { IImageService } from "../../domain/services/image.service";
 
 export class SubNoteController {
   //DI ?
   constructor(
-    private readonly subNoteService: SubNoteService,
-    private readonly noteService: NoteService,
-    private readonly imageService: ImageService
+    private readonly subNoteService: ISubNoteService,
+    private readonly noteService: INoteService,
+    private readonly imageService: IImageService
   ) {} // private readonly imageService: ImageService // private readonly noteService: NoteService,
 
   private handleError = (error: any, res: Response) => {

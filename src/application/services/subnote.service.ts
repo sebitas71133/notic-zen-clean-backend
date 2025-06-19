@@ -1,8 +1,5 @@
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { TagService } from "./tags.service";
-
-import { ImageService } from "./Image.service";
 import { SubNoteRepository } from "../../domain/repository/subnote.repository";
 import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
 
@@ -10,15 +7,19 @@ import { SubNoteImageEntity } from "../../domain/entities/subImage.entitie";
 import { CreateSubNoteDTO } from "../../presentation/dtos/subnote/create-subnote.dto";
 import { CreateImageDto } from "../../presentation/dtos/image/create-image.dto";
 import { SaveSubNoteDTO } from "../../presentation/dtos/subnote/save-subnote.dto";
+import { ISubNoteService } from "../../domain/services/subnote.service";
+import { IImageService } from "../../domain/services/image.service";
 
-export class SubNoteService {
+export class SubNoteService implements ISubNoteService {
   constructor(
-    private readonly tagService: TagService,
     private readonly subNoteRepository: SubNoteRepository,
-    private readonly imageService: ImageService
+    private readonly imageService: IImageService
   ) {}
 
-  createSubNote = async (userId: string, dto: CreateSubNoteDTO) => {
+  createSubNote = async (
+    userId: string,
+    dto: CreateSubNoteDTO
+  ): Promise<SubNoteEntity | null> => {
     try {
       //2. Crear Entidad
 

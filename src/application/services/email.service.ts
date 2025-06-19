@@ -1,19 +1,23 @@
 import nodemailer, { Transporter } from "nodemailer";
 import { SettingService } from "./setting.service";
+import {
+  IEmailService,
+  SendMailOptions,
+} from "../../domain/services/email.service";
 
-export interface SendMailOptions {
-  to: string | string[];
-  subject: string;
-  htmlBody: string;
-  attachements?: Attachement[];
-}
+// export interface SendMailOptions {
+//   to: string | string[];
+//   subject: string;
+//   htmlBody: string;
+//   attachements?: Attachement[];
+// }
 
-export interface Attachement {
-  filename: string;
-  path: string;
-}
+// export interface Attachement {
+//   filename: string;
+//   path: string;
+// }
 
-export class EmailService {
+export class EmailService implements IEmailService {
   private transporter: Transporter;
 
   constructor(

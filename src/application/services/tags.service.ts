@@ -5,11 +5,17 @@ import { TagRepository } from "../../domain/repository/tag.repository";
 import { TagEntity } from "../../domain/entities/tagEntity";
 import { CreateTagDto } from "../../presentation/dtos/tags/create-tag.dto";
 import { Uuid } from "../../shared/adapters.ts/uuid";
+import { ITagService } from "../../domain/services/tag.service";
 
-export class TagService {
+export class TagService implements ITagService {
   constructor(private readonly tagRepository: TagRepository) {}
 
-  createTag = async (dto: CreateTagDto, userId: string) => {
+  createTag = async (
+    dto: CreateTagDto,
+    userId: string
+  ): Promise<{
+    tag: TagEntity;
+  }> => {
     try {
       //2. Crear Entidad
 

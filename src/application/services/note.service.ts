@@ -5,18 +5,17 @@ import { NoteEntity } from "../../domain/entities/note.entitie";
 import { NoteRepository } from "../../domain/repository/note.repository";
 
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
-import { TagService } from "./tags.service";
 
-import { ImageService } from "./Image.service";
 import { CreateImageDto } from "../../presentation/dtos/image/create-image.dto";
 import { SaveNoteDTO } from "../../presentation/dtos/note/save-note.dto";
 import { CreateNoteDTO } from "../../presentation/dtos/note/create-note.dto";
+import { INoteService } from "../../domain/services/note.service";
+import { IImageService } from "../../domain/services/image.service";
 
-export class NoteService {
+export class NoteService implements INoteService {
   constructor(
-    private readonly tagService: TagService,
     private readonly noteRepository: NoteRepository,
-    private readonly imageService: ImageService
+    private readonly imageService: IImageService
   ) {}
 
   createNote = async (userId: string, dto: CreateNoteDTO) => {
@@ -187,7 +186,7 @@ export class NoteService {
     }
   };
 
-  getTotals = async (userId: string) => {
+  getTotals = async (userId: string): Promise<any> => {
     try {
       const documents = await this.noteRepository.getTotals(userId);
 

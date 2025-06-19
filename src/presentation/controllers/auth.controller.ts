@@ -10,13 +10,14 @@ import { LoginUserDto } from "../dtos/auth/login-user.dto";
 import { PaginationUserDTO } from "../dtos/auth/pagination-user.dto";
 
 import { envs } from "../../config/envs";
-import { AuthService } from "../../application/services/auth.service";
+
 import { Uuid } from "../../shared/adapters.ts/uuid";
 import { JwtAdapter } from "../../shared/adapters.ts/jwt.adapter";
+import { IAuthService } from "../../domain/services/auth.service";
 
 export class AuthController {
   //DI ?
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: IAuthService) {}
 
   private handleError = (error: any, res: Response) => {
     if (error instanceof CustomError) {
