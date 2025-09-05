@@ -1,3 +1,4 @@
+import { SaveSubNoteDTO } from "../../presentation/dtos/subnote/save-subnote.dto";
 import { SubNoteImageEntity } from "../entities/subImage.entitie";
 import { SubNoteEntity } from "../entities/subnote.entitie";
 
@@ -23,7 +24,7 @@ export abstract class SubNoteDataSource {
   abstract saveSubNoteById(
     subNoteId: string,
     userId: string,
-    updates: Partial<SubNoteEntity>
+    updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity>;
 
   abstract deleteSubNoteById(subNoteId: string): Promise<void>;

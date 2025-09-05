@@ -1,12 +1,5 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
-  // output   = "../src/generated/prisma"
 }
 
 datasource db {
@@ -18,112 +11,116 @@ model Role {
   id          Int     @id @default(autoincrement())
   name        String  @unique
   description String?
-
-  users User[]
+  users       User[]
 }
 
 model User {
-  id             String   @id @default(uuid())
+  id             String     @id @default(uuid())
   name           String
-  email          String   @unique
+  email          String     @unique
   password_hash  String
-  emailValidated Boolean  @default(false)
-  is_active      Boolean  @default(true)
+  emailValidated Boolean    @default(false)
+  is_active      Boolean    @default(true)
   image          String?
-  created_at     DateTime @default(now())
-  role           Role?    @relation(fields: [role_id], references: [id])
+  created_at     DateTime   @default(now())
   role_id        Int?
-
-  categories Category[]
-  notes      Note[]
-  tags       Tag[]
+  categories     Category[]
+  notes          Note[]
+  tags           Tag[]
+  role           Role?      @relation(fields: [role_id], references: [id])
 }
 
 model Category {
   id      String  @id @default(uuid())
   name    String
   color   String?
-  user    User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String?
+  user    User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  notes   Note[]
 
-  notes Note[]
-
-  @@unique([name, user_id]) // cada usuario no puede tener dos categorías con el mismo nombre
+  @@unique([name, user_id])
 }
 
 model Note {
-  id          String    @id @default(uuid())
+  id          String      @id @default(uuid())
   title       String?
   content     String?
-  is_archived Boolean   @default(false)
-  is_pinned   Boolean   @default(false)
-  created_at  DateTime  @default(now())
-  updated_at  DateTime  @updatedAt
-  user        User      @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  is_archived Boolean     @default(false)
+  is_pinned   Boolean     @default(false)
+  created_at  DateTime    @default(now())
+  updated_at  DateTime    @updatedAt
   user_id     String
-  category    Category? @relation(fields: [category_id], references: [id], onDelete: SetNull)
   category_id String?
-
-  tags   NoteTag[]
-  images NoteImage[]
-
-  SubNote SubNote[]
+  category    Category?   @relation(fields: [category_id], references: [id])
+  user        User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  images      NoteImage[]
+  tags        NoteTag[]
+  SubNote     SubNote[]
 
   @@unique([title, user_id])
+  @@index([category_id], map: "idx_note_category_id")
+  @@index([id, user_id], map: "idx_note_id_user")
+  @@index([title], map: "idx_note_title")
+  @@index([user_id, is_archived, is_pinned], map: "idx_note_user_archived_pinned")
+  @@index([user_id, created_at], map: "idx_note_user_created_at")
 }
 
 model Tag {
-  id      String  @id @default(uuid())
-  name    String
-  user    User?   @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id String?
-
+  id         String       @id @default(uuid())
+  name       String
+  user_id    String?
   notes      NoteTag[]
   SubNoteTag SubNoteTag[]
+  user       User?        @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
-  @@unique([name, user_id]) // cada usuario no puede repetir un tag con el mismo nombre
+  @@unique([name, user_id])
 }
 
 model NoteTag {
-  note    Note   @relation(fields: [note_id], references: [id], onDelete: Cascade)
   note_id String
-  tag     Tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
   tag_id  String
+  note    Note   @relation(fields: [note_id], references: [id], onDelete: Cascade)
+  tag     Tag    @relation(fields: [tag_id], references: [id], onDelete: Cascade)
 
-  @@id([note_id, tag_id]) // clave compuesta
+  @@id([note_id, tag_id])
+  @@index([note_id], map: "idx_notetag_note_id")
+  @@index([tag_id], map: "idx_notetag_tag_id")
 }
 
 model NoteImage {
   id         String   @id @default(uuid())
   url        String
-  public_id  String?
   alt_text   String?
   created_at DateTime @default(now())
-  note       Note     @relation(fields: [note_id], references: [id], onDelete: Cascade)
   note_id    String
+  public_id  String?
+  note       Note     @relation(fields: [note_id], references: [id], onDelete: Cascade)
+
+  @@index([note_id], map: "idx_noteimage_note_id")
 }
 
 model SubNote {
   id          String         @id @default(uuid())
   title       String
   description String?
-  note        Note           @relation(fields: [note_id], references: [id], onDelete: Cascade)
+  code        String?
   note_id     String
-  tags        SubNoteTag[]
-  images      SubNoteImage[]
   created_at  DateTime       @default(now())
   updated_at  DateTime       @updatedAt
   is_archived Boolean        @default(false)
   is_pinned   Boolean        @default(false)
+  note        Note           @relation(fields: [note_id], references: [id], onDelete: Cascade)
+  images      SubNoteImage[]
+  tags        SubNoteTag[]
 
   @@unique([title, note_id])
 }
 
 model SubNoteTag {
-  subNote     SubNote @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
   sub_note_id String
-  tag         Tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade)
   tag_id      String
+  subNote     SubNote @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
+  tag         Tag     @relation(fields: [tag_id], references: [id], onDelete: Cascade)
 
   @@id([sub_note_id, tag_id])
 }
@@ -131,11 +128,11 @@ model SubNoteTag {
 model SubNoteImage {
   id          String   @id @default(uuid())
   url         String
-  subNote     SubNote  @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
-  alt_text    String?
   sub_note_id String
+  alt_text    String?
   created_at  DateTime @default(now())
   public_id   String?
+  subNote     SubNote  @relation(fields: [sub_note_id], references: [id], onDelete: Cascade)
 }
 
 model Setting {

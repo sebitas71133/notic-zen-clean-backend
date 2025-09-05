@@ -1,15 +1,14 @@
 import { Request, RequestHandler, Response } from "express";
 import { CustomError } from "../../domain/errors/custom.error";
 
-import { CreateNoteDTO } from "../dtos/note/create-note.dto";
-
-import { SaveNoteDTO } from "../dtos/note/save-note.dto";
+import { CreateNoteDTO, CreateNoteSchema } from "../dtos/note/create-note.dto";
 
 import { PaginationNoteDTO } from "../dtos/note/pagination-note";
 
 import { Uuid } from "../../shared/adapters.ts/uuid";
 import { INoteService } from "../../domain/services/note.service";
 import { IImageService } from "../../domain/services/image.service";
+import { UpdateNoteSchema } from "../dtos/note/save-note.dto";
 
 export class NoteController {
   //DI ?
@@ -29,13 +28,21 @@ export class NoteController {
 
   public createNote: RequestHandler = async (req: Request, res: Response) => {
     try {
-      const user = req.body.user;
+      const userId = req.body.user.id;
 
-      const data = req.body;
+      const payload = req.body;
 
-      const newNotedDTO = CreateNoteDTO.createDTO(data);
+      console.log({ payload });
 
-      const newNote = await this.noteService.createNote(user.id, newNotedDTO);
+      const result = CreateNoteSchema.safeParse({ ...payload, userId });
+
+      if (!result.success) {
+        const message = result.error.errors[0].message;
+
+        throw CustomError.badRequest(message);
+      }
+
+      const newNote = await this.noteService.createNote(userId, result.data);
 
       return res.status(201).json({
         success: true,
@@ -49,18 +56,24 @@ export class NoteController {
 
   public saveNoteById = async (req: Request, res: Response) => {
     try {
-      const data = req.body;
+      const payload = req.body;
 
       const noteId = req.params["id"];
 
       const userId = req.body.user.id;
 
-      const newNotedDTO = SaveNoteDTO.createDTO(data);
+      const result = UpdateNoteSchema.safeParse({ ...payload, userId });
+
+      if (!result.success) {
+        const message = result.error.errors[0].message;
+
+        throw CustomError.badRequest(message);
+      }
 
       // throw new Error();
       const newNote = await this.noteService.saveNote(
         noteId,
-        newNotedDTO,
+        result.data,
         userId
       );
 

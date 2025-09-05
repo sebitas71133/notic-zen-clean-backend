@@ -74,6 +74,8 @@ export class SubNoteController {
         subNoteId,
       });
 
+      console.log({ result });
+
       if (!result.success) {
         const message = result.error.errors[0].message;
 

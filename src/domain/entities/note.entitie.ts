@@ -4,79 +4,80 @@ import { CategoryEntity } from "./categories.entitie";
 import { NoteImageEntity } from "./image.entitie";
 import { TagEntity } from "./tagEntity";
 
+interface NoteProps {
+  id: string;
+  title: string;
+  content?: string;
+  userId: string;
+  categoryId: string | null;
+  isArchived?: boolean;
+  isPinned?: boolean;
+  images?: NoteImageEntity[];
+  tags?: TagEntity[];
+  readonly createdAt?: Date;
+  updatedAt?: Date;
+  category?: CategoryEntity;
+}
+
 export class NoteEntity {
-  private constructor(
-    public readonly id: string,
-    public title: string,
-    public content: string,
-    public userId: string,
-    public categoryId: string | null,
-    public isArchived: boolean,
-    public isPinned: boolean,
-    public images: NoteImageEntity[] = [],
-    public tags: TagEntity[] = [],
-    public readonly createdAt: Date,
-    public updatedAt: Date,
-    public category?: CategoryEntity
-  ) {}
+  public readonly id: string;
+  public title: string;
+  public content?: string;
+  public userId: string;
+  public categoryId: string | null;
+  public images: NoteImageEntity[];
+  public tags?: TagEntity[];
+  public isArchived?: boolean;
+  public isPinned?: boolean;
+  public readonly createdAt?: Date;
+  public updatedAt?: Date;
+  public category?: CategoryEntity;
 
-  static create(dto: { [key: string]: any }): NoteEntity {
-    const id = Uuid.v4();
-    if (dto.title && dto.title.length <= 2) {
-      throw CustomError.badRequest("The title must be more than 2 characters");
-    }
-
-    return new NoteEntity(
-      id,
-      dto.title,
-      dto.content,
-      dto.userId,
-      dto.categoryId,
-      dto.isArchived,
-      dto.isPinned,
-      undefined,
-      undefined,
-      new Date(),
-      new Date()
-    );
+  private constructor(props: NoteProps) {
+    this.id = props.id;
+    this.title = props.title;
+    this.content = props.content ?? "";
+    this.category = props.category;
+    this.categoryId = props.categoryId;
+    this.images = props.images ?? [];
+    this.tags = props.tags ?? [];
+    this.createdAt = props.createdAt;
+    this.updatedAt = props.updatedAt;
+    this.isArchived = props.isArchived;
+    this.isPinned = props.isPinned;
+    this.userId = props.userId;
   }
 
-  static updated(dto: { [key: string]: any }): Partial<NoteEntity> {
-    if (dto.title && dto.title.length <= 2) {
-      throw CustomError.badRequest("The title must be more than 2 characters");
-    }
-
-    return { ...dto, updatedAt: new Date() };
-  }
-
-  static fromObject(props: {
-    id: string;
+  static create(dto: {
     title: string;
-    content: string;
+    content?: string;
+    categoryId: string;
     userId: string;
-    categoryId: string | null;
-    isArchived: boolean;
-    isPinned: boolean;
-    createdAt: Date;
-    updatedAt: Date;
-    images: NoteImageEntity[];
-    tags: TagEntity[];
-    category?: CategoryEntity;
   }): NoteEntity {
-    const category = new NoteEntity(
-      props.id,
-      props.title,
-      props.content,
-      props.userId,
-      props.categoryId,
-      props.isArchived,
-      props.isPinned,
-      props.images ?? [],
-      props.tags ?? [],
-      props.createdAt,
-      props.updatedAt,
-      props.category
-    );
+    const id = Uuid.v4();
+    // if (dto.title && dto.title.length <= 2) {
+    //   throw CustomError.badRequest("The title must be more than 2 characters");
+    // }
+
+    return new NoteEntity({
+      id: id,
+      title: dto.title,
+      content: dto.content,
+      userId: dto.userId,
+      categoryId: dto.categoryId,
+    });
+  }
+
+  // static updated(dto: { [key: string]: any }): Partial<NoteEntity> {
+  //   if (dto.title && dto.title.length <= 2) {
+  //     throw CustomError.badRequest("The title must be more than 2 characters");
+  //   }
+
+  //   return { ...dto, updatedAt: new Date() };
+  // }
+
+  static fromObject(props: NoteProps): NoteEntity {
+    const category = new NoteEntity(props);
 
     return category;
   }

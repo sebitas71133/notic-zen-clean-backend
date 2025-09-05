@@ -52,6 +52,7 @@ export class AuthController {
   public loginUser: RequestHandler = async (req: Request, res: Response) => {
     try {
       //1.  Validar el input con el DTO
+      console.log("hola");
       const userDTO = LoginUserDto.create(req.body);
 
       //3. Usar servicio

@@ -4,6 +4,7 @@ import { NoteImageEntity } from "../../domain/entities/image.entitie";
 import { NoteEntity } from "../../domain/entities/note.entitie";
 
 import { NoteRepository } from "../../domain/repository/note.repository";
+import { UpdateNoteDTO } from "../../presentation/dtos/note/save-note.dto";
 
 export class NoteRepositoryImpl implements NoteRepository {
   constructor(private readonly noteDataSource: NoteDataSource) {}
@@ -40,7 +41,7 @@ export class NoteRepositoryImpl implements NoteRepository {
   saveNoteById(
     noteId: string,
     userId: string,
-    updates: Partial<NoteEntity>
+    updates: UpdateNoteDTO
   ): Promise<NoteEntity> {
     return this.noteDataSource.saveNoteById(noteId, userId, updates);
   }

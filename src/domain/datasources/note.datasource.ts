@@ -1,3 +1,4 @@
+import { UpdateNoteDTO } from "../../presentation/dtos/note/save-note.dto";
 import { NoteImageEntity } from "../entities/image.entitie";
 import { NoteEntity } from "../entities/note.entitie";
 
@@ -21,7 +22,7 @@ export abstract class NoteDataSource {
   abstract saveNoteById(
     noteId: string,
     userId: string,
-    updates: Partial<NoteEntity>
+    updates: UpdateNoteDTO
   ): Promise<NoteEntity>;
 
   abstract deleteNoteById(id: string): Promise<void>;

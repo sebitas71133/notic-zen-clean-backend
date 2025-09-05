@@ -4,6 +4,7 @@ import { SubNoteImageEntity } from "../../domain/entities/subImage.entitie";
 import { SubNoteEntity } from "../../domain/entities/subnote.entitie";
 
 import { SubNoteRepository } from "../../domain/repository/subnote.repository";
+import { SaveSubNoteDTO } from "../../presentation/dtos/subnote/save-subnote.dto";
 
 export class SubNoteRepositoryImpl implements SubNoteRepository {
   constructor(private readonly subNoteDataSource: SubNoteDataSource) {}
@@ -42,7 +43,7 @@ export class SubNoteRepositoryImpl implements SubNoteRepository {
   saveSubNoteById(
     subNoteId: string,
     userId: string,
-    updates: Partial<SubNoteEntity>
+    updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity> {
     return this.subNoteDataSource.saveSubNoteById(subNoteId, userId, updates);
   }

@@ -7,6 +7,7 @@ import { SubNoteEntity } from "../../../domain/entities/subnote.entitie";
 import { SubNoteImageEntity } from "../../../domain/entities/subImage.entitie";
 import { Prisma } from "@prisma/client";
 import { prismaClient } from "../../../data/prisma/init";
+import { SaveSubNoteDTO } from "../../../presentation/dtos/subnote/save-subnote.dto";
 
 export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
   constructor() {}
@@ -18,7 +19,7 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           id: subnote.id, // Puedes dejar que Prisma genere UUID si es undefined
           title: subnote.title,
           description: subnote.description,
-
+          code: subnote.code,
           created_at: subnote.createdAt,
           updated_at: subnote.updatedAt,
           note: {
@@ -41,7 +42,7 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
   async saveSubNoteById(
     subNoteId: string,
     userId: string,
-    updates: Partial<SubNoteEntity>
+    updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity> {
     try {
       const updated = await prismaClient.subNote.update({
@@ -54,7 +55,7 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
         data: {
           title: updates.title,
           description: updates.description,
-          updated_at: updates.updatedAt ?? new Date(),
+          code: updates.code,
         },
       });
 
@@ -62,7 +63,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
       return SubNoteEntity.fromPrisma({
         id: updated.id,
         title: updated.title,
-        description: updated.description!,
+        description: updated.description,
+        code: updated.code,
         noteId: updated.note_id,
         createdAt: updated.created_at,
         updatedAt: updated.updated_at,
@@ -143,6 +145,7 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           id: sub.id,
           title: sub.title,
           description: sub.description ?? "",
+          code: sub.code,
           noteId: sub.note_id,
           createdAt: sub.created_at,
           updatedAt: sub.updated_at,
@@ -226,6 +229,7 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
       id: note.id,
       title: note.title,
       description: note.description!,
+      code: note.code,
       noteId: note.note_id,
       tags: tags,
       images: images,

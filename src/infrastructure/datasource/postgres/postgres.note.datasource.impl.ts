@@ -10,6 +10,7 @@ import { TagEntity } from "../../../domain/entities/tagEntity";
 import { CategoryEntity } from "../../../domain/entities/categories.entitie";
 import { prismaClient } from "../../../data/prisma/init";
 import { Prisma } from "@prisma/client";
+import { UpdateNoteDTO } from "../../../presentation/dtos/note/save-note.dto";
 // const prismaClient = new PrismaClient();
 
 export class PostgresNoteDataSourceImpl implements NoteDataSource {
@@ -48,7 +49,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
   async saveNoteById(
     noteId: string,
     userId: string,
-    updates: Partial<NoteEntity>
+    updates: UpdateNoteDTO
   ): Promise<NoteEntity> {
     try {
       const updatedNote = await prismaClient.note.update({
@@ -59,7 +60,6 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
           is_pinned: this.toBoolean(updates.isPinned),
           is_archived: this.toBoolean(updates.isArchived),
           category_id: updates.categoryId,
-          updated_at: updates.updatedAt ?? new Date(),
         },
       });
 

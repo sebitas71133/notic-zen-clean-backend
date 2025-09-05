@@ -6,9 +6,12 @@ export const SaveSubNoteSchema = z.object({
     .min(3, "Title must be at least 3 characters")
     .max(100),
   description: z.string().max(5000).optional(),
+  code: z.string().max(10000).optional(),
   noteId: z.string().uuid("Invalid noteId format"),
   subNoteId: z.string().uuid("Invalid subNoteId format"),
   tags: z.array(z.string().uuid()).max(5).optional(),
+  isPinned: z.enum(["true", "false"]).optional(),
+  isArchived: z.enum(["true", "false"]).optional(),
   images: z
     .array(
       z.object({

@@ -6,6 +6,7 @@ export const CreateSubNoteSchema = z.object({
     .min(3, "Title must be at least 3 characters")
     .max(100),
   description: z.string().max(5000).optional(),
+  code: z.string().max(10000).optional(),
   noteId: z.string().uuid("Invalid noteId format"),
   tags: z.array(z.string().uuid()).max(5).optional(),
   images: z

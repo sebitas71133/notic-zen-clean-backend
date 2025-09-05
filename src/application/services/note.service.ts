@@ -7,7 +7,7 @@ import { NoteRepository } from "../../domain/repository/note.repository";
 import { NoteImageEntity } from "../../domain/entities/image.entitie";
 
 import { CreateImageDto } from "../../presentation/dtos/image/create-image.dto";
-import { SaveNoteDTO } from "../../presentation/dtos/note/save-note.dto";
+import { UpdateNoteDTO } from "../../presentation/dtos/note/save-note.dto";
 import { CreateNoteDTO } from "../../presentation/dtos/note/create-note.dto";
 import { INoteService } from "../../domain/services/note.service";
 import { IImageService } from "../../domain/services/image.service";
@@ -22,10 +22,7 @@ export class NoteService implements INoteService {
     try {
       //2. Crear Entidad
 
-      const noteEntity = NoteEntity.create({
-        userId: userId,
-        ...dto,
-      });
+      const noteEntity = NoteEntity.create({ ...dto, userId });
 
       const tagIds = dto.tags ?? [];
       const imagesD = (dto.images as CreateImageDto[]) ?? [];
@@ -69,7 +66,7 @@ export class NoteService implements INoteService {
 
   saveNote = async (
     noteId: string,
-    dto: Partial<SaveNoteDTO>,
+    dto: UpdateNoteDTO,
     userId: string
   ): Promise<NoteEntity | null> => {
     try {
@@ -77,12 +74,12 @@ export class NoteService implements INoteService {
       if (!note) throw CustomError.forbidden("No tienes permiso sobre la nota");
 
       // 1. Actualizar nota principal
-      const noteEntity = NoteEntity.updated(dto);
+      // const noteEntity = NoteEntity.updated(dto);
 
-      await this.noteRepository.saveNoteById(noteId, userId, noteEntity);
+      await this.noteRepository.saveNoteById(noteId, userId, dto);
 
       // 2. Normalizar colecciones
-      const tagIds = dto.tagIds ?? [];
+      const tagIds = dto.tags ?? [];
       const imagesD = dto.images as CreateImageDto[];
 
       // 3. Tags

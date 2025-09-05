@@ -89,16 +89,12 @@ export class SubNoteService implements ISubNoteService {
         throw CustomError.forbidden("No tienes permiso sobre la subnota");
 
       // 1. Actualizar nota principal
-      const subNoteEntity = SubNoteEntity.update({
-        description: dto.description,
-        title: dto.title,
-      });
+      // const subNoteEntity = SubNoteEntity.update({
+      //   description: dto.description,
+      //   title: dto.title,
+      // });
 
-      await this.subNoteRepository.saveSubNoteById(
-        subNoteId,
-        userId,
-        subNoteEntity
-      );
+      await this.subNoteRepository.saveSubNoteById(subNoteId, userId, dto);
 
       // 2. Normalizar colecciones
       const tagIds = dto.tags ?? [];
