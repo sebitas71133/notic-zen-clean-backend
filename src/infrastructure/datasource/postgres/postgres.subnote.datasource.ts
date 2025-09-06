@@ -19,6 +19,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           id: subnote.id, // Puedes dejar que Prisma genere UUID si es undefined
           title: subnote.title,
           description: subnote.description,
+          is_pinned: subnote.isPinned,
+          is_archived: subnote.isArchived,
           code: subnote.code,
           created_at: subnote.createdAt,
           updated_at: subnote.updatedAt,
@@ -56,6 +58,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           title: updates.title,
           description: updates.description,
           code: updates.code,
+          is_pinned: this.toBoolean(updates.isPinned),
+          is_archived: this.toBoolean(updates.isArchived),
         },
       });
 
@@ -114,8 +118,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
               },
             },
           }),
-          ...(isArchived && { is_archived: archivedBool }), // ⚠️ Si usas campo is_archived en SubNote
-          ...(isPinned && { is_pinned: pinnedBool }), // ⚠️ Lo mismo
+          ...(isArchived && { is_archived: archivedBool }),
+          ...(isPinned && { is_pinned: pinnedBool }),
         },
         skip,
         take: limit,
@@ -147,6 +151,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           description: sub.description ?? "",
           code: sub.code,
           noteId: sub.note_id,
+          isArchived: sub.is_archived,
+          isPinned: sub.is_pinned,
           createdAt: sub.created_at,
           updatedAt: sub.updated_at,
           tags: sub.tags.map(
