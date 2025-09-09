@@ -9,6 +9,11 @@ import { Uuid } from "../../shared/adapters.ts/uuid";
 import { INoteService } from "../../domain/services/note.service";
 import { IImageService } from "../../domain/services/image.service";
 import { UpdateNoteSchema } from "../dtos/note/save-note.dto";
+import { ShareNoteSchema } from "../dtos/note/share-note.dto";
+
+import { prismaClient } from "../../data/prisma/init";
+import { UpdateShareRoleSchema } from "../dtos/note/share-update.dto";
+import { SocketService } from "../../application/services/socket.service";
 
 export class NoteController {
   //DI ?
@@ -54,6 +59,185 @@ export class NoteController {
     }
   };
 
+  public shareNote: RequestHandler = async (req, res) => {
+    try {
+      const ownerId = req.body.user.id;
+      const { email, role } = ShareNoteSchema.parse(req.body);
+      const { noteId } = req.params;
+
+      const note = await prismaClient.note.findUnique({
+        where: { id: noteId },
+      });
+      if (!note) throw CustomError.notFound("Note not found");
+      if (note.user_id !== ownerId)
+        throw CustomError.forbidden("You are not the owner of this note");
+
+      const user = await prismaClient.user.findUnique({ where: { email } });
+      if (!user) throw CustomError.notFound("User not found");
+
+      const alreadyShared = await prismaClient.noteShare.findFirst({
+        where: { noteId, userId: user.id },
+      });
+      if (alreadyShared)
+        throw CustomError.badRequest(
+          "This note is already shared with this user"
+        );
+
+      await prismaClient.noteShare.create({
+        data: { noteId, userId: user.id, role },
+      });
+
+      // Emitimos evento en tiempo real 👇
+      SocketService.getInstance().emitToUser(user.id, "note:shared", {
+        noteId,
+        sharedWith: email,
+        role,
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Nota compartida con éxito",
+        data: { noteId, sharedWith: email, role },
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public updateShareRole: RequestHandler = async (req, res) => {
+    try {
+      const ownerId = req.body.user.id;
+      const { role } = UpdateShareRoleSchema.parse(req.body);
+
+      const { noteId, userId } = req.params;
+
+      // 1. Validar nota
+      const note = await prismaClient.note.findUnique({
+        where: { id: noteId },
+      });
+      if (!note) throw CustomError.notFound("Note not found");
+      if (note.user_id !== ownerId)
+        throw CustomError.forbidden("You are not the owner of this note");
+
+      // 2. Buscar relación de compartido
+      const shared = await prismaClient.noteShare.findFirst({
+        where: { noteId, userId },
+      });
+      if (!shared)
+        throw CustomError.notFound(
+          "This user does not have access to this note"
+        );
+
+      // 3. Actualizar rol
+      const updatedShare = await prismaClient.noteShare.update({
+        where: { id: shared.id },
+        data: { role },
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Role updated successfully",
+        data: {
+          noteId,
+          userId,
+          newRole: updatedShare.role,
+        },
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public deleteShare: RequestHandler = async (req, res) => {
+    try {
+      const ownerId = req.body.user.id;
+      const { noteId, userId } = req.params;
+
+      // 1. Validar nota
+      const note = await prismaClient.note.findUnique({
+        where: { id: noteId },
+      });
+      if (!note) throw CustomError.notFound("Note not found");
+      if (note.user_id !== ownerId)
+        throw CustomError.forbidden("You are not the owner of this note");
+
+      // 2. Buscar relación de compartido
+      const shared = await prismaClient.noteShare.findFirst({
+        where: { noteId, userId },
+      });
+      if (!shared)
+        throw CustomError.notFound(
+          "This user does not have access to this note"
+        );
+
+      // 3. Eliminar relación
+      await prismaClient.noteShare.delete({
+        where: { id: shared.id },
+      });
+
+      SocketService.getInstance().emitToUser(userId, "note:revoked", {
+        noteId,
+        title: note.title,
+        revokedBy: req.body.user.email, // opcional: quién lo revocó
+      });
+
+      return res.status(200).json({
+        success: true,
+        message: "Access revoked successfully",
+        data: { noteId, userId },
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
+  public getSharedUsersByNote = async (req: Request, res: Response) => {
+    try {
+      const noteId = req.params["noteId"];
+      const userId = req.body.user.id;
+
+      // 1. Buscar la nota
+      const note = await prismaClient.note.findUnique({
+        where: { id: noteId },
+        include: {
+          NoteShare: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  email: true,
+                },
+              },
+            },
+          },
+        },
+      });
+
+      if (!note) {
+        throw CustomError.notFound("Note not found");
+      }
+
+      // 2. Validar que el que consulta sea el dueño
+      if (note.user_id !== userId) {
+        throw CustomError.forbidden("You are not the owner of this note");
+      }
+
+      // 3. Armar respuesta con usuarios y roles
+      const sharedUsers = note.NoteShare.map((share) => ({
+        id: share.user.id,
+        email: share.user.email,
+        role: share.role,
+      }));
+
+      return res.status(200).json({
+        success: true,
+        data: sharedUsers,
+      });
+    } catch (error) {
+      this.handleError(error, res);
+    }
+  };
+
   public saveNoteById = async (req: Request, res: Response) => {
     try {
       const payload = req.body;
@@ -71,12 +255,30 @@ export class NoteController {
       }
 
       // throw new Error();
+      // 🔹 Buscar usuarios relacionados
+
       const newNote = await this.noteService.saveNote(
         noteId,
         result.data,
         userId
       );
 
+      const noteWithShares = await prismaClient.note.findUnique({
+        where: { id: noteId },
+        include: { NoteShare: true }, // usuarios con los que se compartió
+      });
+
+      if (noteWithShares) {
+        const recipients = noteWithShares.NoteShare.map((s) => s.userId); // compartidos
+        // Emitir solo a esos usuarios
+        recipients.forEach((uid) => {
+          SocketService.getInstance().emitToUser(uid, "note:updated", {
+            noteId: newNote?.id,
+            title: newNote?.title,
+            updatedBy: userId,
+          });
+        });
+      }
       return res.status(200).json({
         success: true,
         message: "Note actualizada",

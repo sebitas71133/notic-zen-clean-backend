@@ -1,5 +1,5 @@
 import { CreateNoteDTO } from "../../presentation/dtos/note/create-note.dto";
-import { SaveNoteDTO } from "../../presentation/dtos/note/save-note.dto";
+import { UpdateNoteDTO } from "../../presentation/dtos/note/save-note.dto";
 import { NoteEntity } from "../entities/note.entitie";
 import { UserEntity } from "../entities/user.entitie";
 
@@ -7,7 +7,7 @@ export interface INoteService {
   createNote(userId: string, dto: CreateNoteDTO): Promise<NoteEntity | null>;
   saveNote(
     noteId: string,
-    dto: Partial<SaveNoteDTO>,
+    dto: Partial<UpdateNoteDTO>,
     userId: string
   ): Promise<NoteEntity | null>;
   getNotesById(

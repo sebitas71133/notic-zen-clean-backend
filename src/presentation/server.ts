@@ -8,6 +8,7 @@ import express, {
 } from "express";
 import cors from "cors";
 import { envs } from "../config/envs";
+import http from "http";
 
 interface serverOptions {
   port: number;
@@ -20,7 +21,7 @@ export class Server {
   private readonly port: number;
   private readonly publicPath: string;
   private readonly routes: Router | ((...args: any[]) => any);
-  private serverListener: any;
+  private serverListener?: http.Server;
 
   constructor(options: serverOptions) {
     const { port, routes, public_path = "public" } = options;
@@ -76,10 +77,18 @@ export class Server {
       }
     );
 
-    //*
-    this.serverListener = this.app.listen(this.port, () => {
+    this.serverListener = http.createServer(this.app);
+
+    this.serverListener.listen(this.port, () => {
       console.log(`Server running on port ${this.port}`);
     });
+  }
+
+  public get httpServer(): http.Server {
+    if (!this.serverListener) {
+      throw new Error("Server has not been started yet");
+    }
+    return this.serverListener;
   }
 
   public close() {

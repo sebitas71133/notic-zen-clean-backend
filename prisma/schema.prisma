@@ -28,6 +28,8 @@ model User {
   notes          Note[]
   tags           Tag[]
   role           Role?      @relation(fields: [role_id], references: [id])
+
+  NoteShare NoteShare[]
 }
 
 model Category {
@@ -56,6 +58,7 @@ model Note {
   images      NoteImage[]
   tags        NoteTag[]
   SubNote     SubNote[]
+  NoteShare   NoteShare[]
 
   @@unique([title, user_id])
   @@index([category_id], map: "idx_note_category_id")
@@ -141,4 +144,23 @@ model Setting {
   description String?
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+}
+
+model NoteShare {
+  id        String    @id @default(uuid())
+  noteId    String
+  userId    String // usuario con quien se comparte
+  role      ShareRole @default(VIEWER) // Enum para permisos
+  createdAt DateTime  @default(now())
+
+  note Note @relation(fields: [noteId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([noteId, userId]) // Evita duplicados
+}
+
+enum ShareRole {
+  VIEWER // solo lectura
+  EDITOR // puede editar
+  OWNER // dueño original (puede invitar a otros)
 }

@@ -111,7 +111,16 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
 
       const prismaNotes = await prismaClient.note.findMany({
         where: {
-          user_id: userId,
+          // user_id: userId,
+
+          OR: [
+            { user_id: userId }, // notas propias
+            {
+              NoteShare: {
+                some: { userId }, // notas compartidas con él
+              },
+            },
+          ],
           ...(categoryId && { category_id: categoryId }),
           ...(tagId && {
             tags: {
@@ -147,6 +156,7 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
             },
           },
           category: { select: { id: true, name: true, color: true } },
+          NoteShare: { select: { userId: true, role: true } }, // 👈 opcional si quieres saber el rol
         },
       });
 
