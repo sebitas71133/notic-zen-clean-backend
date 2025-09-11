@@ -44,6 +44,8 @@ export class SocketService {
     this.io.on("connection", (socket: Socket) => {
       console.log("🔌 Cliente conectado:", socket.id);
 
+      //socket es la conexión individual de cada cliente
+      // escuchar eventos personalizados de ESE cliente
       socket.on("auth", (userId: string) => {
         socket.join(userId); // el socket se une a la "room" = userId
         console.log(`👤 Usuario ${userId} unido a su room`);

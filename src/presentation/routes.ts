@@ -5,6 +5,7 @@ import { TagRoutes } from "./routes/tag.route";
 import { NoteRoutes } from "./routes/note.routes";
 import { AdminRoutes } from "./routes/admin.routes";
 import { ShareRoutes } from "./routes/share.route";
+import { NotificationRoutes } from "./routes/notification.routes";
 
 export class AppRoutes {
   static get routes(): Router {
@@ -19,6 +20,8 @@ export class AppRoutes {
     router.use("/api/note", NoteRoutes.routes);
 
     router.use("/api/note", ShareRoutes.routes);
+
+    router.use("/api/notifications", NotificationRoutes.routes);
 
     router.use("/api/admin", AdminRoutes.routes);
 

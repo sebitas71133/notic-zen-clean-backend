@@ -37,15 +37,6 @@ export class ShareRoutes {
       noteController.getSharedUsersByNote
     );
 
-    // router.get("/notes/:id", noteController.getNoteById);
-
-    //params : id, body : title, categoryId, content? ,images?, tags?,isPinned?,isArchived?
-    // router.put(
-    //   "/save/:id",
-    //   [authMiddleware.validateJWT],
-    //   noteController.saveNoteById
-    // );
-
     // Eliminar acceso
     router.delete(
       "/notes/:id/share/:userId",

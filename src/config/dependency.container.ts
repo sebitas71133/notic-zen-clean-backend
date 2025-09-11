@@ -35,6 +35,7 @@ import { ISubNoteService } from "../domain/services/subnote.service";
 import { ITagService } from "../domain/services/tag.service";
 import { IAuthService } from "../domain/services/auth.service";
 import { IImageService } from "../domain/services/image.service";
+import { NotificationController } from "../presentation/controllers/notifiacion.controller";
 
 // dependency.container.ts
 export const roleDataSource = new PostgresRoleDataSourceImpl();
@@ -113,3 +114,5 @@ export const adminController = new AdminController(settingSerice);
 export const authController = new AuthController(authService);
 
 export const authMiddleware = new AuthMiddleware(userRepository);
+
+export const notificationController = new NotificationController();

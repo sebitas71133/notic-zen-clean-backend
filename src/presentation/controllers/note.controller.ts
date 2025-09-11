@@ -61,22 +61,26 @@ export class NoteController {
 
   public shareNote: RequestHandler = async (req, res) => {
     try {
+      const owner = req.body.user;
       const ownerId = req.body.user.id;
       const { email, role } = ShareNoteSchema.parse(req.body);
       const { noteId } = req.params;
 
       const note = await prismaClient.note.findUnique({
         where: { id: noteId },
+        include: { images: true },
       });
       if (!note) throw CustomError.notFound("Note not found");
       if (note.user_id !== ownerId)
         throw CustomError.forbidden("You are not the owner of this note");
 
-      const user = await prismaClient.user.findUnique({ where: { email } });
-      if (!user) throw CustomError.notFound("User not found");
+      const recipient = await prismaClient.user.findUnique({
+        where: { email },
+      });
+      if (!recipient) throw CustomError.notFound("User not found");
 
       const alreadyShared = await prismaClient.noteShare.findFirst({
-        where: { noteId, userId: user.id },
+        where: { noteId, userId: recipient.id },
       });
       if (alreadyShared)
         throw CustomError.badRequest(
@@ -84,14 +88,35 @@ export class NoteController {
         );
 
       await prismaClient.noteShare.create({
-        data: { noteId, userId: user.id, role },
+        data: { noteId, userId: recipient.id, role },
+      });
+
+      //CREAR LA NOTIFICACION
+      // Necesario email, type, message, nodeId()
+
+      const notification = await prismaClient.notification.create({
+        data: {
+          userId: recipient.id,
+          senderId: ownerId,
+          type: "SHARE_NOTE",
+          message: "Nota compartida",
+          noteId,
+        },
       });
 
       // Emitimos evento en tiempo real 👇
-      SocketService.getInstance().emitToUser(user.id, "note:shared", {
-        noteId,
-        sharedWith: email,
+      SocketService.getInstance().emitToUser(recipient.id, "note:shared", {
+        id: notification.id,
+        type: notification.type,
+        message: notification.message,
+        senderId: notification.senderId,
+        noteId: notification.noteId,
+        createdAt: notification.createdAt,
         role,
+        noteTitle: note.title,
+        noteImage: note.images?.[0].url ?? null,
+        senderName: owner?.name,
+        senderEmail: owner?.email,
       });
 
       return res.status(200).json({
@@ -132,6 +157,13 @@ export class NoteController {
       const updatedShare = await prismaClient.noteShare.update({
         where: { id: shared.id },
         data: { role },
+      });
+
+      // Emitimos evento en tiempo real 👇
+      SocketService.getInstance().emitToUser(userId, "note:role", {
+        note: note.title,
+
+        role,
       });
 
       return res.status(200).json({

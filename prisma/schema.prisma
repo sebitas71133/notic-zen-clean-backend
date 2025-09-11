@@ -30,6 +30,12 @@ model User {
   role           Role?      @relation(fields: [role_id], references: [id])
 
   NoteShare NoteShare[]
+
+  // 🔹 Notificaciones recibidas
+  receivedNotifications Notification[] @relation("ReceivedNotifications")
+
+  // 🔹 Notificaciones enviadas (opcional)
+  sentNotifications Notification[] @relation("SentNotifications")
 }
 
 model Category {
@@ -44,21 +50,22 @@ model Category {
 }
 
 model Note {
-  id          String      @id @default(uuid())
-  title       String?
-  content     String?
-  is_archived Boolean     @default(false)
-  is_pinned   Boolean     @default(false)
-  created_at  DateTime    @default(now())
-  updated_at  DateTime    @updatedAt
-  user_id     String
-  category_id String?
-  category    Category?   @relation(fields: [category_id], references: [id])
-  user        User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  images      NoteImage[]
-  tags        NoteTag[]
-  SubNote     SubNote[]
-  NoteShare   NoteShare[]
+  id           String         @id @default(uuid())
+  title        String?
+  content      String?
+  is_archived  Boolean        @default(false)
+  is_pinned    Boolean        @default(false)
+  created_at   DateTime       @default(now())
+  updated_at   DateTime       @updatedAt
+  user_id      String
+  category_id  String?
+  category     Category?      @relation(fields: [category_id], references: [id])
+  user         User           @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  images       NoteImage[]
+  tags         NoteTag[]
+  SubNote      SubNote[]
+  NoteShare    NoteShare[]
+  Notification Notification[]
 
   @@unique([title, user_id])
   @@index([category_id], map: "idx_note_category_id")
@@ -163,4 +170,32 @@ enum ShareRole {
   VIEWER // solo lectura
   EDITOR // puede editar
   OWNER // dueño original (puede invitar a otros)
+}
+
+model Notification {
+  id        String           @id @default(uuid())
+  type      NotificationType
+  message   String
+  isRead    Boolean          @default(false)
+  createdAt DateTime         @default(now())
+  readAt    DateTime?
+
+  // Destinatario
+  userId String
+  user   User   @relation("ReceivedNotifications", fields: [userId], references: [id])
+
+  // Emisor (opcional)
+  senderId String?
+  sender   User?   @relation("SentNotifications", fields: [senderId], references: [id])
+
+  // Nota relacionada (opcional)
+  noteId String?
+  note   Note?   @relation(fields: [noteId], references: [id], onDelete: Cascade)
+}
+
+enum NotificationType {
+  SHARE_NOTE
+  COMMENT
+  MENTION
+  SYSTEM
 }
