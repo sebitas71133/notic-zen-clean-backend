@@ -76,19 +76,21 @@ export class SubNoteService implements ISubNoteService {
   saveSubNote = async (
     subNoteId: string,
     dto: SaveSubNoteDTO,
-
+    noteId: string,
     userId: string
   ): Promise<SubNoteEntity | null> => {
     try {
-      const subNote = await this.subNoteRepository.isValidUserToEditSubNote(
-        subNoteId,
+      // console.log({ subNoteId, dto, noteId, userId });
+
+      const canEdit = await this.subNoteRepository.canUserEditSubNote(
+        noteId,
         userId
       );
 
-      if (!subNote)
-        throw CustomError.forbidden("No tienes permiso sobre la subnota");
+      if (!canEdit)
+        throw CustomError.forbidden("No tienes permiso sobre la nota");
 
-      await this.subNoteRepository.saveSubNoteById(subNoteId, userId, dto);
+      await this.subNoteRepository.saveSubNoteById(subNoteId, dto);
 
       // 2. Normalizar colecciones
       const tagIds = dto.tags ?? [];
@@ -127,6 +129,7 @@ export class SubNoteService implements ISubNoteService {
       return await this.subNoteRepository.getSubNoteById(subNoteId, userId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
+
       throw CustomError.internalServer("Error saving subNote");
     }
   };

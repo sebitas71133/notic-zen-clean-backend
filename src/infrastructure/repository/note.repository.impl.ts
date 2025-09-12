@@ -40,10 +40,10 @@ export class NoteRepositoryImpl implements NoteRepository {
   }
   saveNoteById(
     noteId: string,
-    userId: string,
+    // userId: string,
     updates: UpdateNoteDTO
   ): Promise<NoteEntity> {
-    return this.noteDataSource.saveNoteById(noteId, userId, updates);
+    return this.noteDataSource.saveNoteById(noteId, updates);
   }
   deleteNoteById(id: string): Promise<void> {
     return this.noteDataSource.deleteNoteById(id);
@@ -67,5 +67,9 @@ export class NoteRepositoryImpl implements NoteRepository {
 
   addImagesToNote(noteId: string, images: NoteImageEntity[]): Promise<void> {
     return this.noteDataSource.addImagesToNote(noteId, images);
+  }
+
+  canUserEditNote(noteId: string, userId: string): Promise<boolean> {
+    return this.noteDataSource.canUserEditNote(noteId, userId);
   }
 }

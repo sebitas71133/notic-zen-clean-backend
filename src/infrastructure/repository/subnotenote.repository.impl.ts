@@ -42,11 +42,16 @@ export class SubNoteRepositoryImpl implements SubNoteRepository {
   }
   saveSubNoteById(
     subNoteId: string,
-    userId: string,
+    // userId: string,
     updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity> {
-    return this.subNoteDataSource.saveSubNoteById(subNoteId, userId, updates);
+    return this.subNoteDataSource.saveSubNoteById(subNoteId, updates);
   }
+
+  canUserEditSubNote(noteId: string, userId: string): Promise<boolean> {
+    return this.subNoteDataSource.canUserEditSubNote(noteId, userId);
+  }
+
   deleteSubNoteById(subNoteId: string): Promise<void> {
     return this.subNoteDataSource.deleteSubNoteById(subNoteId);
   }

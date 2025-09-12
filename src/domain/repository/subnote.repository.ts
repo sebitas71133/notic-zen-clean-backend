@@ -23,9 +23,11 @@ export abstract class SubNoteRepository {
 
   abstract saveSubNoteById(
     subNoteId: string,
-    userId: string,
+    // userId: string,
     updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity>;
+
+  abstract canUserEditSubNote(noteId: string, userId: string): Promise<boolean>;
 
   abstract deleteSubNoteById(subNoteId: string): Promise<void>;
 

@@ -70,13 +70,15 @@ export class NoteService implements INoteService {
     userId: string
   ): Promise<NoteEntity | null> => {
     try {
-      const note = await this.noteRepository.getNoteById(noteId, userId);
-      if (!note) throw CustomError.forbidden("No tienes permiso sobre la nota");
+      // const note = await this.noteRepository.getNoteById(noteId, userId);
+      const canEdit = await this.noteRepository.canUserEditNote(noteId, userId);
+      if (!canEdit)
+        throw CustomError.forbidden("No tienes permiso sobre la nota");
 
       // 1. Actualizar nota principal
       // const noteEntity = NoteEntity.updated(dto);
 
-      await this.noteRepository.saveNoteById(noteId, userId, dto);
+      await this.noteRepository.saveNoteById(noteId, dto);
 
       // 2. Normalizar colecciones
       const tagIds = dto.tags ?? [];

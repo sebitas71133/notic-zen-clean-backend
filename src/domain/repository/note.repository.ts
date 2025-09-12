@@ -21,7 +21,7 @@ export abstract class NoteRepository {
 
   abstract saveNoteById(
     noteId: string,
-    userId: string,
+    // userId: string,
     updates: UpdateNoteDTO
   ): Promise<NoteEntity>;
 
@@ -39,4 +39,6 @@ export abstract class NoteRepository {
     noteId: string,
     images: NoteImageEntity[]
   ): Promise<void>;
+
+  abstract canUserEditNote(noteId: string, userId: string): Promise<boolean>;
 }

@@ -10,7 +10,7 @@ export interface ISubNoteService {
   saveSubNote(
     subNoteId: string,
     dto: SaveSubNoteDTO,
-
+    noteId: string,
     userId: string
   ): Promise<SubNoteEntity | null>;
   getSubNotesByNoteId(

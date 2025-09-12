@@ -10,6 +10,8 @@ import { Uuid } from "../../shared/adapters.ts/uuid";
 import { INoteService } from "../../domain/services/note.service";
 import { ISubNoteService } from "../../domain/services/subnote.service";
 import { IImageService } from "../../domain/services/image.service";
+import { prismaClient } from "../../data/prisma/init";
+import { SocketService } from "../../application/services/socket.service";
 
 export class SubNoteController {
   //DI ?
@@ -63,9 +65,7 @@ export class SubNoteController {
   public saveSubNoteById = async (req: Request, res: Response) => {
     try {
       const payload = req.body;
-
       const { noteId, subNoteId } = req.params;
-
       const userId = req.body.user.id;
 
       const result = SaveSubNoteSchema.safeParse({
@@ -74,29 +74,61 @@ export class SubNoteController {
         subNoteId,
       });
 
-      console.log({ result });
-
       if (!result.success) {
         const message = result.error.errors[0].message;
-
         throw CustomError.badRequest(message);
       }
 
-      // throw new Error();
-      const newNote = await this.subNoteService.saveSubNote(
+      // Guardamos la subnota
+      const newSubNote = await this.subNoteService.saveSubNote(
         subNoteId,
         result.data,
-
+        noteId,
         userId
       );
 
+      if (!newSubNote) {
+        throw CustomError.badRequest("No se pudo actualizar la subnota");
+      }
+
+      // 🔹 Buscamos la nota padre con sus compartidos
+      const noteWithShares = await prismaClient.note.findUnique({
+        where: { id: noteId },
+        include: { NoteShare: true },
+      });
+
+      if (noteWithShares) {
+        const recipients = noteWithShares.NoteShare.map((s) => s.userId);
+        const allRecipients = new Set([...recipients, noteWithShares.user_id]);
+
+        allRecipients.forEach((uid) => {
+          if (uid !== userId) {
+            SocketService.getInstance().emitToUser(uid, "subnote:updated", {
+              owner: req.body.user,
+              noteId,
+              subNoteId: newSubNote.id,
+              title: newSubNote.title,
+              description: newSubNote.description,
+              tags: newSubNote.tags,
+              images: newSubNote.images,
+              isArchived: newSubNote.isArchived,
+              isPinned: newSubNote.isPinned,
+              code: newSubNote.code,
+              updatedBy: userId,
+              updatedAt: newSubNote.updatedAt,
+            });
+          }
+        });
+      }
+
       return res.status(200).json({
         success: true,
-        message: "Note actualizada",
-        data: newNote, //Por si acaso xd
+        message: "Subnota actualizada",
+        data: newSubNote,
       });
     } catch (error) {
       this.handleError(error, res);
+      console.log(error);
     }
   };
 

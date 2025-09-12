@@ -48,12 +48,12 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
 
   async saveNoteById(
     noteId: string,
-    userId: string,
+    // userId: string,
     updates: UpdateNoteDTO
   ): Promise<NoteEntity> {
     try {
       const updatedNote = await prismaClient.note.update({
-        where: { id: noteId, user_id: userId },
+        where: { id: noteId },
         data: {
           title: updates.title,
           content: updates.content,
@@ -206,7 +206,10 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       const note = await prismaClient.note.findFirst({
         where: {
           id: noteId,
-          user_id: userId,
+          OR: [
+            { user_id: userId }, // dueño
+            { NoteShare: { some: { userId } } }, // compartido
+          ],
         },
         include: {
           user: {
@@ -243,6 +246,14 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
               public_id: true,
             },
           },
+          NoteShare: {
+            where: { userId },
+            include: {
+              user: {
+                select: { id: true, name: true, email: true },
+              },
+            },
+          },
         },
       });
 
@@ -256,6 +267,14 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
       // Adaptar los tags a arreglo simple
       const tags = note.tags.map((nt) => nt.tag);
 
+      // Elegir quién es el usuario actual
+      let currentUser;
+      if (note.user_id === userId) {
+        currentUser = note.user; // dueño
+      } else if (note.NoteShare.length > 0) {
+        currentUser = note.NoteShare[0].user; // compartido
+      }
+
       return {
         id: note.id,
         title: note.title!,
@@ -267,10 +286,32 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
         category: note.category,
         tags,
         images: note.images,
-        userId: note.user.id,
+        owner: note.user, // dueño siempre
+        currentUser: currentUser, // el que consulta (dueño o compartido)
       };
     } catch (error: any) {
       throw CustomError.badRequest(error.message || "Error al guardar la nota");
+    }
+  }
+
+  async canUserEditNote(noteId: string, userId: string): Promise<boolean> {
+    try {
+      const note = await prismaClient.note.findFirst({
+        where: {
+          id: noteId,
+          OR: [
+            { user_id: userId }, // dueño
+            { NoteShare: { some: { userId, role: "EDITOR" } } }, // compartido como editor
+          ],
+        },
+        select: { id: true }, // solo necesitas confirmar que existe
+      });
+
+      return !!note;
+    } catch (error: any) {
+      throw CustomError.badRequest(
+        error.message || "Error al validar permisos de edición"
+      );
     }
   }
 

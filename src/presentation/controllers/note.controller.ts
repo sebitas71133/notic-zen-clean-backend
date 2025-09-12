@@ -301,16 +301,23 @@ export class NoteController {
       });
 
       if (noteWithShares) {
-        const recipients = noteWithShares.NoteShare.map((s) => s.userId); // compartidos
-        // Emitir solo a esos usuarios
-        recipients.forEach((uid) => {
-          SocketService.getInstance().emitToUser(uid, "note:updated", {
-            noteId: newNote?.id,
-            title: newNote?.title,
-            updatedBy: userId,
-          });
+        const recipients = noteWithShares.NoteShare.map((s) => s.userId);
+
+        // Agregamos también al dueño
+        const allRecipients = new Set([...recipients, noteWithShares.user_id]);
+
+        allRecipients.forEach((uid) => {
+          // Evitamos emitir al mismo usuario que hizo el cambio
+          if (uid !== userId) {
+            SocketService.getInstance().emitToUser(
+              uid,
+              "note:updated",
+              newNote
+            );
+          }
         });
       }
+
       return res.status(200).json({
         success: true,
         message: "Note actualizada",

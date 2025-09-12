@@ -43,16 +43,16 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
 
   async saveSubNoteById(
     subNoteId: string,
-    userId: string,
+    // userId: string,
     updates: SaveSubNoteDTO
   ): Promise<SubNoteEntity> {
     try {
       const updated = await prismaClient.subNote.update({
         where: {
           id: subNoteId,
-          note: {
-            user_id: userId,
-          },
+          // note: {
+          //   user_id: userId,
+          // },
         },
         data: {
           title: updates.title,
@@ -62,6 +62,8 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
           is_archived: this.toBoolean(updates.isArchived),
         },
       });
+
+      console.log(updated);
 
       // Retornar la entidad
       return SubNoteEntity.fromPrisma({
@@ -183,9 +185,10 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
     const note = await prismaClient.subNote.findFirst({
       where: {
         id: subNoteId,
-        note: {
-          user_id: userId,
-        },
+        OR: [
+          { note: { user_id: userId } }, // dueño
+          { note: { NoteShare: { some: { userId } } } }, // compartido
+        ],
       },
       include: {
         tags: {
@@ -357,6 +360,27 @@ export class PostgresSubNoteDataSourceImpl implements SubNoteDataSource {
     } catch (error: any) {
       console.error(error);
       throw CustomError.badRequest(error.message);
+    }
+  }
+
+  async canUserEditSubNote(noteId: string, userId: string): Promise<boolean> {
+    try {
+      const note = await prismaClient.note.findFirst({
+        where: {
+          id: noteId,
+          OR: [
+            { user_id: userId },
+            { NoteShare: { some: { userId, role: "EDITOR" } } },
+          ],
+        },
+        select: { id: true }, // solo necesitas saber si existe
+      });
+
+      return !!note;
+    } catch (error: any) {
+      throw CustomError.badRequest(
+        error.message || "Error al validar permisos"
+      );
     }
   }
 
