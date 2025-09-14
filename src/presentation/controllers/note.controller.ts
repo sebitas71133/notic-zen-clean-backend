@@ -273,47 +273,58 @@ export class NoteController {
   public saveNoteById = async (req: Request, res: Response) => {
     try {
       const payload = req.body;
-
       const noteId = req.params["id"];
-
       const userId = req.body.user.id;
 
       const result = UpdateNoteSchema.safeParse({ ...payload, userId });
 
       if (!result.success) {
         const message = result.error.errors[0].message;
-
         throw CustomError.badRequest(message);
       }
 
-      // throw new Error();
-      // 🔹 Buscar usuarios relacionados
-
+      // Guardar cambios
       const newNote = await this.noteService.saveNote(
         noteId,
         result.data,
         userId
       );
 
+      // Buscar nota con shares y dueño
       const noteWithShares = await prismaClient.note.findUnique({
         where: { id: noteId },
-        include: { NoteShare: true }, // usuarios con los que se compartió
+        include: {
+          NoteShare: true,
+          user: true, // incluir dueño
+        },
       });
 
       if (noteWithShares) {
         const recipients = noteWithShares.NoteShare.map((s) => s.userId);
 
-        // Agregamos también al dueño
+        // 🔹 Todos los receptores (dueño + compartidos)
         const allRecipients = new Set([...recipients, noteWithShares.user_id]);
 
-        allRecipients.forEach((uid) => {
-          // Evitamos emitir al mismo usuario que hizo el cambio
+        allRecipients.forEach(async (uid) => {
           if (uid !== userId) {
-            SocketService.getInstance().emitToUser(
-              uid,
-              "note:updated",
-              newNote
-            );
+            // Emitir evento en tiempo real
+            SocketService.getInstance().emitToUser(uid, "note:updated", {
+              ...newNote,
+              currentUser: req.body.user, // para mostrar quién lo editó
+            });
+
+            // 🔹 Si es el dueño, crear notificación persistente
+            if (uid === noteWithShares.user_id) {
+              const notification = await prismaClient.notification.create({
+                data: {
+                  userId: uid, // dueño
+                  senderId: userId, // quien editó
+                  type: "COMMENT",
+                  message: `La nota "${newNote?.title}" fue actualizada`,
+                  noteId,
+                },
+              });
+            }
           }
         });
       }
@@ -321,7 +332,7 @@ export class NoteController {
       return res.status(200).json({
         success: true,
         message: "Note actualizada",
-        data: newNote, //Por si acaso xd
+        data: newNote,
       });
     } catch (error) {
       this.handleError(error, res);

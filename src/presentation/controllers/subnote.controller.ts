@@ -101,8 +101,42 @@ export class SubNoteController {
         const recipients = noteWithShares.NoteShare.map((s) => s.userId);
         const allRecipients = new Set([...recipients, noteWithShares.user_id]);
 
-        allRecipients.forEach((uid) => {
+        // allRecipients.forEach(async (uid) => {
+
+        //   if (uid !== userId) {
+        //     SocketService.getInstance().emitToUser(uid, "subnote:updated", {
+        //       owner: req.body.user,
+        //       noteId,
+        //       subNoteId: newSubNote.id,
+        //       title: newSubNote.title,
+        //       description: newSubNote.description,
+        //       tags: newSubNote.tags,
+        //       images: newSubNote.images,
+        //       isArchived: newSubNote.isArchived,
+        //       isPinned: newSubNote.isPinned,
+        //       code: newSubNote.code,
+        //       updatedBy: userId,
+        //       updatedAt: newSubNote.updatedAt,
+        //     });
+
+        //     if (uid === noteWithShares.user_id) {
+        //       const notification = await prismaClient.notification.create({
+        //         data: {
+        //           userId: uid, // dueño
+        //           senderId: userId, // quien editó
+        //           type: "COMMENT",
+        //           message: `La nota "${newSubNote?.title}" fue actualizada`,
+        //           noteId,
+        //         },
+        //       });
+        //     }
+        //   }
+        // });
+
+        // 🔹 Emitir a todos menos al que editó
+        for (const uid of allRecipients) {
           if (uid !== userId) {
+            // Socket en tiempo real
             SocketService.getInstance().emitToUser(uid, "subnote:updated", {
               owner: req.body.user,
               noteId,
@@ -117,8 +151,19 @@ export class SubNoteController {
               updatedBy: userId,
               updatedAt: newSubNote.updatedAt,
             });
+
+            // 🔹 Crear notificación persistente para todos los receptores
+            await prismaClient.notification.create({
+              data: {
+                userId: uid, // destinatario
+                senderId: userId, // quien editó
+                type: "COMMENT",
+                message: `La subnota "${newSubNote.title}" fue actualizada`,
+                noteId,
+              },
+            });
           }
-        });
+        }
       }
 
       return res.status(200).json({
