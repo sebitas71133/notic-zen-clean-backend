@@ -60,7 +60,7 @@ export class NoteService implements INoteService {
       return await this.noteRepository.getNoteById(noteId, userId);
     } catch (error) {
       if (error instanceof CustomError) throw error;
-      throw CustomError.internalServer("Error saving category");
+      throw CustomError.internalServer("Error saving note");
     }
   };
 

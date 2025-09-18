@@ -52,6 +52,25 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     updates: UpdateNoteDTO
   ): Promise<NoteEntity> {
     try {
+      const note = await prismaClient.note.findUnique({
+        where: { id: noteId },
+        select: { user_id: true },
+      });
+
+      if (updates.categoryId) {
+        const category = await prismaClient.category.findUnique({
+          where: { id: updates.categoryId },
+        });
+
+        if (category?.user_id !== null) {
+          if (!category || category.user_id !== note?.user_id) {
+            throw CustomError.forbidden(
+              "Invalid category: must belong to the note owner"
+            );
+          }
+        }
+      }
+
       const updatedNote = await prismaClient.note.update({
         where: { id: noteId },
         data: {

@@ -1,5 +1,5 @@
 import { Uuid } from "../../shared/adapters.ts/uuid";
-import { CustomError } from "../errors/custom.error";
+
 import { CategoryEntity } from "./categories.entitie";
 import { NoteImageEntity } from "./image.entitie";
 import { TagEntity } from "./tagEntity";
@@ -55,9 +55,6 @@ export class NoteEntity {
     userId: string;
   }): NoteEntity {
     const id = Uuid.v4();
-    // if (dto.title && dto.title.length <= 2) {
-    //   throw CustomError.badRequest("The title must be more than 2 characters");
-    // }
 
     return new NoteEntity({
       id: id,
@@ -68,17 +65,9 @@ export class NoteEntity {
     });
   }
 
-  // static updated(dto: { [key: string]: any }): Partial<NoteEntity> {
-  //   if (dto.title && dto.title.length <= 2) {
-  //     throw CustomError.badRequest("The title must be more than 2 characters");
-  //   }
-
-  //   return { ...dto, updatedAt: new Date() };
-  // }
-
   static fromObject(props: NoteProps): NoteEntity {
-    const category = new NoteEntity(props);
+    const note = new NoteEntity(props);
 
-    return category;
+    return note;
   }
 }
