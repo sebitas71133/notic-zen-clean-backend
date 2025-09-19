@@ -45,8 +45,8 @@ export class NoteRepositoryImpl implements NoteRepository {
   ): Promise<NoteEntity> {
     return this.noteDataSource.saveNoteById(noteId, updates);
   }
-  deleteNoteById(id: string): Promise<void> {
-    return this.noteDataSource.deleteNoteById(id);
+  deleteNoteById(id: string, userId: string): Promise<void> {
+    return this.noteDataSource.deleteNoteById(id, userId);
   }
 
   clearTags(noteId: string): Promise<void> {

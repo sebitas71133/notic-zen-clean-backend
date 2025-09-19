@@ -334,14 +334,16 @@ export class PostgresNoteDataSourceImpl implements NoteDataSource {
     }
   }
 
-  async deleteNoteById(noteId: string): Promise<void> {
+  async deleteNoteById(noteId: string, userId: string): Promise<void> {
     try {
       await prismaClient.note.delete({
-        where: { id: noteId },
+        where: { id: noteId, user_id: userId },
       });
     } catch (error: any) {
       if (error.code === "P2025") {
-        throw CustomError.notFound("Nota no encontrada para eliminar");
+        throw CustomError.notFound(
+          "Nota no encontrada para eliminar o no tienes permisos"
+        );
       }
       throw CustomError.badRequest(error.message || "Error al eliminar Nota");
     }

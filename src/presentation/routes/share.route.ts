@@ -37,13 +37,6 @@ export class ShareRoutes {
       noteController.getSharedUsersByNote
     );
 
-    // Eliminar acceso
-    router.delete(
-      "/notes/:id/share/:userId",
-      [authMiddleware.validateJWT]
-      //   noteController.deleteNoteById
-    );
-
     return router;
   }
 }

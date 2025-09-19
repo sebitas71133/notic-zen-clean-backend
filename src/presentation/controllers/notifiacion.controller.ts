@@ -48,45 +48,46 @@ export class NotificationController {
    */
   public createNotification: RequestHandler = async (req, res) => {
     try {
-      const senderId = req.body.user.id;
-      const { email, type, message, noteId } = CreateNotificationSchema.parse(
-        req.body
-      );
+      // const senderId = req.body.user.id;
+      // const { email, type, message, noteId } = CreateNotificationSchema.parse(
+      //   req.body
+      // );
 
-      const user = await prismaClient.user.findUnique({ where: { email } });
-      if (!user) throw CustomError.notFound("User not found");
+      // const user = await prismaClient.user.findUnique({ where: { email } });
+      // if (!user) throw CustomError.notFound("User not found");
 
-      const recipient = await prismaClient.user.findUnique({
-        where: { email },
-      });
+      // const recipient = await prismaClient.user.findUnique({
+      //   where: { email },
+      // });
 
-      if (!recipient) throw CustomError.notFound("Recipient user not found");
+      // if (!recipient) throw CustomError.notFound("Recipient user not found");
 
-      // Crear notificación
-      const notification = await prismaClient.notification.create({
-        data: {
-          userId: recipient.id,
-          senderId,
-          type,
-          message,
-          noteId,
-        },
-      });
+      // // Crear notificación
+      // const notification = await prismaClient.notification.create({
+      //   data: {
+      //     userId: recipient.id,
+      //     senderId,
+      //     type,
+      //     message,
+      //     noteId,
+      //   },
+      // });
 
-      // Emitir en tiempo real al destinatario
-      SocketService.getInstance().emitToUser(recipient.id, "notification:new", {
-        id: notification.id,
-        type: notification.type,
-        message: notification.message,
-        senderId: notification.senderId,
-        noteId: notification.noteId,
-        createdAt: notification.createdAt,
-      });
+      // // Emitir en tiempo real al destinatario
+      // SocketService.getInstance().emitToUser(recipient.id, "notification:new", {
+      //   id: notification.id,
+      //   type: notification.type,
+      //   message: notification.message,
+      //   senderId: notification.senderId,
+      //   noteId: notification.noteId,
+      //   createdAt: notification.createdAt,
+      // });
 
+      throw new Error("...");
       return res.status(201).json({
         success: true,
         message: "Notification created successfully",
-        data: notification,
+        // data: notification,
       });
     } catch (error) {
       this.handleError(error, res);

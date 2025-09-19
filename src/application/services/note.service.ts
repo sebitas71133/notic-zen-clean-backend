@@ -172,13 +172,13 @@ export class NoteService implements INoteService {
 
   deleteNoteById = async (id: string, user: UserEntity): Promise<void> => {
     try {
-      const tag = await this.noteRepository.getNoteById(id, user.id);
+      const note = await this.noteRepository.getNoteById(id, user.id);
 
-      if (!tag) {
-        throw CustomError.badRequest("Note no encontrada o no tienes permisos");
+      if (!note) {
+        throw CustomError.badRequest("Note no encontrada");
       }
 
-      await this.noteRepository.deleteNoteById(id);
+      await this.noteRepository.deleteNoteById(id, user.id);
     } catch (error) {
       if (error instanceof CustomError) throw error;
       throw CustomError.internalServer("Error deleting note");

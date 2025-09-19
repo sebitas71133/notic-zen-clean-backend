@@ -114,7 +114,7 @@ export class NoteController {
         createdAt: notification.createdAt,
         role,
         noteTitle: note.title,
-        noteImage: note.images?.[0].url ?? null,
+        noteImage: note.images?.[0]?.url ?? null,
         senderName: owner?.name,
         senderEmail: owner?.email,
       });

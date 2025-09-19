@@ -25,7 +25,7 @@ export abstract class NoteRepository {
     updates: UpdateNoteDTO
   ): Promise<NoteEntity>;
 
-  abstract deleteNoteById(id: string): Promise<void>;
+  abstract deleteNoteById(id: string, userId: string): Promise<void>;
 
   abstract clearTags(noteId: string): Promise<void>;
 
