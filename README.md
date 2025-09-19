@@ -250,6 +250,12 @@ A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
 
 ---
 
+## 🧩 Video
+
+https://github.com/user-attachments/assets/e1449e95-3b1a-4449-8c1a-b0ba1181dc10
+
+---
+
 ## 🛠️ Autor
 
 Jesús Sebastián Huamanculi Casavilca - GitHub
