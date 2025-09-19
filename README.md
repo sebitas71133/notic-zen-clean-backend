@@ -114,7 +114,7 @@ CLIENT_URL=http://localhost:5173
 
 A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
 
-![Diagrama de Base de Datos](https://github.com/user-attachments/assets/87f49899-0e0b-43b5-8a83-dcbe01621a20)
+![Diagrama de Base de Datos](https://github.com/user-attachments/assets/446b4e47-06be-41b4-ac38-c9ade26acd0f)
 
 ---
 
