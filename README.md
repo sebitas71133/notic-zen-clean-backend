@@ -2,6 +2,8 @@
 
 Este proyecto es una API RESTful desarrollada con **Node.js**, **Express** y **TypeScript**, diseñada para gestionar usuarios, notas, subnotas, categorías, etiquetas e imágenes. Incluye autenticación JWT, moderación de contenido, integración con servicios externos y manejo de archivos en la nube con Cloudinary.
 
+Ahora también soporta **compartir notas con roles (viewer/editor)** y **notificaciones en tiempo real** gracias a **WebSockets**.
+
 ---
 
 ## 🚀 Tecnologías principales
@@ -247,6 +249,19 @@ A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
 - [x] Panel de administración (rutas privadas)
 
 ---
+
+## 🧩 Video
+
+https://github.com/user-attachments/assets/e1449e95-3b1a-4449-8c1a-b0ba1181dc10
+
+---
+
+## 🛠️ Autor
+
+Jesús Sebastián Huamanculi Casavilca - GitHub
+
+---
+
 
 ## 📄 Licencia
 
