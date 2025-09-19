@@ -224,6 +224,48 @@ A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
 
 ---
 
+## 🔗 Share Routes
+
+> Todas las rutas requieren JWT.  
+> Permite compartir una nota con otros usuarios, asignando roles:  
+> - **VIEWER** → puede leer la nota.  
+> - **EDITOR** → puede editar la nota.  
+
+| Método | Endpoint                          | Descripción                           | Body / Params                                             |
+| ------ | --------------------------------- | ------------------------------------- | --------------------------------------------------------- |
+| POST   | `/notes/:noteId/share`            | Compartir una nota con un usuario     | `{ email: "user@example.com", role: "VIEWER\|EDITOR" }`  |
+| PUT    | `/notes/:noteId/share/:userId`    | Actualizar rol de usuario compartido  | `{ role: "VIEWER\|EDITOR" }`                             |
+| DELETE | `/notes/:noteId/share/:userId`    | Eliminar acceso a un usuario          | —                                                       |
+| GET    | `/notes/:noteId/share`            | Listar usuarios con acceso a la nota  | —                                                       |
+
+---
+
+## 🔔 Notification Routes
+
+> Todas las rutas requieren JWT.  
+> Las notificaciones se generan automáticamente al **compartir** o **actualizar** notas compartidas.  
+> El cliente recibe actualizaciones en tiempo real gracias a **WebSockets (Socket.IO)**.
+
+| Método | Endpoint             | Descripción                          | Body / Params |
+| ------ | -------------------- | ------------------------------------ | ------------- |
+| GET    | `/notifications`     | Obtener mis notificaciones           | —             |
+| PATCH  | `/notifications/:id/read` | Marcar notificación como leída     | —             |
+| PATCH  | `/notifications/read-all` | Marcar todas como leídas           | —             |
+| DELETE | `/notifications/:id` | Eliminar notificación                 | —             |
+
+**Ejemplo de notificación (JSON):**
+```json
+{
+  "id": "abc123",
+  "type": "NOTE_SHARED",
+  "message": "User X te compartió una nota con rol VIEWER",
+  "isRead": false,
+  "createdAt": "2025-09-15T18:00:00Z"
+}
+
+```
+---
+
 ## 🛠️ Admin - Imágenes y Subnotas
 
 > Requiere autenticación como Admin
@@ -247,6 +289,8 @@ A continuación se muestra el diagrama de las tablas utilizadas en el proyecto:
 - [x] Cloudinary para manejo de imágenes
 - [x] Moderación automática con Sightengine
 - [x] Panel de administración (rutas privadas)
+- [x] Compartir notas con roles (viewer/editor)
+- [x] Notificaciones en tiempo real (WebSockets)
 
 ---
 
